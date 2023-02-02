@@ -1,0 +1,16 @@
+@import "./colors.module.scss";
+@import "./fonts.module.scss";
+
+html {
+  scroll-behavior: smooth;
+  margin: 0;
+  font-size: clamp(16px, 1.2vw, 21px);
+  background-color: $white;
+  font-family: Gotham;
+  overflow-x: hidden;
+}
+
+p {
+  margin-block-end: 0;
+  margin-block-start: 0;
+}
