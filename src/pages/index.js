@@ -12,7 +12,7 @@ const Index = () => {
         <title>Index page</title>
       </Head>
       <div className={styles.main}>
-        <p>FYP</p>
+        <p>Walking Application</p>
       </div>
       {/* <CreateAccountComponent /> */}
       <LoginComponent />

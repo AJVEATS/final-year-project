@@ -16,10 +16,16 @@ const Base = ({ children }) => {
         if (user) {
             const uid = user.uid;
             console.log(`user logged in with the uid: ${uid}`);
+            if (router.pathname == '/') {
+                router.push('/home');
+            }
             // router.push('/home');
         } else {
             console.log(`user is not logged in`);
-            // router.push('/');
+            if (router.pathname != '/') {
+                router.push('/');
+            }
+
         }
     });
 
