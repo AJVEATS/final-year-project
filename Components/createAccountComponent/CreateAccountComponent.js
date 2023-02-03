@@ -1,5 +1,4 @@
 import styles from './CreateAccountComponent.module.scss';
-import { firebaseApp } from '@/pages/api/FirebaseApp';
 import { createUserWithEmailAndPassword, getAuth } from 'firebase/auth';
 import { useState } from 'react';
 import { initializeApp } from 'firebase/app';
@@ -10,10 +9,9 @@ const CreateAccountComponent = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
 
-    const app = initializeApp(firebaseConfig);
-    const auth = getAuth(app);
-
     const router = useRouter();
+
+    const app = initializeApp(firebaseConfig);
 
     const handleCreateAccountForm = (e) => {
         e.preventDefault();
@@ -22,15 +20,14 @@ const CreateAccountComponent = () => {
         const form = e.target;
         const formData = new FormData(form);
 
-        // You can pass formData as a fetch body directly:
-        // fetch('/some-api', { method: form.method, body: formData });
-
+        const auth = getAuth(app);
         createUserWithEmailAndPassword(auth, email, password)
             .then((userCredential) => {
                 const user = userCredential.user;
-                router.push('./home')
+                router.push('/account');
             })
             .catch((error) => {
+                console.log('ERROR');
                 const errorCode = error.code;
                 const errorMessage = error.message;
 
@@ -42,10 +39,15 @@ const CreateAccountComponent = () => {
         console.log(formJson);
     }
 
+    const test = () => {
+        console.log('initiated button');
+        // router.push('/account');
+    }
+
     return (
         <div className={styles.createAccount}>
             <p>Create Account:</p>
-            <form method='POST' onSubmit={handleCreateAccountForm}>
+            <form onSubmit={handleCreateAccountForm}>
                 <label>
                     Email:
                     <input type='email' id='email' name='email' value={email} onChange={e => { setEmail(e.target.value); }} />

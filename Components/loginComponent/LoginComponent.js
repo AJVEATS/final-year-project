@@ -1,6 +1,6 @@
 import { firebaseConfig } from '@/pages/api/FirebaseAPI';
 import { initializeApp } from 'firebase/app';
-import { getAuth, signInWithEmailAndPassword } from 'firebase/auth';
+import { getAuth, GoogleAuthProvider, signInWithEmailAndPassword, signInWithPopup } from 'firebase/auth';
 import { useRouter } from 'next/router';
 import { useState } from 'react';
 import styles from './LoginComponent.module.scss';
@@ -13,6 +13,8 @@ const LoginComponent = () => {
 
     const app = initializeApp(firebaseConfig);
     const auth = getAuth(app);
+
+    const provider = new GoogleAuthProvider();
 
     const handleLoginForm = (e) => {
         e.preventDefault();

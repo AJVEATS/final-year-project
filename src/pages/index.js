@@ -1,11 +1,10 @@
 import Head from 'next/head'
-import { Inter } from '@next/font/google'
 import styles from '@/styles/Index.module.scss'
 import Base from 'Components/Base/BaseComponent'
-import LoginComponent from 'Components/loginComponent/loginComponent'
 import CreateAccountComponent from 'Components/createAccountComponent/createAccountComponent'
+import LoginComponent from 'Components/loginComponent/LoginComponent'
 
-export default function Index() {
+const Index = () => {
 
   return (
     <Base>
@@ -15,8 +14,10 @@ export default function Index() {
       <div className={styles.main}>
         <p>FYP</p>
       </div>
-      {/* <LoginComponent /> */}
-      <CreateAccountComponent />
+      {/* <CreateAccountComponent /> */}
+      <LoginComponent />
     </Base>
   )
 }
+
+export default Index;
