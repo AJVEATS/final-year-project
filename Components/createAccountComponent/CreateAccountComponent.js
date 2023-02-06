@@ -4,6 +4,7 @@ import { useState } from 'react';
 import { initializeApp } from 'firebase/app';
 import { firebaseConfig } from '@/pages/api/FirebaseAPI';
 import { useRouter } from 'next/router';
+import { Tooltip } from 'react-tooltip';
 
 const CreateAccountComponent = () => {
     const [email, setEmail] = useState('');
@@ -57,6 +58,9 @@ const CreateAccountComponent = () => {
                         onChange={e => { setEmail(e.target.value); }}
                         required
                     />
+                    <Tooltip anchorId='email' place='bottom' clickable>
+                        <p>Email Address</p>
+                    </Tooltip>
                 </label>
                 <label>
                     Password:
@@ -69,6 +73,13 @@ const CreateAccountComponent = () => {
                         onChange={e => { setPassword(e.target.value); }}
                         required
                     />
+                    <Tooltip anchorId='password' place='bottom' clickable>
+                        <p><b>Must contain:</b></p>
+                        <p>1 Uppercase</p>
+                        <p>1 Lowercase</p>
+                        <p>1 Number</p>
+                        <p>1 Symbol</p>
+                    </Tooltip>
                 </label>
                 <label>
                     Confirm Password:
@@ -81,6 +92,13 @@ const CreateAccountComponent = () => {
                         onChange={e => { setConfirmPassword(e.target.value); }}
                         required
                     />
+                    <Tooltip anchorId='confirmPassword' place='bottom' clickable>
+                        <p><b>Must contain:</b></p>
+                        <p>1 Uppercase</p>
+                        <p>1 Lowercase</p>
+                        <p>1 Number</p>
+                        <p>1 Symbol</p>
+                    </Tooltip>
                 </label>
                 <button type='submit' value='submit'>Submit</button>
             </form>

@@ -25,7 +25,6 @@ const Base = ({ children }) => {
             if (router.pathname != '/') {
                 router.push('/');
             }
-
         }
     });
 

@@ -14,8 +14,8 @@ const Index = () => {
       <div className={styles.main}>
         <p>Walking Application</p>
       </div>
-      {/* <CreateAccountComponent /> */}
-      <LoginComponent />
+      <CreateAccountComponent />
+      {/* <LoginComponent /> */}
     </Base>
   )
 }
