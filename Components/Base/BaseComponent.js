@@ -34,7 +34,7 @@ const Base = ({ children }) => {
             <Head>
                 {/* <meta name="description" content="" /> */}
                 <meta name="viewport" content="width=device-width, initial-scale=1" />
-                <link rel="icon" href="/favicon.ico" />
+                <link rel="icon" href='https://em-content.zobj.net/thumbs/120/apple/325/mountain_26f0-fe0f.png' />
             </Head>
             <main className={styles.base}>{children}</main>
         </div>

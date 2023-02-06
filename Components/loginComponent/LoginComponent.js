@@ -1,6 +1,6 @@
 import { firebaseConfig } from '@/pages/api/FirebaseAPI';
 import { initializeApp } from 'firebase/app';
-import { getAuth, GoogleAuthProvider, signInWithEmailAndPassword, signInWithPopup } from 'firebase/auth';
+import { getAuth, signInWithEmailAndPassword } from 'firebase/auth';
 import { useRouter } from 'next/router';
 import { useState } from 'react';
 import styles from './LoginComponent.module.scss';
@@ -14,8 +14,6 @@ const LoginComponent = () => {
     const app = initializeApp(firebaseConfig);
     const auth = getAuth(app);
 
-    const provider = new GoogleAuthProvider();
-
     const handleLoginForm = (e) => {
         e.preventDefault();
 
@@ -27,7 +25,7 @@ const LoginComponent = () => {
             .then((userCredential) => {
                 // Signed in 
                 const user = userCredential.user;
-                router.push('/account');
+                router.replace('/home');
                 // ...
             })
             .catch((error) => {
@@ -40,7 +38,7 @@ const LoginComponent = () => {
         // Or you can work with it as a plain object:
         const formJson = Object.fromEntries(formData.entries());
         console.log(formJson);
-    }
+    };
 
     return (
         <div className={styles.loginComponent}>
@@ -48,14 +46,29 @@ const LoginComponent = () => {
             <form onSubmit={handleLoginForm}>
                 <label>
                     Email:
-                    <input type='email' id='email' name='email' value={email} onChange={e => { setEmail(e.target.value); }} />
+                    <input
+                        type='email'
+                        id='email'
+                        name='email'
+                        value={email}
+                        onChange={e => { setEmail(e.target.value); }}
+                        required
+                    />
                 </label>
                 <label>
                     Password:
-                    <input type='password' id='password' name='password' value={password} onChange={e => { setPassword(e.target.value); }} />
+                    <input
+                        type='password'
+                        id='password'
+                        name='password'
+                        value={password}
+                        onChange={e => { setPassword(e.target.value); }}
+                        required
+                    />
                 </label>
                 <button type='submit' value='submit'>login</button>
             </form>
+            {/* <button type='button' onClick={forgottenPassword()}>Forgot Password</button> */}
         </div>
     )
 }
