@@ -68,7 +68,8 @@ const LoginComponent = () => {
                 </label>
                 <button type='submit' value='submit'>login</button>
             </form>
-            {/* <button type='button' onClick={forgottenPassword()}>Forgot Password</button> */}
+            <button type='button' value='' onClick={console.log('Forgot password button pressed')}>Forgot Password</button>
+            <button type='button' value='' onClick={console.log('New here button pressed')}>New Here?</button>
         </div>
     )
 }

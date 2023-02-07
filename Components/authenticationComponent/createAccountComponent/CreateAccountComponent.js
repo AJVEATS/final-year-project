@@ -102,6 +102,7 @@ const CreateAccountComponent = () => {
                 </label>
                 <button type='submit' value='submit'>Submit</button>
             </form>
+            <button type='button' value='' onClick={console.log('Login button pressed')}>Already have an account?</button>
         </div>
     )
 }
