@@ -1,48 +1,32 @@
 import { firebaseConfig } from '@/pages/api/FirebaseAPI';
 import { initializeApp } from 'firebase/app';
-import { getAuth, signInWithEmailAndPassword } from 'firebase/auth';
+import { signInWithEmailAndPassword } from 'firebase/auth';
 import { useRouter } from 'next/router';
 import { useState } from 'react';
 import styles from './LoginComponent.module.scss';
 
-const LoginComponent = () => {
+const LoginComponent = ({ updateDisplayedComponent, auth }) => {
+
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
 
     const router = useRouter();
 
-    const app = initializeApp(firebaseConfig);
-    const auth = getAuth(app);
-
     const handleLoginForm = (e) => {
         e.preventDefault();
 
-        // Read the form data
-        const form = e.target;
-        const formData = new FormData(form);
-
         signInWithEmailAndPassword(auth, email, password)
             .then((userCredential) => {
-                // Signed in 
-                const user = userCredential.user;
                 router.replace('/home');
-                // ...
             })
             .catch((error) => {
-                const errorCode = error.code;
-                const errorMessage = error.message;
-
-                console.log(`${errorCode} - ${errorMessage}`);
+                console.log(error.code, error.message);
             });
-
-        // Or you can work with it as a plain object:
-        const formJson = Object.fromEntries(formData.entries());
-        console.log(formJson);
     };
 
     return (
         <div className={styles.loginComponent}>
-            <p>Login:</p>
+            <p>Login: </p>
             <form onSubmit={handleLoginForm}>
                 <label>
                     Email:
@@ -68,8 +52,8 @@ const LoginComponent = () => {
                 </label>
                 <button type='submit' value='submit'>login</button>
             </form>
-            <button type='button' value='' onClick={console.log('Forgot password button pressed')}>Forgot Password</button>
-            <button type='button' value='' onClick={console.log('New here button pressed')}>New Here?</button>
+            <button type='button' onClick={() => updateDisplayedComponent('forgotPassword')}>Forgot Password</button>
+            <button type='button' onClick={() => updateDisplayedComponent('createAccount')}>New Here?</button>
         </div>
     )
 }

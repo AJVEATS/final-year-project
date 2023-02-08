@@ -1,47 +1,30 @@
 import styles from './CreateAccountComponent.module.scss';
-import { createUserWithEmailAndPassword, getAuth } from 'firebase/auth';
+import { createUserWithEmailAndPassword } from 'firebase/auth';
 import { useState } from 'react';
-import { initializeApp } from 'firebase/app';
-import { firebaseConfig } from '@/pages/api/FirebaseAPI';
 import { useRouter } from 'next/router';
 import { Tooltip } from 'react-tooltip';
 
-const CreateAccountComponent = () => {
+const CreateAccountComponent = ({ updateDisplayedComponent, auth }) => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
 
     const router = useRouter();
 
-    const app = initializeApp(firebaseConfig);
-
     const handleCreateAccountForm = (e) => {
         e.preventDefault();
 
-        // Read the form data
-        const form = e.target;
-        const formData = new FormData(form);
-
-        const auth = getAuth(app);
         if (password === confirmPassword) {
             createUserWithEmailAndPassword(auth, email, password)
                 .then((userCredential) => {
-                    const user = userCredential.user;
                     router.push('/home');
                 })
                 .catch((error) => {
-                    console.log('ERROR');
-                    const errorCode = error.code;
-                    const errorMessage = error.message;
-
-                    console.log(`${errorCode} - ${errorMessage}`);
+                    console.log(error.code, error.message);
                 })
         } else {
             alert(`The entered passwords do not match`);
         }
-        // Or you can work with it as a plain object:
-        // const formJson = Object.fromEntries(formData.entries());
-        // console.log(formJson);
     }
 
     return (
@@ -69,7 +52,7 @@ const CreateAccountComponent = () => {
                         id='password'
                         name='password'
                         value={password}
-                        pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*\S.*).{8,}"
+                        pattern="(?=.{8,25})(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=.!£%])(?=.*[0-9]).*$"
                         onChange={e => { setPassword(e.target.value); }}
                         required
                     />
@@ -88,7 +71,7 @@ const CreateAccountComponent = () => {
                         id='confirmPassword'
                         name='confirmPassword'
                         value={confirmPassword}
-                        pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*\S.*).{8,}"
+                        pattern="(?=.{8,25})(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=.!£%])(?=.*[0-9]).*$"
                         onChange={e => { setConfirmPassword(e.target.value); }}
                         required
                     />
@@ -102,7 +85,7 @@ const CreateAccountComponent = () => {
                 </label>
                 <button type='submit' value='submit'>Submit</button>
             </form>
-            <button type='button' value='' onClick={console.log('Login button pressed')}>Already have an account?</button>
+            <button type='button' value='' onClick={() => updateDisplayedComponent('login')}>Already have an account?</button>
         </div>
     )
 }

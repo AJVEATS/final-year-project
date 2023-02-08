@@ -1,32 +1,20 @@
-import { firebaseConfig } from '@/pages/api/FirebaseAPI';
-import { initializeApp } from 'firebase/app';
-import { getAuth, sendPasswordResetEmail } from 'firebase/auth';
+import { sendPasswordResetEmail } from 'firebase/auth';
 import { useState } from 'react';
 import styles from './ForgotPassword.module.scss';
 
-const ForgotPassword = () => {
+const ForgotPassword = ({ updateDisplayedComponent, auth }) => {
     const [forgottenEmail, setForgottenEmail] = useState('');
-
-    const app = initializeApp(firebaseConfig);
 
     const handlePasswordResetForm = (e) => {
         e.preventDefault();
 
-        // Read the form data
-        const form = e.target;
-        const formData = new FormData(form);
-
-        const auth = getAuth(app);
-
         sendPasswordResetEmail(auth, forgottenEmail)
             .then(() => {
-                console.log('Password reset email has been sent');
                 alert(`Password reset email has been sent to ${forgottenEmail}`);
+                updateDisplayedComponent('login');
             })
             .catch((error) => {
-                const errorCode = error.code;
-                const errorMessage = error.message;
-                console.log(`${errorCode} - ${errorMessage}`);
+                console.log(error.code, error.message);
             })
     }
 
@@ -47,6 +35,7 @@ const ForgotPassword = () => {
                 </label>
                 <button type='submit' value='submit'>Send</button>
             </form>
+            <button type='button' value='' onClick={() => updateDisplayedComponent('login')}>Go Back</button>
         </div>
     );
 }
