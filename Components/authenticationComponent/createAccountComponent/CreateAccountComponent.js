@@ -8,6 +8,7 @@ const CreateAccountComponent = ({ updateDisplayedComponent, auth }) => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
+    const [passwordCriteria, setPasswordCriteria] = useState({ hasNum: false, hasLowerCase: false, hasUpperCase: false, hasSpecialCharacter: false, meetsLength: false });
 
     const router = useRouter();
 
@@ -27,6 +28,18 @@ const CreateAccountComponent = ({ updateDisplayedComponent, auth }) => {
         }
     }
 
+    const checkPassword = (password) => {
+        passwordCriteria.hasNum = /[0-9]/.test(password);
+        passwordCriteria.hasUpperCase = /[A-Z]/.test(password);
+        passwordCriteria.hasLowerCase = /[a-z]/.test(password);
+        passwordCriteria.hasSpecialCharacter = /[@#$%^&+=.!£%]/.test(password);
+        if (password.length >= 8) {
+            passwordCriteria.meetsLength = true;
+        } else {
+            passwordCriteria.meetsLength = false;
+        }
+    }
+
     return (
         <div className={styles.createAccount}>
             <p>Create Account:</p>
@@ -38,7 +51,9 @@ const CreateAccountComponent = ({ updateDisplayedComponent, auth }) => {
                         id='email'
                         name='email'
                         value={email}
-                        onChange={e => { setEmail(e.target.value); }}
+                        onChange={e => {
+                            setEmail(e.target.value);
+                        }}
                         required
                     />
                     <Tooltip anchorId='email' place='bottom' clickable>
@@ -53,15 +68,19 @@ const CreateAccountComponent = ({ updateDisplayedComponent, auth }) => {
                         name='password'
                         value={password}
                         pattern="(?=.{8,25})(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=.!£%])(?=.*[0-9]).*$"
-                        onChange={e => { setPassword(e.target.value); }}
+                        onChange={e => {
+                            setPassword(e.target.value);
+                            checkPassword(e.target.value);
+                        }}
                         required
                     />
                     <Tooltip anchorId='password' place='bottom' clickable>
                         <p><b>Must contain:</b></p>
-                        <p>1 Uppercase</p>
-                        <p>1 Lowercase</p>
-                        <p>1 Number</p>
-                        <p>1 Symbol</p>
+                        <p style={{ color: (passwordCriteria.hasUpperCase ? 'green' : 'red') }}>1 Uppercase</p>
+                        <p style={{ color: (passwordCriteria.hasLowerCase ? 'green' : 'red') }}>1 Lowercase</p>
+                        <p style={{ color: (passwordCriteria.hasNum ? 'green' : 'red') }}>1 Number</p>
+                        <p style={{ color: (passwordCriteria.hasSpecialCharacter ? 'green' : 'red') }}>1 Special Character</p>
+                        <p style={{ color: (passwordCriteria.meetsLength ? 'green' : 'red') }}>8 Characters long</p>
                     </Tooltip>
                 </label>
                 <label>
@@ -75,13 +94,6 @@ const CreateAccountComponent = ({ updateDisplayedComponent, auth }) => {
                         onChange={e => { setConfirmPassword(e.target.value); }}
                         required
                     />
-                    <Tooltip anchorId='confirmPassword' place='bottom' clickable>
-                        <p><b>Must contain:</b></p>
-                        <p>1 Uppercase</p>
-                        <p>1 Lowercase</p>
-                        <p>1 Number</p>
-                        <p>1 Symbol</p>
-                    </Tooltip>
                 </label>
                 <button type='submit' value='submit'>Submit</button>
             </form>
