@@ -1,0 +1,46 @@
+.layoutComponent {
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  position: relative;
+
+  flex-wrap: nowrap;
+  justify-content: space-between;
+  align-items: stretch;
+
+  .navigationBarContainer {
+    width: 7.5%;
+    background-color: lightblue;
+    height: 100vh;
+
+    transition: 0.3s;
+
+    &:hover {
+      width: 15%;
+      position: relative;
+    }
+  }
+
+  .mainContentContainer {
+    z-index: 1;
+    width: 92.5%;
+    background-color: black;
+    position: relative;
+    position: absolute;
+    height: 100%;
+    right: 0;
+    top: 0;
+
+    .introText {
+      position: absolute;
+      z-index: 2;
+      font-size: 2em;
+      background-color: white;
+      border-radius: 4px;
+      padding: 1%;
+      margin: 1%;
+
+      color: black;
+    }
+  }
+}

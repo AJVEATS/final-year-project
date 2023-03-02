@@ -1,0 +1,41 @@
+.navigationBarComponent {
+  width: 7.5%;
+  background-color: lightblue;
+  height: 100vh;
+  transition: 0.3s;
+  display: flex;
+
+  // position: absolute;
+
+  &:hover {
+    width: 15%;
+    position: absolute;
+    z-index: 3;
+
+    .navigationLinks {
+      display: flex;
+    }
+  }
+
+  &:hover ~ .mainContentContainer {
+    padding-left: 7.5%;
+  }
+
+  .navigationLogoContainer {
+  }
+
+  .navigationLinks {
+    display: none;
+    flex-wrap: wrap;
+    flex-direction: row;
+    align-content: flex-start;
+    transition: 0.3s;
+
+    a {
+      display: block;
+      width: 100%;
+      text-decoration: none;
+      color: white;
+    }
+  }
+}
