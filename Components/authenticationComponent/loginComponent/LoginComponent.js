@@ -26,8 +26,8 @@ const LoginComponent = ({ updateDisplayedComponent, auth }) => {
 
     return (
         <div className={styles.loginComponent}>
-            <p>Login: </p>
-            <form onSubmit={handleLoginForm}>
+            <p className={styles.title}>Login: </p>
+            <form className={styles.loginForm} onSubmit={handleLoginForm}>
                 <label>
                     Email:
                     <input

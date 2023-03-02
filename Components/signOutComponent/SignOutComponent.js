@@ -16,13 +16,13 @@ const SignOutComponent = () => {
             .then(() => {
                 router.push('/');
             })
-    }
+    };
 
     return (
-        <div className={styles.signOutContainer}>
-            <p>Sign Out Component</p>
-            <button onClick={signOut}>Sign Out</button>
-        </div>
+        <button onClick={() => {
+            console.log('signOut');
+            // signOut();
+        }}>Sign Out</button>
     );
 }
 

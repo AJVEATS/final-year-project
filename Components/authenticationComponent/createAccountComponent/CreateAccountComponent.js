@@ -3,6 +3,7 @@ import { createUserWithEmailAndPassword } from 'firebase/auth';
 import { useState } from 'react';
 import { useRouter } from 'next/router';
 import { Tooltip } from 'react-tooltip';
+import Link from 'next/link';
 
 const CreateAccountComponent = ({ updateDisplayedComponent, auth }) => {
     const [email, setEmail] = useState('');
@@ -42,8 +43,8 @@ const CreateAccountComponent = ({ updateDisplayedComponent, auth }) => {
 
     return (
         <div className={styles.createAccount}>
-            <p>Create Account:</p>
-            <form onSubmit={handleCreateAccountForm}>
+            <p className={styles.title}>Create Account:</p>
+            <form className={styles.createAccountForm} onSubmit={handleCreateAccountForm}>
                 <label>
                     Email:
                     <input

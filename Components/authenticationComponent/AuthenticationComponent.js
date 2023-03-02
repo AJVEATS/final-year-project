@@ -8,7 +8,7 @@ import ForgotPassword from './forgotPassword/ForgotPassword';
 import LoginComponent from './loginComponent/LoginComponent';
 
 const AuthenticationComponent = () => {
-    const [componentDisplayed, setComponentDisplayed] = useState('login');
+    const [componentDisplayed, setComponentDisplayed] = useState('createAccount');
 
     const app = initializeApp(firebaseConfig);
     const auth = getAuth(app);
