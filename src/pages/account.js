@@ -1,6 +1,8 @@
-import Base from "Components/Base/BaseComponent";
+import Base from "Components/Layout/Base/BaseComponent";
 import Head from "next/head";
 import styles from '@/styles/pages/account.module.scss';
+import ProfileComponent from "Components/ProfileComponent/ProfileComponent";
+import LayoutComponent from "Components/Layout/LayoutComponent/LayoutComponent";
 
 const Account = () => {
 
@@ -9,9 +11,9 @@ const Account = () => {
             <Head>
                 <title>Account page</title>
             </Head>
-            <div className={styles.main}>
-                <p>Account page</p>
-            </div>
+            <LayoutComponent>
+                <ProfileComponent />
+            </LayoutComponent>
         </Base>
     )
 }

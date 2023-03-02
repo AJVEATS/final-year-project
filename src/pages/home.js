@@ -1,8 +1,9 @@
 import styles from '@/styles/pages/home.module.scss';
-import Base from 'Components/Base/BaseComponent';
-import SignOutComponent from 'Components/signOutComponent/signOutComponent';
+import Base from 'Components/Layout/Base/BaseComponent';
+import LayoutComponent from 'Components/Layout/LayoutComponent/LayoutComponent';
+import ProfileComponent from 'Components/ProfileComponent/ProfileComponent';
 import { initializeApp } from 'firebase/app';
-import { getAuth, signInWithCredential } from 'firebase/auth';
+import { getAuth } from 'firebase/auth';
 import Head from 'next/head';
 import { firebaseConfig } from './api/FirebaseAPI';
 import { firebaseApp } from './api/FirebaseApp';
@@ -22,10 +23,10 @@ const Home = () => {
             <Head>
                 <title>Home</title>
             </Head>
-            <div className={styles.homePage}>
-                <SignOutComponent />
-                <p>{user.email}</p>
-            </div>
+            <LayoutComponent>
+                {/* <MapComponent /> */}
+                {/* <ProfileComponent /> */}
+            </LayoutComponent>
         </Base>
     );
 }
