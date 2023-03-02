@@ -5,7 +5,10 @@ import ProfileComponent from 'Components/ProfileComponent/ProfileComponent';
 import { initializeApp } from 'firebase/app';
 import { getAuth } from 'firebase/auth';
 import Head from 'next/head';
+import Image from 'next/image';
 import { firebaseConfig } from './api/FirebaseAPI';
+
+import MapBoxKey from '@/pages/api/MapBoxKey';
 import { firebaseApp } from './api/FirebaseApp';
 
 const Home = () => {
@@ -24,8 +27,9 @@ const Home = () => {
                 <title>Home</title>
             </Head>
             <LayoutComponent>
-                {/* <MapComponent /> */}
-                {/* <ProfileComponent /> */}
+                <img
+                    className={styles.homeImage}
+                    src={`https://api.mapbox.com/styles/v1/mapbox/streets-v11/static/-1.8782,50.7220,11,0/1200x900?access_token=${MapBoxKey.key}`} />
             </LayoutComponent>
         </Base>
     );
