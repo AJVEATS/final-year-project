@@ -10,6 +10,7 @@ const CreateAccountComponent = ({ updateDisplayedComponent, auth }) => {
     const [password, setPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
     const [passwordCriteria, setPasswordCriteria] = useState({ hasNum: false, hasLowerCase: false, hasUpperCase: false, hasSpecialCharacter: false, meetsLength: false });
+    const [terms, setTerms] = useState(false);
 
     const router = useRouter();
 
@@ -96,6 +97,7 @@ const CreateAccountComponent = ({ updateDisplayedComponent, auth }) => {
                         required
                     />
                 </label>
+                <p>By creating an account, you agree to the <br /><a>Terms of Service</a>. View the <a>Privacy Policy</a></p>
                 <button type='submit' value='submit'>Submit</button>
             </form>
             <button type='button' value='' onClick={() => updateDisplayedComponent('login')}>Already have an account?</button>

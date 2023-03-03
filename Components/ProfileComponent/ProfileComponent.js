@@ -5,11 +5,13 @@ import ProfileNavigationComponent from './ProfileNavigationComponent/ProfileNavi
 import React, { useState, useEffect } from 'react';
 import AddDetailsComponent from './AddDetailsComponent/AddDetailsComponent';
 import EditDetailsComponents from './EditDetailsComponent/EditDetailsComponent';
+import { getFirestore } from 'firebase/firestore';
+import { firebaseApp } from '@/pages/api/FirebaseApp';
 
 const ProfileComponent = () => {
     const [navigationState, setNavigationState] = useState('add');
 
-    console.log('add');
+    const db = getFirestore(firebaseApp);
 
     useEffect(() => {
         if (navigationState === 'add') {
@@ -22,7 +24,7 @@ const ProfileComponent = () => {
     const handleNav = () => {
         if (navigationState === 'add') {
             return (
-                <AddDetailsComponent />
+                <AddDetailsComponent db={db} />
             );
         } else if (navigationState === 'edit') {
             return (

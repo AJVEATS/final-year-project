@@ -1,6 +1,7 @@
 import { firebaseConfig } from '@/pages/api/FirebaseAPI';
 import { initializeApp } from 'firebase/app';
 import { getAuth } from 'firebase/auth';
+import { getFirestore } from 'firebase/firestore';
 import { useState } from 'react';
 import styles from './AuthenticationComponent.module.scss';
 import CreateAccountComponent from './createAccountComponent/CreateAccountComponent';
