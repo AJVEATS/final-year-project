@@ -1,0 +1,15 @@
+.mapContainer {
+  height: 100vh;
+  z-index: 1;
+}
+
+.mapboxgl-canvas {
+  width: 100%;
+}
+
+.saveButton {
+  position: fixed;
+  bottom: 2%;
+  right: 1%;
+  z-index: 2;
+}
