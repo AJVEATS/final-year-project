@@ -21,7 +21,7 @@ const SignOutComponent = () => {
     return (
         <button onClick={() => {
             console.log('signOut');
-            // signOut();
+            signOut();
         }}>Sign Out</button>
     );
 }

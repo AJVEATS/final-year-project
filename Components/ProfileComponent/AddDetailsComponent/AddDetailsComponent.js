@@ -1,8 +1,9 @@
 import styles from './AddDetailsComponent.module.scss';
 import React, { useState, useEffect } from 'react';
 import { doc, setDoc } from 'firebase/firestore';
+import Head from 'next/head';
 
-const AddDetailsComponent = ({ db }) => {
+const AddDetailsComponent = ({ db, firebaseUID }) => {
     const [firstname, setFirstname] = useState('');
     const [lastname, setLastname] = useState('');
     const [location, setLocation] = useState('');
@@ -10,22 +11,23 @@ const AddDetailsComponent = ({ db }) => {
 
     const handleAddDetailForm = () => {
         console.log('handleAddDetailsForm initiated');
-        console.log(firstname);
-        console.log(lastname);
-        console.log(location);
-        console.log(bio);
 
         const addUserDetailsObject = {
             firstname: firstname,
             lastname: lastname,
             location: location,
             bio: bio,
-        }
+        };
+
+        console.log(addUserDetailsObject);
+
         try {
 
-            const collectionRef = doc(db, 'users', 'userID');
+            const collectionRef = doc(db, 'users', firebaseUID);
 
             setDoc(collectionRef, addUserDetailsObject, { merge: true });
+
+            alert('Your details have been saved');
         } catch (e) {
             console.error(`Error adding document: ${e}`);
         }
@@ -33,8 +35,19 @@ const AddDetailsComponent = ({ db }) => {
         return null;
     };
 
+    const clearForm = () => {
+        console.log('clearForm initiated');
+        setFirstname('');
+        setLastname('');
+        setLocation('');
+        setBio('');
+    }
+
     return (
         <div>
+            <Head>
+                <title>Account - Add Details</title>
+            </Head>
             <form className={styles.profileFormContainer}>
                 <p className={styles.profileFormTitle}>Add details</p>
                 <label>
@@ -77,7 +90,7 @@ const AddDetailsComponent = ({ db }) => {
                     Bio
                     <textarea value={bio} onChange={e => setBio(e.target.value)} />
                 </label>
-                <button onClick={() => { clearForm() }}>Clear</button>
+                <button type='button' value='' onClick={() => { clearForm() }}>Clear</button>
                 <button type='button' value='' onClick={() => handleAddDetailForm()}>Save</button>
             </form>
         </div>

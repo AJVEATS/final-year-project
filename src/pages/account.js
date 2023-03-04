@@ -9,7 +9,7 @@ const Account = () => {
     return (
         <Base>
             <Head>
-                <title>Account page</title>
+                <title>Account</title>
             </Head>
             <LayoutComponent>
                 <ProfileComponent />

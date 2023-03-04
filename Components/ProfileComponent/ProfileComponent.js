@@ -7,11 +7,17 @@ import AddDetailsComponent from './AddDetailsComponent/AddDetailsComponent';
 import EditDetailsComponents from './EditDetailsComponent/EditDetailsComponent';
 import { getFirestore } from 'firebase/firestore';
 import { firebaseApp } from '@/pages/api/FirebaseApp';
+import { getAuth } from 'firebase/auth';
+import ProfileInfoComponent from './ProfileInfoComponent/ProfileInfoComponent';
 
 const ProfileComponent = () => {
     const [navigationState, setNavigationState] = useState('add');
 
+    const auth = getAuth();
+    const firebaseUID = auth.currentUser.uid;
     const db = getFirestore(firebaseApp);
+
+    console.log(auth.currentUser);
 
     useEffect(() => {
         if (navigationState === 'add') {
@@ -24,11 +30,11 @@ const ProfileComponent = () => {
     const handleNav = () => {
         if (navigationState === 'add') {
             return (
-                <AddDetailsComponent db={db} />
+                <AddDetailsComponent db={db} firebaseUID={firebaseUID} />
             );
         } else if (navigationState === 'edit') {
             return (
-                <EditDetailsComponents />
+                <EditDetailsComponents db={db} firebaseUID={firebaseUID} auth={auth} />
             )
         }
     }
@@ -41,6 +47,7 @@ const ProfileComponent = () => {
         <div className={styles.profileComponent}>
             <p className={styles.profileTitle}>Profile</p>
             <p className={styles.profileSubTitle}>Welcome ###USERNAME###</p>
+            <ProfileInfoComponent />
             <ProfileNavigationComponent navigationState={navigationState} setNavigationState={setNavigationState} />
             {handleNav()}
         </div>
