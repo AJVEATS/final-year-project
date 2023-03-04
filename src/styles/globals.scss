@@ -12,10 +12,26 @@ html {
 
 main {
   width: 100vw;
+  height: 100vh;
+  overflow: hidden;
 }
 
 body {
   margin: 0;
+}
+
+button {
+  font-family: Gotham;
+  font-size: 1em;
+  background-color: white;
+  border-radius: 4px;
+  margin: 1%;
+  border: black solid 1px;
+  cursor: pointer;
+
+  &:hover {
+    background-color: lightgrey;
+  }
 }
 
 p {

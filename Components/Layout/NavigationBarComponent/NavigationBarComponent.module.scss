@@ -1,9 +1,11 @@
 .navigationBarComponent {
   width: 7.5%;
-  background-color: lightblue;
+  background-color: #306b34;
   height: 100vh;
-  transition: 0.3s;
-  display: flex;
+  transition: width 0.3s;
+  transition-timing-function: ease;
+  display: block;
+  z-index: 2;
 
   // position: absolute;
 
@@ -13,7 +15,15 @@
     z-index: 3;
 
     .navigationLinks {
+      text-align: center;
       display: flex;
+      flex-direction: row;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    .navigationIcon {
+      display: none;
     }
   }
 
@@ -22,6 +32,10 @@
   }
 
   .navigationLogoContainer {
+    display: block;
+    width: 2em;
+    margin: 1em auto;
+    color: white;
   }
 
   .navigationLinks {
@@ -30,12 +44,28 @@
     flex-direction: row;
     align-content: flex-start;
     transition: 0.3s;
+    transition-timing-function: ease;
+    width: fit-content;
 
     a {
       display: block;
       width: 100%;
       text-decoration: none;
       color: white;
+      font-size: 1.4em;
+      margin-bottom: 0.25em;
     }
+  }
+
+  .navigationIcon {
+    display: block;
+    width: 2em;
+    margin: 1em auto;
+    color: white;
+    position: absolute;
+    bottom: 0;
+    left: 2.5%;
+    transition: width 0.3s;
+    transition-timing-function: ease-out;
   }
 }
