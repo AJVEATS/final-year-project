@@ -3,7 +3,6 @@ import { createUserWithEmailAndPassword } from 'firebase/auth';
 import { useState } from 'react';
 import { useRouter } from 'next/router';
 import { Tooltip } from 'react-tooltip';
-import Link from 'next/link';
 
 const CreateAccountComponent = ({ updateDisplayedComponent, auth }) => {
     const [email, setEmail] = useState('');

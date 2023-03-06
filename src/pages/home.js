@@ -29,7 +29,7 @@ const Home = () => {
             <LayoutComponent>
                 <img
                     className={styles.homeImage}
-                    src={`https://api.mapbox.com/styles/v1/mapbox/streets-v11/static/-1.8782,50.7220,11,0/1200x900?access_token=${MapBoxKey.key}`} />
+                    src={`https://api.mapbox.com/styles/v1/mapbox/streets-v11/static/-1.8782,50.7220,11,0/1270x900?access_token=${MapBoxKey.key}`} />
             </LayoutComponent>
         </Base>
     );
