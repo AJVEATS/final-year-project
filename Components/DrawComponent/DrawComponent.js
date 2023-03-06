@@ -14,6 +14,8 @@ import { getAuth } from 'firebase/auth';
 
 import { getDistance, getPreciseDistance } from 'geolib';
 import DrawFormComponent from './DrawFormComponent/DrawFormComponent';
+import { redirect } from 'next/dist/server/api-utils';
+import { useRouter } from 'next/router';
 
 mapboxgl.accessToken = MapBoxKey.key;
 
@@ -34,6 +36,8 @@ const DrawComponent = () => {
     const [description, setDescription] = useState('');
 
     const [formState, setFormState] = useState('none');
+
+    const router = useRouter();
 
     useEffect(() => {
         if (map.current) return; // initialize map only once
@@ -295,10 +299,14 @@ const DrawComponent = () => {
             setDoc(collectionRef, routeObject, { merge: true });
 
             setFormState('hidden');
+            alert('Your route has been saved 🥳');
 
         } catch (e) {
             console.error(`Error adding document: ${e}`);
+            alert(`Error uploading route - ${e}`);
         }
+
+        router.push('/tracking');
     };
 
     return (

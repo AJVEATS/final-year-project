@@ -9,9 +9,11 @@ const ExploreComponent = () => {
 
     useEffect(() => {
         getRoutes();
+        console.log(routes);
     }, []);
 
     async function getRoutes() {
+        setRoutes([]);
         const auth = getAuth(firebaseApp);
         const user = (auth.currentUser);
         const db = getFirestore(firebaseApp);
@@ -19,9 +21,11 @@ const ExploreComponent = () => {
 
         const querySnapshot = await getDocs(routeQuery);
         querySnapshot.forEach((doc) => {
-            setRoutes(routes => [...routes, { activityId: doc.id, activityData: doc.data() }]);
+            setRoutes(routes => [...routes, { routeId: doc.id, routeData: doc.data() }]);
             console.log(doc.id, " => ", doc.data()); // For Testing
-        })
+        });
+
+        console.log(routes);
     };
 
     return (

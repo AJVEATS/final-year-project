@@ -16,4 +16,4 @@ const Explore = () => {
         </Base>
     );
 }
-export default Explore
+export default Explore;

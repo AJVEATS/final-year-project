@@ -16,7 +16,7 @@ const NavigationBarComponent = () => {
                 <Link href='/draw'>Create</Link>
                 <Link href='/explore'>Explore</Link>
                 {/* <Link href='/home'>Favourites</Link> */}
-                <Link href='/home'>Your Walks</Link>
+                <Link href='/tracking'>Your Walks</Link>
                 <Link href='/account'>Account</Link>
             </div>
             <div className={styles.navigationIcon}>
