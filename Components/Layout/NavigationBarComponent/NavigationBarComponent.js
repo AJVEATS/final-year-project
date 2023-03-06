@@ -14,7 +14,7 @@ const NavigationBarComponent = () => {
             <div className={styles.navigationLinks}>
                 <Link href='/home'>Home</Link>
                 <Link href='/draw'>Create</Link>
-                <Link href='/home'>Explore</Link>
+                <Link href='/explore'>Explore</Link>
                 {/* <Link href='/home'>Favourites</Link> */}
                 <Link href='/home'>Your Walks</Link>
                 <Link href='/account'>Account</Link>
