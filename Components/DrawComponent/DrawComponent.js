@@ -12,6 +12,9 @@ import MapboxDraw from '@mapbox/mapbox-gl-draw';
 import '@mapbox/mapbox-gl-draw/dist/mapbox-gl-draw.css'
 import { getAuth } from 'firebase/auth';
 
+import { getDistance, getPreciseDistance } from 'geolib';
+import DrawFormComponent from './DrawFormComponent/DrawFormComponent';
+
 mapboxgl.accessToken = MapBoxKey.key;
 
 const DrawComponent = () => {
@@ -23,10 +26,14 @@ const DrawComponent = () => {
     const [zoom, setZoom] = useState(13);
     const [duration, setDuration] = useState();
 
-    const [route, setRoute] = useState({});
+    const [drawnRoute, setdrawnRoute] = useState({});
     const [directions, setDirections] = useState([]);
-    const [privacy, setPrivacy] = useState(false);
-    const [name, setName] = useState('test walk name');
+
+    const [privacy, setPrivacy] = useState('public');
+    const [name, setName] = useState('');
+    const [description, setDescription] = useState('');
+
+    const [formState, setFormState] = useState('none');
 
     useEffect(() => {
         if (map.current) return; // initialize map only once
@@ -149,7 +156,6 @@ const DrawComponent = () => {
             const data = draw.getAll();
             const lastFeature = data.features.length - 1;
             const coords = data.features[lastFeature].geometry.coordinates;
-            setRoute(coords);
             // Format the coordinates
             const newCoords = coords.join(';');
             // Set the radius for each coordinate pair to 25 meters
@@ -162,7 +168,6 @@ const DrawComponent = () => {
             // Separate the radiuses with semicolons
             const radiuses = radius.join(';');
             // Create the query
-            // console.log(`https://api.mapbox.com/matching/v5/mapbox/${profile}/${coordinates}?geometries=geojson&radiuses=${radiuses}&steps=true&access_token=${mapboxgl.accessToken}`);
             const query = await fetch(
                 `https://api.mapbox.com/matching/v5/mapbox/${profile}/${coordinates}?geometries=geojson&radiuses=${radiuses}&steps=true&access_token=${mapboxgl.accessToken}`,
                 { method: 'GET' }
@@ -176,35 +181,25 @@ const DrawComponent = () => {
                 return;
             }
             const coords = response.matchings[0].geometry;
-            // console.log(`coords ${coords}`);
             // Draw the route on the map
             addRoute(coords);
             for (const coordinates in coords.coordinates) {
-                console.log(coords.coordinates[coordinates]);
-                let newCoordinates = { latitude: coords.coordinates[coordinates][0], longitude: coords.coordinates[coordinates][1] };
-                setRoute(route => ({
-                    ...route,
-                    ...newCoordinates
-                }));
+                let nextCoordinates = { latitude: coords.coordinates[coordinates][0], longitude: coords.coordinates[coordinates][1] };
+                drawnRoute[coordinates] = nextCoordinates;
             }
-            console.log(route);
-            // setRoute(coords.coordinates);
+            // console.log(drawnRoute);
             getInstructions(response.matchings[0]);
         }
 
         function getInstructions(data) {
             let tripDirections = [];
             // Output the instructions for each step of each leg in the response object
-            console.log(data);
             for (const leg of data.legs) {
                 const steps = leg.steps;
                 for (const step of steps) {
                     // console.log(step.maneuver.instruction);
-
                     directions.push(step.maneuver.instruction);
-                    console.log(directions);
-
-
+                    // console.log(directions);
                 }
             }
             setDuration(Math.floor(data.duration / 60));
@@ -260,49 +255,57 @@ const DrawComponent = () => {
         });
     });
 
-    const saveRoute = () => {
+    const saveRouteButton = () => {
+        setFormState('block');
+    };
+
+    const uploadRoute = () => {
+        const auth = getAuth();
+        const firebaseUID = auth.currentUser.uid;
+
+        const routeObject = {
+            uid: firebaseUID,
+            name: name,
+            description: description,
+            date: serverTimestamp(),
+            route: drawnRoute,
+            directions: directions,
+            duration: duration,
+            privacy: privacy,
+        };
 
         try {
             const auth = getAuth();
             const firebaseUID = auth.currentUser.uid;
             const db = getFirestore(firebaseApp);
-            const time = Date();
-
-            console.log(`uid: ${typeof firebaseUID}`);
-            console.log(`name: ${typeof name}`);
-            console.log(`date: ${typeof serverTimestamp()}`);
-            console.log(`route: ${typeof route}`);
-            console.log(route);
-            console.log(`direction: ${typeof directions}`);
-            console.log(directions);
-            console.log(`duration: ${typeof duration}`);
-            console.log(`privacy: ${typeof privacy}`);
 
             const routeObject = {
                 uid: firebaseUID,
                 name: name,
+                description: description,
                 date: serverTimestamp(),
-                route: route,
+                route: drawnRoute,
                 directions: directions,
                 duration: duration,
                 privacy: privacy,
             };
 
-            let date = moment().format('YYYY-MM-DD~hh:mm:ss');
-            const collectionRef = doc(db, 'routes', `${firebaseUID.concat(date)}`);
+            const collectionRef = doc(db, 'routes', `${firebaseUID.concat(moment().format('YYYY-MM-DD~hh:mm:ss'))}`);
 
             setDoc(collectionRef, routeObject, { merge: true });
+
+            setFormState('hidden');
 
         } catch (e) {
             console.error(`Error adding document: ${e}`);
         }
-
     };
 
     return (
         <div>
             <div ref={mapContainer} className={styles.mapContainer} />
-            <button onClick={() => saveRoute()} className={styles.saveButton}>Save</button>
+            <DrawFormComponent formState={formState} setFormState={setFormState} setPrivacy={setPrivacy} setName={setName} setDescription={setDescription} name={name} description={description} uploadRoute={uploadRoute} />
+            <button onClick={() => saveRouteButton()} className={styles.saveButton}>Save</button>
         </div>
     );
 }
