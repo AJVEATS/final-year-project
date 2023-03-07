@@ -12,21 +12,18 @@ const Tracking = () => {
 
     useEffect(() => {
         getUserRoutes();
-        console.log(routes);
     }, []);
 
     async function getUserRoutes() {
-        setRoutes([]);
         const auth = getAuth(firebaseApp);
-        const uid = (auth.currentUser.uid);
-        console.log(uid);
         const db = getFirestore(firebaseApp);
-        const userRouteQuery = query(collection(db, "routes"), where('uid', '==', uid));
+        const user = (auth.currentUser);
+        const userRouteQuery = query(collection(db, 'routes'), where('uid', '==', user.uid));
 
         const querySnapshot = await getDocs(userRouteQuery);
+        setRoutes([]);
         querySnapshot.forEach((doc) => {
-            setRoutes(routes => [...routes, { routeId: doc.id, routeData: doc.data() }]);
-            console.log(doc.id, " => ", doc.data()); // For Testing
+            setRoutes(routes => [...routes, { routesId: doc.id, routeData: doc.data() }]);
         });
     }
 
@@ -37,6 +34,13 @@ const Tracking = () => {
             </Head>
             <LayoutComponent>
                 <p>Your Routes</p>
+                {routes.map((data) => (
+                    <div key={data.routeId} className={styles.routeCard}>
+                        <p>{(data.routeData.name)}</p>
+                        <p>{data.routeData.privacy}</p>
+                        <p>{`${data.routeData.duration} minutes`}</p>
+                    </div>
+                ))}
             </LayoutComponent>
         </Base>
     );

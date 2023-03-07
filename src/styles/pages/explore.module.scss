@@ -1,0 +1,13 @@
+.exploreMain {
+  height: 100%;
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: nowrap;
+
+  .exploreSearch {
+    width: 20%;
+    height: 100vh;
+    border-left: 3px black solid;
+    // background-color: black;
+  }
+}

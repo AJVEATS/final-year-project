@@ -3,7 +3,6 @@ import DrawComponent from 'Components/DrawComponent/DrawComponent';
 import DrawFormComponent from 'Components/DrawComponent/DrawFormComponent/DrawFormComponent';
 import Base from 'Components/Layout/Base/BaseComponent';
 import LayoutComponent from 'Components/Layout/LayoutComponent/LayoutComponent';
-import MapComponent from 'Components/MapComponent/MapComponent';
 import { initializeApp } from 'firebase/app';
 import { getAuth } from 'firebase/auth';
 import Head from 'next/head';

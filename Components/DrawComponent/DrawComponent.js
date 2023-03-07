@@ -248,7 +248,7 @@ const DrawComponent = () => {
             map.current.removeLayer('route');
             map.current.removeSource('route');
         }
-    });
+    }, []);
 
     useEffect(() => {
         if (!map.current) return; // wait for map to initialize
@@ -257,7 +257,7 @@ const DrawComponent = () => {
             setLat(map.current.getCenter().lat.toFixed(4));
             setZoom(map.current.getZoom().toFixed(2));
         });
-    });
+    }, []);
 
     const saveRouteButton = () => {
         setFormState('block');

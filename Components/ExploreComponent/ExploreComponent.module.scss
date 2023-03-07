@@ -1,7 +1,49 @@
-.exploreComponent {
-  margin: 1em;
+// .exploreComponent {
+//   height: 100%;
+
+//   .exploreMainContent {
+//     display: flex;
+//     justify-content: space-between;
+//     flex-wrap: nowrap;
+
+.exploreList {
+  // padding: 1em 1em 0 1em;
+  margin: 0% 0% 0% 1%;
+  width: 79%;
+  // overflow: auto;
+  // overflow-x: hidden;
+  height: 100%;
+
+  * {
+    scrollbar-width: auto;
+    scrollbar-color: #306b34 white;
+  }
+
+  /* Chrome, Edge, and Safari */
+  *::-webkit-scrollbar {
+    width: 16px;
+  }
+
+  *::-webkit-scrollbar-track {
+    background: white;
+  }
+
+  *::-webkit-scrollbar-thumb {
+    background-color: #306b34;
+    border-radius: 10px;
+    border: 3px solid white;
+  }
 
   .exploreTitle {
-    font-size: 2em;
+    font-size: 2.5em;
+    margin-top: 1%;
+  }
+
+  .routeCard {
+    border: 1px black solid;
+    margin: 1em 1em 0em 0;
   }
 }
+//   }
+
+// }
