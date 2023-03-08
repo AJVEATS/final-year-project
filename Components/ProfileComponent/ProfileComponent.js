@@ -17,7 +17,7 @@ const ProfileComponent = () => {
     const firebaseUID = auth.currentUser.uid;
     const db = getFirestore(firebaseApp);
 
-    console.log(auth.currentUser);
+    // console.log(auth.currentUser);
 
     useEffect(() => {
         if (navigationState === 'add') {

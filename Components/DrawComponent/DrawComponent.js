@@ -191,7 +191,8 @@ const DrawComponent = () => {
                 let nextCoordinates = { latitude: coords.coordinates[coordinates][0], longitude: coords.coordinates[coordinates][1] };
                 drawnRoute[coordinates] = nextCoordinates;
             }
-            // console.log(drawnRoute);
+            console.log(drawnRoute);
+            console.log(calculateDistance(drawnRoute));
             getInstructions(response.matchings[0]);
         }
 
@@ -264,20 +265,6 @@ const DrawComponent = () => {
     };
 
     const uploadRoute = () => {
-        const auth = getAuth();
-        const firebaseUID = auth.currentUser.uid;
-
-        const routeObject = {
-            uid: firebaseUID,
-            name: name,
-            description: description,
-            date: serverTimestamp(),
-            route: drawnRoute,
-            directions: directions,
-            duration: duration,
-            privacy: privacy,
-        };
-
         try {
             const auth = getAuth();
             const firebaseUID = auth.currentUser.uid;
@@ -306,7 +293,7 @@ const DrawComponent = () => {
             alert(`Error uploading route - ${e}`);
         }
 
-        router.push('/tracking');
+        router.push('/track');
     };
 
     return (

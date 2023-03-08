@@ -8,6 +8,7 @@ import Head from 'next/head';
 import { getAuth } from 'firebase/auth';
 import { firebaseApp } from './api/FirebaseApp';
 import { collection, getDocs, getFirestore, query, where } from 'firebase/firestore';
+import RouteSearchComponent from 'Components/RouteSearchComponent/RouteSearchComponent';
 const Explore = () => {
     const [routes, setRoutes] = useState([]);
     useEffect(() => {
@@ -35,11 +36,8 @@ const Explore = () => {
             </Head>
             <LayoutComponent>
                 <div className={styles.exploreMain}>
-
                     <ExploreComponent routes={routes} />
-                    <div className={styles.exploreSearch}>
-
-                    </div>
+                    <RouteSearchComponent />
                 </div>
             </LayoutComponent>
         </Base >

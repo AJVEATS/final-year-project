@@ -1,4 +1,4 @@
-import styles from '@/styles/pages/tracking.module.scss';
+import styles from '@/styles/pages/track.module.scss';
 import Base from 'Components/Layout/Base/BaseComponent';
 import LayoutComponent from 'Components/Layout/LayoutComponent/LayoutComponent';
 import React, { useEffect, useState } from 'react';
@@ -6,8 +6,10 @@ import Head from 'next/head';
 import { getAuth } from 'firebase/auth';
 import { firebaseApp } from './api/FirebaseApp';
 import { collection, getDocs, getFirestore, query, where } from 'firebase/firestore';
+import TrackComponent from 'Components/TrackComponent/TrackComponent';
+import RouteSearchComponent from 'Components/RouteSearchComponent/RouteSearchComponent';
 
-const Tracking = () => {
+const Track = () => {
     const [routes, setRoutes] = useState([]);
 
     useEffect(() => {
@@ -33,16 +35,19 @@ const Tracking = () => {
                 <title>Your Routes</title>
             </Head>
             <LayoutComponent>
-                <p>Your Routes</p>
-                {routes.map((data) => (
+                <div className={styles.trackMain}>
+                    <TrackComponent routes={routes} />
+                    <RouteSearchComponent />
+                </div>
+                {/* {routes.map((data) => (
                     <div key={data.routeId} className={styles.routeCard}>
                         <p>{(data.routeData.name)}</p>
                         <p>{data.routeData.privacy}</p>
                         <p>{`${data.routeData.duration} minutes`}</p>
                     </div>
-                ))}
+                ))} */}
             </LayoutComponent>
         </Base>
     );
 }
-export default Tracking;
+export default Track;

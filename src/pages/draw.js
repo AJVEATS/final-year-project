@@ -16,7 +16,7 @@ const Draw = () => {
     const user = auth.currentUser;
 
     if (user) {
-        console.log(user);
+        // console.log(user);
     }
 
     return (

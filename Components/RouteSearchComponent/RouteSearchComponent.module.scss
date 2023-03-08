@@ -1,0 +1,23 @@
+.routeSearch {
+  width: 20%;
+  height: 100vh;
+  border-left: 3px black solid;
+  padding-top: 1em;
+
+  .searchTitle {
+    display: flex;
+    flex-wrap: nowrap;
+    flex-direction: row;
+    justify-content: center;
+
+    svg {
+      width: 2em;
+      margin-right: 0.5em;
+    }
+    .routeSearchTitle {
+      font-size: 2em;
+      margin-top: 2%;
+      text-align: center;
+    }
+  }
+}
