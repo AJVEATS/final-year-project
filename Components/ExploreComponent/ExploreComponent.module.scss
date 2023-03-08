@@ -36,26 +36,30 @@
     margin-top: 1%;
   }
 
-  .routeCard {
-    border: 1px black solid;
-    border-radius: 4px;
-    padding: 0.75% 1%;
-    margin: 1em 1em 0em 0;
+  .routesContainer {
+    overflow: scroll;
+    height: 80%;
+    .routeCard {
+      border: 1px black solid;
+      border-radius: 4px;
+      padding: 0.75% 1%;
+      margin: 1em 1em 0em 0;
 
-    .routeTitle {
-      font-size: 1.4em;
-      margin-bottom: 0.5%;
-    }
-    .routeStats {
-      display: flex;
-
-      .routeDistance {
-        margin-right: 1%;
+      .routeTitle {
+        font-size: 1.4em;
+        margin-bottom: 0.5%;
       }
+      .routeStats {
+        display: flex;
 
-      p {
-        display: inline-block;
-        font-size: 1.2em;
+        .routeDistance {
+          margin-right: 1%;
+        }
+
+        p {
+          display: inline-block;
+          font-size: 1.2em;
+        }
       }
     }
   }
