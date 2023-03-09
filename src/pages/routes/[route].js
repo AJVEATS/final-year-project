@@ -10,8 +10,14 @@ import { getAuth } from "firebase/auth";
 import { firebaseApp } from "../api/FirebaseApp";
 import { doc, getDoc, getFirestore } from "firebase/firestore";
 
+
+import { faCaretDown, faCaretUp } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+
 const Route = () => {
     const [route, setRoute] = useState({});
+    const [isActive, setIsActive] = useState(false);
+
     const router = useRouter();
     const routeId = router.query.route;
 
@@ -42,7 +48,7 @@ const Route = () => {
         if (route.directions) {
             return (
                 route.directions.map((direction) => (
-                    <p>{direction}</p>
+                    <p className={styles.routeStep}>{direction}</p>
                 ))
             );
         } else {
@@ -61,11 +67,21 @@ const Route = () => {
                     <p className={styles.routeName}>{route.name}</p>
                     <p className={styles.routeDescription}>{route.description}</p>
                     <p className={styles.routeDuration}>{`${route.duration} minutes`}</p>
-                    <div>
-                        {/* {route.directions.map((direction) => (
+                    {/* <div> */}
+                    {/* {route.directions.map((direction) => (
                             <p>{direction}</p>
                         ))} */}
-                        {displayDirections()}
+                    {/* {displayDirections()}
+                    </div> */}
+                    <div className={styles.accordion}>
+                        <div className={styles.accordionItem}>
+                            <div className={styles.accordionTitle}
+                                onClick={() => setIsActive(!isActive)}>
+                                <div>Route Directions</div>
+                                <div className={styles.accordionButton}>{isActive ? <FontAwesomeIcon icon={faCaretDown} size={'xs'} /> : <FontAwesomeIcon icon={faCaretUp} />}</div>
+                            </div>
+                            {isActive && <div className={styles.accordionContent}>{displayDirections()}</div>}
+                        </div>
                     </div>
                 </div>
             </LayoutComponent>

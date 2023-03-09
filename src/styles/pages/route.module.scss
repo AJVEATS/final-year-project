@@ -14,4 +14,40 @@
 
   .routeDuration {
   }
+
+  .accordion {
+    display: flex;
+    width: fit-content;
+    font-size: 1.3em;
+    background-color: #306b34;
+    color: white;
+    border-radius: 4px;
+    padding: 0.5em 1em;
+
+    .accordionItem {
+      .accordionTitle {
+        display: flex;
+        align-items: center;
+
+        .accordionButton {
+          margin-left: 1em;
+          display: flex;
+
+          svg {
+            width: 1em;
+          }
+        }
+      }
+
+      .accordionContent {
+        width: fit-content;
+        margin-top: 0.5em;
+
+        .routeStep {
+          margin-bottom: 2%;
+          border-bottom: 2px solid white;
+        }
+      }
+    }
+  }
 }

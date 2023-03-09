@@ -8,7 +8,12 @@
     color: black;
 
     &:hover {
-      color: gray;
+      color: white;
+
+      .routeCard {
+        border: 1px #306b34 solid;
+        background-color: #306b34;
+      }
     }
   }
 
