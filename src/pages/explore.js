@@ -37,7 +37,7 @@ const Explore = () => {
             <LayoutComponent>
                 <div className={styles.exploreMain}>
                     <ExploreComponent routes={routes} />
-                    <RouteSearchComponent />
+                    {/* <RouteSearchComponent /> */}
                 </div>
             </LayoutComponent>
         </Base >

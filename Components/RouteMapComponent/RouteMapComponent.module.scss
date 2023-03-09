@@ -1,0 +1,16 @@
+.routeMapComponent {
+  border: 2px solid black;
+  border-radius: 4px;
+  width: 45%;
+  height: 45%;
+  display: block;
+}
+
+.mapContainer {
+  height: 100%;
+  z-index: 1;
+}
+
+.mapboxgl-canvas {
+  // width: 100%;
+}

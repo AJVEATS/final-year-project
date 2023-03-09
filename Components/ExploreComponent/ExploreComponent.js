@@ -7,7 +7,7 @@ const ExploreComponent = ({ routes }) => {
 
     return (
         <div className={styles.exploreList}>
-            <p className={styles.exploreTitle}>Explore</p>
+            <p className={styles.exploreTitle}>Explore Community Routes</p>
             <div className={styles.routesContainer}>
                 {routes.map((data) => (
                     <Link
@@ -17,7 +17,7 @@ const ExploreComponent = ({ routes }) => {
                         <div key={data.routeId} className={styles.routeCard}>
                             <p className={styles.routeTitle}>{(data.routeData.name)}</p>
                             <div className={styles.routeStats}>
-                                <p className={styles.routeDistance}>00.00km</p>
+                                {/* <p className={styles.routeDistance}>00.00km</p> */}
                                 <p>{`${data.routeData.duration} minutes`}</p>
                             </div>
                         </div>

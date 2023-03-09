@@ -1,11 +1,25 @@
 import Link from 'next/link';
-import styles from './TrackComponent.module.scss'
+import styles from './TrackComponent.module.scss';
+import React, { useEffect, useState } from 'react';
 
-const TrackComponent = ({ routes }) => {
+const TrackComponent = ({ routes, routesNull }) => {
+    const [noRoutesState, setNoRoutesState] = useState('none');
+
+    useEffect(() => {
+        if (routesNull == true) {
+            setNoRoutesState('block');
+        } else {
+            setNoRoutesState('none');
+        };
+
+    }, []);
+
+    console.log(routesNull);
     return (
         <div className={styles.trackList}>
             <p className={styles.trackTitle}>Your create routes</p>
             <div className={styles.routesContainer}>
+                <p className={styles.noRoutes} style={{ 'display': noRoutesState }}>No saved routes</p>
                 {routes.map((data) => (
                     <Link
                         href={{

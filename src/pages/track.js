@@ -11,6 +11,7 @@ import RouteSearchComponent from 'Components/RouteSearchComponent/RouteSearchCom
 
 const Track = () => {
     const [routes, setRoutes] = useState([]);
+    const [routesNull, setRoutesNull] = useState(true);
 
     useEffect(() => {
         getUserRoutes();
@@ -27,6 +28,13 @@ const Track = () => {
         querySnapshot.forEach((doc) => {
             setRoutes(routes => [...routes, { routesId: doc.id, routeData: doc.data() }]);
         });
+
+        // console.log(routes.length);
+        if (routes.length == 0) {
+            setRoutesNull(true);
+        } else if (routes.length > 0) {
+            setRoutesNull(false);
+        };
     }
 
     return (
@@ -36,8 +44,8 @@ const Track = () => {
             </Head>
             <LayoutComponent>
                 <div className={styles.trackMain}>
-                    <TrackComponent routes={routes} />
-                    <RouteSearchComponent />
+                    <TrackComponent routes={routes} routesNull={routesNull} />
+                    {/* <RouteSearchComponent /> */}
                 </div>
                 {/* {routes.map((data) => (
                     <div key={data.routeId} className={styles.routeCard}>
