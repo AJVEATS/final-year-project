@@ -1,24 +1,35 @@
 import styles from '@/styles/pages/home.module.scss';
 import Base from 'Components/Layout/Base/BaseComponent';
 import LayoutComponent from 'Components/Layout/LayoutComponent/LayoutComponent';
-import ProfileComponent from 'Components/ProfileComponent/ProfileComponent';
-import { initializeApp } from 'firebase/app';
+import React, { useState, useEffect } from 'react';
 import { getAuth } from 'firebase/auth';
 import Head from 'next/head';
-import Image from 'next/image';
-import { firebaseConfig } from './api/FirebaseAPI';
 
 import MapBoxKey from '@/pages/api/MapBoxKey';
 import { firebaseApp } from './api/FirebaseApp';
+import { doc, getDoc, getFirestore } from 'firebase/firestore';
 
 const Home = () => {
+    const [username, setUserName] = useState('');
 
-    const app = initializeApp(firebaseConfig)
-    const auth = getAuth(app);
-    const user = auth.currentUser;
+    const auth = getAuth(firebaseApp);
+    const firebaseUID = auth.currentUser.uid;
+    const db = getFirestore(firebaseApp);
 
-    if (user) {
-        // console.log(user);
+    useEffect(() => {
+        getUserDetails();
+    }, []);
+
+    async function getUserDetails() {
+        const docRef = doc(db, 'users', firebaseUID);
+        const docSnap = await getDoc(docRef);
+
+        if (docSnap.exists()) {
+            console.log("Document data:", docSnap.data().firstname);
+            setUserName(` ${docSnap.data().firstname}`);
+        } else {
+            console.log("No such document!");
+        };
     }
 
     return (
@@ -27,6 +38,7 @@ const Home = () => {
                 <title>Home</title>
             </Head>
             <LayoutComponent>
+                <p className={styles.welcomeMessage}>Welcome {username}</p>
                 <img
                     className={styles.homeImage}
                     src={`https://api.mapbox.com/styles/v1/mapbox/streets-v11/static/-1.8782,50.7220,11,0/1270x900?access_token=${MapBoxKey.key}`} />

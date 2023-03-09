@@ -1,6 +1,8 @@
 .route {
   padding: 1% 2%;
   width: 100%;
+  overflow: scroll;
+  height: 100%;
 
   .routeName {
     font-size: 2.2em;

@@ -78,7 +78,7 @@ const Route = () => {
                             <div className={styles.accordionTitle}
                                 onClick={() => setIsActive(!isActive)}>
                                 <div>Route Directions</div>
-                                <div className={styles.accordionButton}>{isActive ? <FontAwesomeIcon icon={faCaretDown} size={'xs'} /> : <FontAwesomeIcon icon={faCaretUp} />}</div>
+                                <div className={styles.accordionButton}>{isActive ? <FontAwesomeIcon icon={faCaretUp} size={'xs'} /> : <FontAwesomeIcon icon={faCaretDown} />}</div>
                             </div>
                             {isActive && <div className={styles.accordionContent}>{displayDirections()}</div>}
                         </div>
