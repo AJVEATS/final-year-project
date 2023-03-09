@@ -1,17 +1,13 @@
 import Base from "Components/Layout/Base/BaseComponent";
 import LayoutComponent from "Components/Layout/LayoutComponent/LayoutComponent";
-
 import styles from '@/styles/pages/route.module.scss';
-
 import React, { useState, useEffect } from 'react';
 import Head from "next/head";
 import { useRouter } from "next/router";
 import { getAuth } from "firebase/auth";
 import { firebaseApp } from "../api/FirebaseApp";
 import { doc, getDoc, getFirestore } from "firebase/firestore";
-
-
-import { faCaretDown, faCaretUp } from "@fortawesome/free-solid-svg-icons";
+import { faCaretDown, faCaretUp, faStopwatch } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import RouteMapComponent from "Components/RouteMapComponent/RouteMapComponent";
 
@@ -74,16 +70,25 @@ const Route = () => {
                 <div className={styles.route}>
                     <p className={styles.routeName}>{route.name}</p>
                     <p className={styles.routeDescription}>{route.description}</p>
-                    <p className={styles.routeDuration}>{`${route.duration} minutes`}</p>
-                    <RouteMapComponent routeInfo={route} geoJsonPath={geoJsonPath} />
-                    <div className={styles.accordion}>
-                        <div className={styles.accordionItem}>
-                            <div className={styles.accordionTitle}
-                                onClick={() => setIsActive(!isActive)}>
-                                <div>Route Directions</div>
-                                <div className={styles.accordionButton}>{isActive ? <FontAwesomeIcon icon={faCaretUp} size={'xs'} /> : <FontAwesomeIcon icon={faCaretDown} />}</div>
+                    <div className={styles.routeMain}>
+                        <RouteMapComponent routeInfo={route} geoJsonPath={geoJsonPath} />
+                        <div className={styles.routeInfo}>
+                            <div className={styles.routeInfoContainer}>
+                                <div className={styles.routeDurationContainer}>
+                                    <FontAwesomeIcon icon={faStopwatch} />
+                                    <p>{`${route.duration} minutes`}</p>
+                                </div>
                             </div>
-                            {isActive && <div className={styles.accordionContent}>{displayDirections()}</div>}
+                            <div className={styles.accordion}>
+                                <div className={styles.accordionItem}>
+                                    <div className={styles.accordionTitle}
+                                        onClick={() => setIsActive(!isActive)}>
+                                        <div>Route Directions</div>
+                                        <div className={styles.accordionButton}>{isActive ? <FontAwesomeIcon icon={faCaretUp} size={'xs'} /> : <FontAwesomeIcon icon={faCaretDown} />}</div>
+                                    </div>
+                                    {isActive && <div className={styles.accordionContent}>{displayDirections()}</div>}
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>

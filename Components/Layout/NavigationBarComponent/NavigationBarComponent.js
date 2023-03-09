@@ -3,7 +3,6 @@ import styles from './navigationBarComponent.module.scss';
 import { faPersonWalking, faEllipsis } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
-
 const NavigationBarComponent = () => {
     return (
         <div className={styles.navigationBarComponent}>

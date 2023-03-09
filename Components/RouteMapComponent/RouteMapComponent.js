@@ -48,7 +48,7 @@ const RouteMapComponent = ({ routeInfo, geoJsonPath }) => {
                     'line-cap': 'round'
                 },
                 'paint': {
-                    'line-color': '#888',
+                    'line-color': '#306b34',
                     'line-width': 8
                 }
             });

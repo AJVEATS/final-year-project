@@ -7,9 +7,9 @@ const TrackComponent = ({ routes, routesNull }) => {
 
     useEffect(() => {
         if (routesNull == true) {
-            setNoRoutesState('block');
-        } else {
             setNoRoutesState('none');
+        } else if (routesNull == false) {
+            setNoRoutesState('block');
         };
 
     }, []);
