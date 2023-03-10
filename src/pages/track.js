@@ -6,12 +6,13 @@ import Head from 'next/head';
 import { getAuth } from 'firebase/auth';
 import { firebaseApp } from './api/FirebaseApp';
 import { collection, getDocs, getFirestore, query, where } from 'firebase/firestore';
-import TrackComponent from 'Components/TrackComponent/TrackComponent';
 import RouteSearchComponent from 'Components/RouteSearchComponent/RouteSearchComponent';
+import ExploreComponent from 'Components/ExploreComponent/ExploreComponent';
 
 const Track = () => {
     const [routes, setRoutes] = useState([]);
     const [routesNull, setRoutesNull] = useState(false);
+    const title = 'Your Created Routes';
 
     useEffect(() => {
         getUserRoutes();
@@ -26,7 +27,7 @@ const Track = () => {
         const querySnapshot = await getDocs(userRouteQuery);
         setRoutes([]);
         querySnapshot.forEach((doc) => {
-            setRoutes(routes => [...routes, { routesId: doc.id, routeData: doc.data() }]);
+            setRoutes(routes => [...routes, { routeId: doc.id, routeData: doc.data() }]);
         });
 
         console.log(Object.keys(routes).length);
@@ -43,7 +44,7 @@ const Track = () => {
             </Head>
             <LayoutComponent>
                 <div className={styles.trackMain}>
-                    <TrackComponent routes={routes} routesNull={routesNull} />
+                    <ExploreComponent routes={routes} routesNull={routesNull} title={title} />
                     {/* <RouteSearchComponent /> */}
                 </div>
                 {/* {routes.map((data) => (

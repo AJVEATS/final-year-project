@@ -1,14 +1,25 @@
-import { getPreciseDistance } from 'geolib';
 import Link from 'next/link';
 import styles from './ExploreComponent.module.scss';
+import React, { useEffect, useState } from 'react';
 
-const ExploreComponent = ({ routes }) => {
+const ExploreComponent = ({ routes, routesNull, title }) => {
+    const [noRoutesState, setNoRoutesState] = useState('none');
+
+    useEffect(() => {
+        if (routesNull == true) {
+            setNoRoutesState('block');
+        }
+
+    }, []);
     // console.log(routes);
+
+    console.log(routes);
 
     return (
         <div className={styles.exploreList}>
-            <p className={styles.exploreTitle}>Explore Community Routes</p>
+            <p className={styles.exploreTitle}>{title}</p>
             <div className={styles.routesContainer}>
+                <p className={styles.noRoutes} style={{ 'display': noRoutesState }}>No saved routes</p>
                 {routes.map((data) => (
                     <Link
                         href={{
@@ -19,6 +30,7 @@ const ExploreComponent = ({ routes }) => {
                             <div className={styles.routeStats}>
                                 {/* <p className={styles.routeDistance}>00.00km</p> */}
                                 <p>{`${data.routeData.duration} minutes`}</p>
+                                {/* <p>{data.routeId}</p> */}
                             </div>
                         </div>
                     </Link>

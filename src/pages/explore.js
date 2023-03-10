@@ -11,6 +11,8 @@ import { collection, getDocs, getFirestore, query, where } from 'firebase/firest
 import RouteSearchComponent from 'Components/RouteSearchComponent/RouteSearchComponent';
 const Explore = () => {
     const [routes, setRoutes] = useState([]);
+    const [routesNull, setRoutesNull] = useState(false);
+    const title = 'Explore Community Made Routes';
     useEffect(() => {
         getPublicRoutes();
     }, []);
@@ -27,6 +29,11 @@ const Explore = () => {
             // routes.push({ routeId: doc.id, routeData: doc.data() });
             // console.log(doc.id, " => ", doc.data()); // For Testing
         });
+
+        console.log(Object.keys(routes).length);
+        if (Object.keys(routes).length === 0) {
+            setRoutesNull(true);
+        };
     };
 
     return (
@@ -36,7 +43,7 @@ const Explore = () => {
             </Head>
             <LayoutComponent>
                 <div className={styles.exploreMain}>
-                    <ExploreComponent routes={routes} />
+                    <ExploreComponent routes={routes} routesNull={routesNull} title={title} />
                     {/* <RouteSearchComponent /> */}
                 </div>
             </LayoutComponent>
