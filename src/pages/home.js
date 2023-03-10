@@ -25,7 +25,7 @@ const Home = () => {
         const docSnap = await getDoc(docRef);
 
         if (docSnap.exists()) {
-            console.log("Document data:", docSnap.data().firstname);
+            // console.log("Document data:", docSnap.data().firstname);
             setUserName(` ${docSnap.data().firstname}`);
         } else {
             console.log("No such document!");

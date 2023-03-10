@@ -1,7 +1,7 @@
 import styles from './DrawFormComponent.module.scss';
 import { useState } from 'react';
 
-const DrawFormComponent = ({ formState, setFormState, setPrivacy, setName, setDescription, name, description, uploadRoute }) => {
+const DrawFormComponent = ({ formState, setFormState, setPrivacy, setName, setDescription, name, description, uploadRoute, setDifficulty }) => {
 
     const cancel = () => {
         console.log('cancel initiated');
@@ -34,6 +34,17 @@ const DrawFormComponent = ({ formState, setFormState, setPrivacy, setName, setDe
                 <label>
                     Description
                     <textarea value={description} onChange={e => setDescription(e.target.value)} />
+                </label>
+                <label>
+                    Route Difficulty:
+                    <select name='difficulty' onChange={(e => {
+                        setDifficulty(e.target.value);
+                        console.log(e.target.value)
+                    })}>
+                        <option value={'beginner'}>Beginner</option>
+                        <option value={'medium'}>Medium</option>
+                        <option value={'advanced'}>Advanced</option>
+                    </select>
                 </label>
                 <label>
                     Route Visibility:

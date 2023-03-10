@@ -20,7 +20,6 @@ import { useRouter } from 'next/router';
 mapboxgl.accessToken = MapBoxKey.key;
 
 const DrawComponent = () => {
-
     const mapContainer = useRef(null);
     const map = useRef(null);
     const [lng, setLng] = useState(-1.891988);
@@ -34,6 +33,7 @@ const DrawComponent = () => {
     const [privacy, setPrivacy] = useState('public');
     const [name, setName] = useState('');
     const [description, setDescription] = useState('');
+    const [difficulty, setDifficulty] = useState('beginner');
 
     const [formState, setFormState] = useState('none');
 
@@ -192,7 +192,7 @@ const DrawComponent = () => {
                 drawnRoute[coordinates] = nextCoordinates;
             }
             console.log(drawnRoute);
-            console.log(calculateDistance(drawnRoute));
+            // console.log(calculateDistance(drawnRoute));
             getInstructions(response.matchings[0]);
         }
 
@@ -264,42 +264,55 @@ const DrawComponent = () => {
         setFormState('block');
     };
 
+
+
     const uploadRoute = () => {
+        const auth = getAuth();
+        const firebaseUID = auth.currentUser.uid;
+        const timeStamp = moment().format('YYYY-MM-DD~hh:mm:ss');
+
+        const redirectUser = () => {
+            router.push(`/routes/${firebaseUID.concat(timeStamp)}`);
+        }
+
         try {
-            const auth = getAuth();
-            const firebaseUID = auth.currentUser.uid;
             const db = getFirestore(firebaseApp);
+
+            console.log(difficulty);
+            console.log(typeof difficulty);
 
             const routeObject = {
                 uid: firebaseUID,
                 name: name,
                 description: description,
-                date: serverTimestamp(),
+                date: moment().format('YYYY-MM-DD'),
+                time: moment().format('hh:mm:ss'),
                 route: drawnRoute,
                 directions: directions,
                 duration: duration,
+                difficulty: difficulty,
                 privacy: privacy,
             };
 
-            const collectionRef = doc(db, 'routes', `${firebaseUID.concat(moment().format('YYYY-MM-DD~hh:mm:ss'))}`);
+            const collectionRef = doc(db, 'routes', `${firebaseUID.concat(timeStamp)}`);
 
             setDoc(collectionRef, routeObject, { merge: true });
 
             setFormState('hidden');
             alert('Your route has been saved 🥳');
 
+            redirectUser();
+
         } catch (e) {
             console.error(`Error adding document: ${e}`);
             alert(`Error uploading route - ${e}`);
         }
-
-        router.push('/track');
     };
 
     return (
         <div>
             <div ref={mapContainer} className={styles.mapContainer} />
-            <DrawFormComponent formState={formState} setFormState={setFormState} setPrivacy={setPrivacy} setName={setName} setDescription={setDescription} name={name} description={description} uploadRoute={uploadRoute} />
+            <DrawFormComponent formState={formState} setFormState={setFormState} setPrivacy={setPrivacy} setName={setName} setDescription={setDescription} name={name} description={description} uploadRoute={uploadRoute} setDifficulty={setDifficulty} />
             <button onClick={() => saveRouteButton()} className={styles.saveButton}>Save</button>
         </div>
     );
