@@ -16,7 +16,7 @@ const RouteMapComponent = ({ routeInfo, geoJsonPath }) => {
 
     useEffect(() => {
         startingCoordinates.push(geoJsonPath[0]);
-        // console.log(routeInfo.route['0']['latitude']);
+        console.log(routeInfo.route);
         console.log(geoJsonPath[0]);
         if (map.current) return; // initialize map only once
         map.current = new mapboxgl.Map({
@@ -25,7 +25,6 @@ const RouteMapComponent = ({ routeInfo, geoJsonPath }) => {
             center: [lng, lat],
             zoom: zoom
         });
-
 
         map.current.on('load', () => {
             map.current.addSource('route', {

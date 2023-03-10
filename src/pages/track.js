@@ -11,7 +11,7 @@ import RouteSearchComponent from 'Components/RouteSearchComponent/RouteSearchCom
 
 const Track = () => {
     const [routes, setRoutes] = useState([]);
-    const [routesNull, setRoutesNull] = useState(true);
+    const [routesNull, setRoutesNull] = useState(false);
 
     useEffect(() => {
         getUserRoutes();
@@ -29,12 +29,11 @@ const Track = () => {
             setRoutes(routes => [...routes, { routesId: doc.id, routeData: doc.data() }]);
         });
 
-        // console.log(routes.length);
-        if (routes.length == 0) {
+        console.log(Object.keys(routes).length);
+        if (Object.keys(routes).length === 0) {
             setRoutesNull(true);
-        } else if (routes.length > 0) {
-            setRoutesNull(false);
         };
+
     }
 
     return (

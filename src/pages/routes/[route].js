@@ -15,6 +15,7 @@ const Route = () => {
     const [route, setRoute] = useState({});
     const [isActive, setIsActive] = useState(false);
     const [geoJsonPath, setGeoJsonPath] = useState([]);
+    const [isAuthor, setIsAuthor] = useState(false);
 
     const router = useRouter();
     const routeId = router.query.route;
@@ -28,13 +29,20 @@ const Route = () => {
     // console.log(routeId);
 
     async function getRoute() {
+        const auth = getAuth(firebaseApp);
         const db = getFirestore(firebaseApp);
         const docRef = doc(db, 'routes', routeId);
         const docSnap = await getDoc(docRef);
+        const uid = (auth.currentUser.uid);
+        console.log(uid);
 
         if (docSnap.exists()) {
             // console.log("Document data:", docSnap.data());
             setRoute({ ...docSnap.data() });
+
+            if (route.uid === uid) {
+                console.log('this is your route');
+            }
         } else {
             console.log("No such document!");
         }
@@ -69,11 +77,11 @@ const Route = () => {
             <LayoutComponent>
                 <div className={styles.route}>
                     <p className={styles.routeName}>{route.name}</p>
-                    <p className={styles.routeDescription}>{route.description}</p>
                     <div className={styles.routeMain}>
                         <RouteMapComponent routeInfo={route} geoJsonPath={geoJsonPath} />
                         <div className={styles.routeInfo}>
                             <div className={styles.routeInfoContainer}>
+                                <p className={styles.routeDescription}>{route.description}</p>
                                 <div className={styles.routeDurationContainer}>
                                     <FontAwesomeIcon icon={faStopwatch} />
                                     <p>{`${route.duration} minutes`}</p>
