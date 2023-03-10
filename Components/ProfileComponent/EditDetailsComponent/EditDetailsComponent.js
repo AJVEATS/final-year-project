@@ -1,11 +1,11 @@
 import styles from './EditDetailsComponent.module.scss';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Head from 'next/head';
 import { doc, setDoc } from 'firebase/firestore';
 import { getAuth } from 'firebase/auth';
 import DeleteAccountComponent from '../DeleteAccountComponent/DeleteAccountComponent';
 
-const EditDetailsComponents = ({ db, firebaseUID, auth }) => {
+const EditDetailsComponents = ({ db, firebaseUID, auth, user }) => {
     const [firstname, setFirstname] = useState('');
     const [lastname, setLastname] = useState('');
     const [location, setLocation] = useState('');
@@ -14,7 +14,14 @@ const EditDetailsComponents = ({ db, firebaseUID, auth }) => {
     const [popUpState, setPopUpState] = useState('none');
     const [password, setPassword] = useState('');
 
-    // console.log(firebaseUID);
+    useEffect(() => {
+        setFirstname(user.firstname);
+        setLastname(user.lastname)
+        setLocation(user.location);
+        setBio(user.bio);
+    }, [user]);
+
+    // console.log(user);
 
     const openDeleteAccountPopUp = () => {
         console.log('openDeleteAccountPopUp initiated');
@@ -103,10 +110,10 @@ const EditDetailsComponents = ({ db, firebaseUID, auth }) => {
                     Bio
                     <textarea value={bio} onChange={e => setBio(e.target.value)} />
                 </label>
-                <button type='button' value='' onClick={() => openDeleteAccountPopUp()}>Delete Account</button>
+                {/* <button type='button' value='' onClick={() => openDeleteAccountPopUp()}>Delete Account</button> */}
                 <button type='button' value='' onClick={() => handleEditDetailForm()}>Save</button>
             </form>
-            <DeleteAccountComponent popUpState={popUpState} setPopUpState={setPopUpState} auth={auth} />
+            {/* <DeleteAccountComponent popUpState={popUpState} setPopUpState={setPopUpState} auth={auth} /> */}
         </div>
     )
 }
