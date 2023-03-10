@@ -13,7 +13,7 @@ const ExploreComponent = ({ routes, routesNull, title }) => {
     }, []);
     // console.log(routes);
 
-    console.log(routes);
+    // console.log(routes);
 
     return (
         <div className={styles.exploreList}>

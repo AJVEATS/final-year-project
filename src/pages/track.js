@@ -30,7 +30,7 @@ const Track = () => {
             setRoutes(routes => [...routes, { routeId: doc.id, routeData: doc.data() }]);
         });
 
-        console.log(Object.keys(routes).length);
+        // console.log(Object.keys(routes).length);
         if (Object.keys(routes).length === 0) {
             setRoutesNull(true);
         };
@@ -47,13 +47,6 @@ const Track = () => {
                     <ExploreComponent routes={routes} routesNull={routesNull} title={title} />
                     {/* <RouteSearchComponent /> */}
                 </div>
-                {/* {routes.map((data) => (
-                    <div key={data.routeId} className={styles.routeCard}>
-                        <p>{(data.routeData.name)}</p>
-                        <p>{data.routeData.privacy}</p>
-                        <p>{`${data.routeData.duration} minutes`}</p>
-                    </div>
-                ))} */}
             </LayoutComponent>
         </Base>
     );

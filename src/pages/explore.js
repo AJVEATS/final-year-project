@@ -30,7 +30,7 @@ const Explore = () => {
             // console.log(doc.id, " => ", doc.data()); // For Testing
         });
 
-        console.log(Object.keys(routes).length);
+        // console.log(Object.keys(routes).length);
         if (Object.keys(routes).length === 0) {
             setRoutesNull(true);
         };

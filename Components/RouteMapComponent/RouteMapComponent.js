@@ -12,46 +12,43 @@ const RouteMapComponent = ({ routeInfo, geoJsonPath }) => {
     const [lat, setLat] = useState(50.742229);
     const [zoom, setZoom] = useState(13);
     const [startingCoordinates, setStartingCoordinates] = useState([]);
-    // const [geoJsonPath, setGeoJsonPath] = useState([]);
 
     useEffect(() => {
-        startingCoordinates.push(geoJsonPath[0]);
-        console.log(routeInfo.route);
-        console.log(geoJsonPath[0]);
-        if (map.current) return; // initialize map only once
-        map.current = new mapboxgl.Map({
-            container: mapContainer.current,
-            style: 'mapbox://styles/mapbox/streets-v12',
-            center: [lng, lat],
-            zoom: zoom
-        });
+        // startingCoordinates.push(geoJsonPath[0]);
+        // if (map.current) return; // initialize map only once
+        // map.current = new mapboxgl.Map({
+        //     container: mapContainer.current,
+        //     style: 'mapbox://styles/mapbox/streets-v12',
+        //     center: [lng, lat],
+        //     zoom: zoom
+        // });
 
-        map.current.on('load', () => {
-            map.current.addSource('route', {
-                'type': 'geojson',
-                'data': {
-                    'type': 'Feature',
-                    'properties': {},
-                    'geometry': {
-                        'type': 'LineString',
-                        'coordinates': geoJsonPath
-                    }
-                }
-            });
-            map.current.addLayer({
-                'id': 'route',
-                'type': 'line',
-                'source': 'route',
-                'layout': {
-                    'line-join': 'round',
-                    'line-cap': 'round'
-                },
-                'paint': {
-                    'line-color': '#306b34',
-                    'line-width': 8
-                }
-            });
-        });
+        // map.current.on('load', () => {
+        //     map.current.addSource('route', {
+        //         'type': 'geojson',
+        //         'data': {
+        //             'type': 'Feature',
+        //             'properties': {},
+        //             'geometry': {
+        //                 'type': 'LineString',
+        //                 'coordinates': geoJsonPath
+        //             }
+        //         }
+        //     });
+        //     map.current.addLayer({
+        //         'id': 'route',
+        //         'type': 'line',
+        //         'source': 'route',
+        //         'layout': {
+        //             'line-join': 'round',
+        //             'line-cap': 'round'
+        //         },
+        //         'paint': {
+        //             'line-color': '#306b34',
+        //             'line-width': 8
+        //         }
+        //     });
+        // });
 
     }, []);
 
@@ -66,7 +63,7 @@ const RouteMapComponent = ({ routeInfo, geoJsonPath }) => {
 
     return (
         <div className={styles.routeMapComponent}>
-            <div ref={mapContainer} className={styles.mapContainer} />
+            {/* <div ref={mapContainer} className={styles.mapContainer} /> */}
         </div>
     );
 }

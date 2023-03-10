@@ -11,11 +11,6 @@
     width: fit-content;
   }
 
-  .routeDescription {
-    font-size: 1.4em;
-    margin-bottom: 0.5em;
-  }
-
   .routeDuration {
   }
 
@@ -32,13 +27,34 @@
     .routeInfoContainer {
       margin-bottom: 0.5em;
 
-      .routeDurationContainer {
+      .routeDescriptionContainer {
+        .routeDescriptionTitle {
+          font-size: 1.7em;
+          font-weight: bold;
+          margin-bottom: 0.25em;
+        }
+
+        .routeDescription {
+          font-size: 1.5em;
+          margin-bottom: 0.5em;
+          margin-left: 0.1em;
+        }
+      }
+
+      .routeDurationContainer,
+      .routeDifficultyContainer {
         display: flex;
         align-items: center;
+        margin-bottom: 0.5em;
 
         svg {
           margin-right: 0.5em;
           width: 2em;
+        }
+
+        p {
+          font-size: 1.7em;
+          text-transform: capitalize;
         }
       }
     }
@@ -80,5 +96,9 @@
         }
       }
     }
+  }
+
+  .formButton {
+    margin-left: 0;
   }
 }
