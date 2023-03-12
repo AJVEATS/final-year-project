@@ -30,11 +30,32 @@ button {
   cursor: pointer;
 
   &:hover {
-    background-color: lightgrey;
+    background-color: #306b34;
+    color: white;
+    border: #306b34 1px solid;
   }
 }
 
 p {
   margin-block-end: 0;
   margin-block-start: 0;
+}
+
+textarea,
+input,
+select {
+  border: 2px black solid;
+  border-radius: 4px;
+  font-family: Gotham;
+  color: black;
+  // font-weight: bold;
+}
+
+label {
+  display: block;
+  margin-bottom: 0.5%;
+
+  #text {
+    margin-right: 0.5%;
+  }
 }

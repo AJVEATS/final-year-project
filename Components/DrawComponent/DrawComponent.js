@@ -1,25 +1,20 @@
 import styles from './DrawComponent.module.scss';
 import { firebaseApp } from '@/pages/api/FirebaseApp';
-import { doc, getFirestore, setDoc, serverTimestamp } from "firebase/firestore";
+import { doc, getFirestore, setDoc } from "firebase/firestore";
 import React, { useState, useEffect, useRef } from 'react';
 import MapBoxKey from '@/pages/api/MapBoxKey';
 import mapboxgl from '!mapbox-gl';
-
 import moment from 'moment/moment';
-
-
 import MapboxDraw from '@mapbox/mapbox-gl-draw';
 import '@mapbox/mapbox-gl-draw/dist/mapbox-gl-draw.css'
 import { getAuth } from 'firebase/auth';
-
-import { getDistance, getPreciseDistance } from 'geolib';
 import DrawFormComponent from './DrawFormComponent/DrawFormComponent';
-import { redirect } from 'next/dist/server/api-utils';
 import { useRouter } from 'next/router';
 
 mapboxgl.accessToken = MapBoxKey.key;
 
 const DrawComponent = () => {
+
     const mapContainer = useRef(null);
     const map = useRef(null);
     const [lng, setLng] = useState(-1.891988);
@@ -30,16 +25,16 @@ const DrawComponent = () => {
     const [drawnRoute, setdrawnRoute] = useState({});
     const [directions, setDirections] = useState([]);
 
+    const [formState, setFormState] = useState('none');
     const [privacy, setPrivacy] = useState('public');
     const [name, setName] = useState('');
     const [description, setDescription] = useState('');
     const [difficulty, setDifficulty] = useState('beginner');
 
-    const [formState, setFormState] = useState('none');
-
     const router = useRouter();
 
     useEffect(() => {
+
         if (map.current) return; // initialize map only once
         map.current = new mapboxgl.Map({
             container: mapContainer.current,
@@ -312,8 +307,20 @@ const DrawComponent = () => {
     return (
         <div>
             <div ref={mapContainer} className={styles.mapContainer} />
-            <DrawFormComponent formState={formState} setFormState={setFormState} setPrivacy={setPrivacy} setName={setName} setDescription={setDescription} name={name} description={description} uploadRoute={uploadRoute} setDifficulty={setDifficulty} />
-            <button onClick={() => saveRouteButton()} className={styles.saveButton}>Save</button>
+            <DrawFormComponent
+                formState={formState}
+                setFormState={setFormState}
+                setPrivacy={setPrivacy}
+                setName={setName}
+                setDescription={setDescription}
+                name={name}
+                description={description}
+                uploadRoute={uploadRoute}
+                setDifficulty={setDifficulty}
+            />
+            <button onClick={() => saveRouteButton()} className={styles.saveButton}>
+                Save
+            </button>
         </div>
     );
 }

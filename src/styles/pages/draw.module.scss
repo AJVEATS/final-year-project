@@ -1,0 +1,28 @@
+.drawInterface {
+  color: black;
+  //   background-color: white;
+  position: fixed;
+  z-index: 2;
+  margin: 0.5em 0.5em;
+
+  p {
+    background-color: white;
+    border-radius: 4px;
+
+    font-size: 2.2em;
+    padding: 0.3em;
+    width: fit-content;
+
+    svg {
+      width: 1em;
+      margin-right: 0.5em;
+    }
+  }
+
+  .subTitle {
+    margin-top: 0.5em;
+    font-size: 1.2em;
+    padding: 0.5em;
+    display: flex;
+  }
+}

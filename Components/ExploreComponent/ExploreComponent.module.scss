@@ -1,6 +1,7 @@
 .exploreList {
   margin: 0% 0% 0% 1%;
-  width: 79%;
+  // width: 79%;
+  width: 100%;
   height: 100%;
 
   a {
@@ -43,7 +44,8 @@
 
   .routesContainer {
     overflow: scroll;
-    height: 80%;
+    // height: 80%;
+    height: 93vh;
 
     .routeCard {
       border: 2px black solid;

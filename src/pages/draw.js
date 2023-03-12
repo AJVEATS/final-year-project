@@ -1,23 +1,12 @@
-import styles from '@/styles/pages/home.module.scss';
+import styles from '@/styles/pages/draw.module.scss';
 import DrawComponent from 'Components/DrawComponent/DrawComponent';
-import DrawFormComponent from 'Components/DrawComponent/DrawFormComponent/DrawFormComponent';
 import Base from 'Components/Layout/Base/BaseComponent';
 import LayoutComponent from 'Components/Layout/LayoutComponent/LayoutComponent';
-import { initializeApp } from 'firebase/app';
-import { getAuth } from 'firebase/auth';
+import { faCircleInfo } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Head from 'next/head';
-import { firebaseConfig } from './api/FirebaseAPI';
-import { firebaseApp } from './api/FirebaseApp';
 
 const Draw = () => {
-
-    const app = initializeApp(firebaseConfig)
-    const auth = getAuth(app);
-    const user = auth.currentUser;
-
-    if (user) {
-        // console.log(user);
-    }
 
     return (
         <Base>
@@ -25,6 +14,13 @@ const Draw = () => {
                 <title>Draw</title>
             </Head>
             <LayoutComponent>
+                <div className={styles.drawInterface}>
+                    <p>Draw a new route</p>
+                    <p className={styles.subTitle}>
+                        <FontAwesomeIcon icon={faCircleInfo} />
+                        Double click to add your first point
+                    </p>
+                </div>
                 <DrawComponent />
             </LayoutComponent>
         </Base>

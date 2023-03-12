@@ -3,14 +3,68 @@
   position: absolute;
   height: auto;
   margin: 10% auto;
-  background-color: lightcoral;
   top: 0;
   left: 15%;
+  background-color: #306b34;
+  color: white;
   z-index: 1;
 
   .formTitle {
+    margin: 2% 0 0 2%;
+    font-size: 1.5em;
   }
 
   .drawForm {
+    margin: 1% 2% 2% 2%;
+    width: 96%;
+
+    label {
+      display: flex;
+
+      p {
+        font-size: 1.5em;
+        margin-right: 0.5em;
+      }
+
+      select {
+        font-size: 1.4em;
+      }
+    }
+
+    .routeName {
+      width: 100%;
+      font-size: 1.1em;
+    }
+    .routeDescription {
+      height: 5em;
+      width: 100%;
+      font-size: 0.8em;
+    }
+
+    .routeSelectContainer {
+      display: flex;
+      justify-content: space-evenly;
+      align-items: center;
+      flex-wrap: nowrap;
+      width: 100%;
+      margin: 1em 0 0 0;
+    }
+
+    .buttonContainer {
+      display: flex;
+      justify-content: space-evenly;
+      align-items: center;
+      flex-wrap: nowrap;
+
+      button {
+        font-size: 1.3em;
+        margin-bottom: 0.5em;
+        border: 2px solid black;
+
+        &:hover {
+          border: 2px solid white;
+        }
+      }
+    }
   }
 }

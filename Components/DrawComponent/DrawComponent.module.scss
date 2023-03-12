@@ -12,4 +12,12 @@
   bottom: 2%;
   right: 1%;
   z-index: 2;
+  border: solid black 2px;
+  font-size: 1.3em;
+  background-color: white;
+  padding: 0.2em 0.5em;
+
+  &:hover {
+    border: 2px solid #306b34;
+  }
 }

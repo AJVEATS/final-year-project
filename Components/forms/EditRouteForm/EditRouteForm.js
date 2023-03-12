@@ -1,6 +1,8 @@
 import styles from './EditRouteForm.module.scss';
 import React, { useState, useEffect } from 'react';
 import { doc, setDoc } from 'firebase/firestore';
+import { faPenToSquare } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useRouter } from 'next/router';
 
 const EditRouteForm = ({ displaySetting, route, setDisplaySetting, uid, db, routeId }) => {
@@ -32,8 +34,9 @@ const EditRouteForm = ({ displaySetting, route, setDisplaySetting, uid, db, rout
             const collectionRef = doc(db, 'routes', routeId);
 
             setDoc(collectionRef, route, { merge: true });
+            setDisplaySetting('none');
             alert('The route details have been updated');
-            router.push(`/explore`);
+            router.push(`/routes/${routeId}`);
         } catch (e) {
             console.error(`Error adding document: ${e}`);
         }
@@ -41,10 +44,12 @@ const EditRouteForm = ({ displaySetting, route, setDisplaySetting, uid, db, rout
 
     return (
         <div className={styles.editRouteFormContainer} style={{ 'display': displaySetting }}>
-            <p>Edit Route Details</p>
+            <p className={styles.title}>
+
+                <FontAwesomeIcon icon={faPenToSquare} />
+                Update Route Details</p>
             <form className={styles.editRouteForm}>
                 <label>
-                    Name:
                     <input
                         type='text'
                         id='name'
@@ -57,32 +62,35 @@ const EditRouteForm = ({ displaySetting, route, setDisplaySetting, uid, db, rout
                     />
                 </label>
                 <label>
-                    Description
                     <textarea value={description} onChange={e => setDescription(e.target.value)} />
                 </label>
-                <label>
-                    Route Difficulty:
-                    <select name='difficulty' onChange={(e => {
-                        setDifficulty(e.target.value);
-                        console.log(e.target.value)
-                    })}>
-                        <option value={'beginner'}>Beginner</option>
-                        <option value={'medium'}>Medium</option>
-                        <option value={'advanced'}>Advanced</option>
-                    </select>
-                </label>
-                <label>
-                    Route Visibility:
-                    <select name='privacy' onChange={(e => {
-                        setPrivacy(e.target.value);
-                        console.log(e.target.value)
-                    })}>
-                        <option value={'public'}>Public</option>
-                        <option value={'private'}>Private</option>
-                    </select>
-                </label>
-                <button type='button' value='' onClick={() => closeForm()}>Cancel</button>
-                <button type='button' value='' onClick={() => editRouteDetails()}>Update Route</button>
+                <div className={styles.formSelects}>
+                    <label>
+                        <p>Route Difficulty:</p>
+                        <select name='difficulty' onChange={(e => {
+                            setDifficulty(e.target.value);
+                            console.log(e.target.value)
+                        })}>
+                            <option value={'beginner'}>Beginner</option>
+                            <option value={'medium'}>Medium</option>
+                            <option value={'advanced'}>Advanced</option>
+                        </select>
+                    </label>
+                    <label>
+                        <p>Route Visibility:</p>
+                        <select name='privacy' onChange={(e => {
+                            setPrivacy(e.target.value);
+                            console.log(e.target.value)
+                        })}>
+                            <option value={'public'}>Public</option>
+                            <option value={'private'}>Private</option>
+                        </select>
+                    </label>
+                </div>
+                <div className={styles.formButtons}>
+                    <button type='button' value='' onClick={() => closeForm()}>Cancel</button>
+                    <button type='button' value='' onClick={() => editRouteDetails()}>Update Route</button>
+                </div>
             </form>
         </div>
     )

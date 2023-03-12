@@ -8,13 +8,68 @@ mapboxgl.accessToken = MapBoxKey.key;
 const RouteMapComponent = ({ routeInfo, geoJsonPath }) => {
     const mapContainer = useRef(null);
     const map = useRef(null);
-    const [lng, setLng] = useState(-1.891988);
-    const [lat, setLat] = useState(50.742229);
     const [zoom, setZoom] = useState(13);
-    const [startingCoordinates, setStartingCoordinates] = useState([]);
+
 
     useEffect(() => {
-        // startingCoordinates.push(geoJsonPath[0]);
+        if (routeInfo.route) {
+
+            // if (map.current) return; // initialize map only once
+            map.current = new mapboxgl.Map({
+                container: mapContainer.current,
+                style: 'mapbox://styles/mapbox/streets-v12',
+                center: [routeInfo.route[0]['latitude'], routeInfo.route[0]['longitude']],
+                zoom: zoom
+            });
+
+            map.current.on('load', () => {
+                map.current.addSource('route', {
+                    'type': 'geojson',
+                    'data': {
+                        'type': 'Feature',
+                        'properties': {},
+                        'geometry': {
+                            'type': 'LineString',
+                            'coordinates': geoJsonPath
+                        }
+                    }
+                });
+                map.current.addLayer({
+                    'id': 'route',
+                    'type': 'line',
+                    'source': 'route',
+                    'layout': {
+                        'line-join': 'round',
+                        'line-cap': 'round'
+                    },
+                    'paint': {
+                        'line-color': '#306b34',
+                        'line-width': 8
+                    }
+                });
+            });
+
+            const coordinates = geoJsonPath;
+
+            // Create a 'LngLatBounds' with both corners at the first coordinate.
+            const bounds = new mapboxgl.LngLatBounds(
+                coordinates[0],
+                coordinates[0]
+            );
+
+            // Extend the 'LngLatBounds' to include every coordinate in the bounds result.
+            for (const coord of coordinates) {
+                bounds.extend(coord);
+            }
+
+            map.current.fitBounds(bounds, {
+                padding: 20
+            });
+        }
+    }, [routeInfo]);
+
+    useEffect(() => {
+
         // if (map.current) return; // initialize map only once
         // map.current = new mapboxgl.Map({
         //     container: mapContainer.current,
@@ -50,20 +105,11 @@ const RouteMapComponent = ({ routeInfo, geoJsonPath }) => {
         //     });
         // });
 
-    }, []);
-
-    // useEffect(() => {
-    //     if (!map.current) return; // wait for map to initialize
-    //     map.current.on('move', () => {
-    //         setLng(map.current.getCenter().lng.toFixed(4));
-    //         setLat(map.current.getCenter().lat.toFixed(4));
-    //         setZoom(map.current.getZoom().toFixed(2));
-    //     });
-    // });
+    });
 
     return (
         <div className={styles.routeMapComponent}>
-            {/* <div ref={mapContainer} className={styles.mapContainer} /> */}
+            <div ref={mapContainer} className={styles.mapContainer} />
         </div>
     );
 }
