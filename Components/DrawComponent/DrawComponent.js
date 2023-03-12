@@ -10,6 +10,8 @@ import '@mapbox/mapbox-gl-draw/dist/mapbox-gl-draw.css'
 import { getAuth } from 'firebase/auth';
 import DrawFormComponent from './DrawFormComponent/DrawFormComponent';
 import { useRouter } from 'next/router';
+import { faFloppyDisk } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 mapboxgl.accessToken = MapBoxKey.key;
 
@@ -319,6 +321,9 @@ const DrawComponent = () => {
                 setDifficulty={setDifficulty}
             />
             <button onClick={() => saveRouteButton()} className={styles.saveButton}>
+
+
+                <FontAwesomeIcon icon={faFloppyDisk} />
                 Save
             </button>
         </div>

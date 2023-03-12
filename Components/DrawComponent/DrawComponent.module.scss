@@ -16,6 +16,12 @@
   font-size: 1.3em;
   background-color: white;
   padding: 0.2em 0.5em;
+  display: flex;
+
+  svg {
+    width: 1em;
+    margin-right: 0.5em;
+  }
 
   &:hover {
     border: 2px solid #306b34;
