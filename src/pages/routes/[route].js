@@ -6,8 +6,8 @@ import Head from "next/head";
 import { useRouter } from "next/router";
 import { getAuth } from "firebase/auth";
 import { firebaseApp } from "../api/FirebaseApp";
-import { doc, getDoc, getFirestore } from "firebase/firestore";
-import { faCaretDown, faCaretUp, faStopwatch, faPersonHiking, faHiking } from "@fortawesome/free-solid-svg-icons";
+import { deleteDoc, doc, getDoc, getFirestore } from "firebase/firestore";
+import { faCaretDown, faCaretUp, faStopwatch, faTrash, faHiking, faPenToSquare } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import RouteMapComponent from "Components/RouteMapComponent/RouteMapComponent";
 import EditRouteForm from "Components/forms/EditRouteForm/EditRouteForm";
@@ -24,7 +24,6 @@ const Route = () => {
 
     useEffect(() => {
         getRoute();
-        // console.log(route);
     }, []);
 
 
@@ -49,7 +48,7 @@ const Route = () => {
 
             if (docSnap.data().uid == uid) {
                 // console.log('this is your route');
-                setIsAuthor('block');
+                setIsAuthor('flex');
             }
         } else {
             console.log("No such document!");
@@ -82,6 +81,14 @@ const Route = () => {
         } else if (formState == 'block') {
             setFormState('none');
         }
+    }
+
+    async function deleteRoute() {
+        console.log('deleteRoute() initiated');
+        await deleteDoc(doc(db, 'routes', routeId));
+        alert('Your route has been deleted');
+        router.push('/explore');
+        return null;
     }
 
     return (
@@ -121,7 +128,16 @@ const Route = () => {
                             </div>
                         </div>
                     </div>
-                    <button className={styles.formButton} style={{ 'display': isAuthor }} onClick={() => handleForm()}>Edit Route Details</button>
+                    <div className={styles.routeButtons} style={{ 'display': isAuthor }}>
+                        <button id='edit' className={styles.formButton} onClick={() => handleForm()}>
+                            <FontAwesomeIcon icon={faPenToSquare} />
+                            Edit Route Details
+                        </button>
+                        <button id='delete' className={styles.formButton} onClick={() => deleteRoute()}>
+                            <FontAwesomeIcon icon={faTrash} />
+                            Delete Route
+                        </button>
+                    </div>
                     <EditRouteForm displaySetting={formState} route={route} setDisplaySetting={setFormState} uid={uid} db={db} routeId={routeId} />
                 </div>
             </LayoutComponent>

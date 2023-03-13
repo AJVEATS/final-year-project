@@ -60,6 +60,20 @@
       .routeStats {
         display: flex;
 
+        .routeDuration,
+        .routeDifficulty {
+          display: flex;
+          margin-right: 1em;
+
+          svg {
+            width: 1em;
+            margin-right: 0.2em;
+          }
+
+          p {
+          }
+        }
+
         .routeDistance {
           margin-right: 1%;
         }

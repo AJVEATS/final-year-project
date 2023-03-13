@@ -18,87 +18,104 @@
     width: 100%;
     height: 50%;
     display: flex;
-  }
 
-  .routeInfo {
-    padding: 0.75em;
-    padding-top: 0;
+    .routeInfo {
+      padding: 0.75em;
+      padding-top: 0;
 
-    .routeInfoContainer {
-      margin-bottom: 0.5em;
-
-      .routeDescriptionContainer {
-        .routeDescriptionTitle {
-          font-size: 1.7em;
-          font-weight: bold;
-          margin-bottom: 0.25em;
-        }
-
-        .routeDescription {
-          font-size: 1.5em;
-          margin-bottom: 0.5em;
-          margin-left: 0.1em;
-        }
-      }
-
-      .routeDurationContainer,
-      .routeDifficultyContainer {
-        display: flex;
-        align-items: center;
+      .routeInfoContainer {
         margin-bottom: 0.5em;
 
-        svg {
-          margin-right: 0.5em;
-          width: 2em;
+        .routeDescriptionContainer {
+          .routeDescriptionTitle {
+            font-size: 1.7em;
+            font-weight: bold;
+            margin-bottom: 0.25em;
+          }
+
+          .routeDescription {
+            font-size: 1.5em;
+            margin-bottom: 0.5em;
+            margin-left: 0.1em;
+          }
         }
 
-        p {
-          font-size: 1.7em;
-          text-transform: capitalize;
-        }
-      }
-    }
-
-    .accordion {
-      margin-bottom: 1em;
-      display: flex;
-      width: fit-content;
-      height: fit-content;
-      font-size: 1.3em;
-      background-color: #306b34;
-      color: white;
-      border-radius: 4px;
-      padding: 0.5em 1em;
-
-      .accordionItem {
-        .accordionTitle {
+        .routeDurationContainer,
+        .routeDifficultyContainer {
           display: flex;
           align-items: center;
+          margin-bottom: 0.5em;
 
-          .accordionButton {
-            margin-left: 1em;
+          svg {
+            margin-right: 0.5em;
+            width: 2em;
+          }
+
+          p {
+            font-size: 1.7em;
+            text-transform: capitalize;
+          }
+        }
+      }
+
+      .accordion {
+        margin-bottom: 1em;
+        display: flex;
+        width: fit-content;
+        height: fit-content;
+        font-size: 1.3em;
+        background-color: #306b34;
+        color: white;
+        border-radius: 4px;
+        padding: 0.5em 1em;
+
+        .accordionItem {
+          .accordionTitle {
             display: flex;
+            align-items: center;
 
-            svg {
-              width: 1em;
+            .accordionButton {
+              margin-left: 1em;
+              display: flex;
+
+              svg {
+                width: 1em;
+              }
+            }
+          }
+
+          .accordionContent {
+            width: fit-content;
+            margin-top: 0.5em;
+
+            .routeStep {
+              margin-bottom: 2%;
+              border-bottom: 2px solid white;
             }
           }
         }
-
-        .accordionContent {
-          width: fit-content;
-          margin-top: 0.5em;
-
-          .routeStep {
-            margin-bottom: 2%;
-            border-bottom: 2px solid white;
-          }
-        }
       }
     }
   }
+  .routeButtons {
+    width: 100%;
+    display: flex;
 
-  .formButton {
-    margin-left: 0;
+    .formButton {
+      margin-left: 0;
+      display: inline-flex;
+
+      svg {
+        width: 1em;
+        margin-right: 0.2em;
+      }
+    }
+
+    #edit {
+      margin-left: 0;
+    }
+
+    #delete {
+    }
   }
 }
