@@ -11,6 +11,7 @@ import { faCaretDown, faCaretUp, faStopwatch, faTrash, faHiking, faPenToSquare }
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import RouteMapComponent from "Components/RouteMapComponent/RouteMapComponent";
 import EditRouteForm from "Components/forms/EditRouteForm/EditRouteForm";
+import RouteStatsComponent from "Components/RouteStatsComponent/RouteStatsComponent";
 
 const Route = () => {
     const [route, setRoute] = useState({});
@@ -25,10 +26,6 @@ const Route = () => {
     useEffect(() => {
         getRoute();
     }, []);
-
-
-    // console.log(routeId);
-
 
     const auth = getAuth(firebaseApp);
     const db = getFirestore(firebaseApp);
@@ -67,7 +64,7 @@ const Route = () => {
         } else {
             return ('route directions is not set');
         }
-    }
+    };
 
     for (let sets in route.route) {
         geoJsonPath.push([route.route[sets].latitude, route.route[sets].longitude]);
@@ -81,7 +78,7 @@ const Route = () => {
         } else if (formState == 'block') {
             setFormState('none');
         }
-    }
+    };
 
     async function deleteRoute() {
         console.log('deleteRoute() initiated');
@@ -89,19 +86,20 @@ const Route = () => {
         alert('Your route has been deleted');
         router.push('/explore');
         return null;
-    }
+    };
 
     return (
         <Base>
             <Head>
-                <title>Route</title>
+                <title>{route.name}</title>
             </Head>
             <LayoutComponent>
                 <div className={styles.route}>
                     <p className={styles.routeName}>{route.name}</p>
                     <div className={styles.routeMain}>
                         <RouteMapComponent routeInfo={route} geoJsonPath={geoJsonPath} />
-                        <div className={styles.routeInfo}>
+                        <RouteStatsComponent routeInfo={route} geoJsonPath={geoJsonPath} />
+                        {/* <div className={styles.routeInfo}>
                             <div className={styles.routeInfoContainer}>
                                 <div className={styles.routeDescriptionContainer}>
                                     <p className={styles.routeDescriptionTitle}>Description:</p>
@@ -126,7 +124,7 @@ const Route = () => {
                                     {isActive && <div className={styles.accordionContent}>{displayDirections()}</div>}
                                 </div>
                             </div>
-                        </div>
+                        </div> */}
                     </div>
                     <div className={styles.routeButtons} style={{ 'display': isAuthor }}>
                         <button id='edit' className={styles.formButton} onClick={() => handleForm()}>
