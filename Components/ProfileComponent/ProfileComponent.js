@@ -1,7 +1,6 @@
 import Head from 'next/head';
 import styles from './ProfileComponent.module.scss'
 import ProfileNavigationComponent from './ProfileNavigationComponent/ProfileNavigationComponent';
-
 import React, { useState, useEffect } from 'react';
 import AddDetailsComponent from './AddDetailsComponent/AddDetailsComponent';
 import EditDetailsComponents from './EditDetailsComponent/EditDetailsComponent';

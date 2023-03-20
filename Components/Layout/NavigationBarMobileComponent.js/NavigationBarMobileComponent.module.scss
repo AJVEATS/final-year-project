@@ -1,0 +1,32 @@
+.navigationBarMobileComponent {
+  width: 100%;
+  background-color: #306b34;
+  height: 7.5%;
+  transition: width 0.3s;
+  transition-timing-function: ease;
+  display: flex;
+  justify-content: space-between;
+  z-index: 2;
+  color: white;
+
+  .logo {
+    height: 100%;
+    width: max-content;
+    display: flex;
+    align-items: center;
+    margin-left: 2%;
+    svg {
+      height: 80%;
+    }
+  }
+  .bars {
+    height: 100%;
+    width: max-content;
+    display: flex;
+    align-items: center;
+    margin-right: 2%;
+    svg {
+      height: 80%;
+    }
+  }
+}
