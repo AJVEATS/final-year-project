@@ -3,15 +3,37 @@ import { faHeart, faPersonHiking } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React, { useState, useEffect } from 'react';
 import { getDistance } from 'geolib';
+import { doc, setDoc } from 'firebase/firestore';
 
-const RouteStatsComponent = ({ routeInfo, geoJsonPath }) => {
-    const [distance, setDistance] = useState(0);
+const RouteStatsComponent = ({ routeInfo, geoJsonPath, db, routeId }) => {
+    const [distance, setDistance] = useState();
 
     useEffect(() => {
 
-        if (routeInfo.route) {
+        if (routeInfo.route && !routeInfo.distance) {
             const coordinates = geoJsonPath;
-            calculateDistance(coordinates);
+            routeInfo.distance = calculateDistance(geoJsonPath);
+
+            try {
+                const collectionRef = doc(db, 'routes', routeId);
+                setDoc(collectionRef, routeInfo, { merge: true });
+
+            } catch (e) {
+                console.error(`Error adding document: ${e}`);
+            }
+        };
+
+        if (routeInfo.route && !routeInfo.elevation) {
+            // const coordinates = geoJsonPath;
+            routeInfo.distance = getElevationData(geoJsonPath);
+
+            // try {
+            //     const collectionRef = doc(db, 'routes', routeId);
+            //     setDoc(collectionRef, routeInfo, { merge: true });
+
+            // } catch (e) {
+            //     console.error(`Error adding document: ${e}`);
+            // }
         }
         // setDistance(geoJsonPath.length);
         // console.log(distance);
@@ -22,16 +44,25 @@ const RouteStatsComponent = ({ routeInfo, geoJsonPath }) => {
         let total = 0;
         for (let i = 0; i < coordinatesArray.length; i++) {
             if ((i + 1) < coordinatesArray.length) {
-                console.log(geoJsonPath[i]);
-                console.log(geoJsonPath[i + 1]);
+                // console.log(geoJsonPath[i]);
+                // console.log(geoJsonPath[i + 1]);
                 total = total + getDistance(coordinatesArray[i], coordinatesArray[i + 1]);
-
             }
         }
         setDistance(total);
+        return total;
     };
 
+    const getElevationData = (coordinatesArray) => {
+        // console.log('getElevation() initiated');
+        // console.log(coordinatesArray);
+        // let total = 0;
+        // for (let i = 0; i < coordinatesArray.length; i++) {
+        //     // console.log(coordinatesArray[i]);
 
+        // }
+        // return total;
+    }
 
     return (
         <div className={styles.routeInfoComponent}>
@@ -50,7 +81,7 @@ const RouteStatsComponent = ({ routeInfo, geoJsonPath }) => {
                     </div>
                     <div className={styles.routeStat}>
                         <div className={styles.routeStatValue}>
-                            <p>{distance}</p>
+                            <p>{routeInfo.distance}</p>
                             <p className={styles.routeStatValueMetric}>m</p>
                         </div>
                         <p className={styles.routeStatLabel}>Distance</p>
@@ -71,7 +102,7 @@ const RouteStatsComponent = ({ routeInfo, geoJsonPath }) => {
                     </div>
                     <p className={styles.routeDescription}>{routeInfo.description}</p>
                 </div>
-                <button id='downloadIntructions' className={styles.intructionsButton}>Download Route Intructions</button>
+                {/* <button id='downloadIntructions' className={styles.intructionsButton}>Download Route Intructions</button> */}
                 <div className={styles.routeElevationContainer}>
 
                 </div>

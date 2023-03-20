@@ -98,7 +98,7 @@ const Route = () => {
                     <p className={styles.routeName}>{route.name}</p>
                     <div className={styles.routeMain}>
                         <RouteMapComponent routeInfo={route} geoJsonPath={geoJsonPath} />
-                        <RouteStatsComponent routeInfo={route} geoJsonPath={geoJsonPath} />
+                        <RouteStatsComponent routeInfo={route} geoJsonPath={geoJsonPath} db={db} routeId={routeId} />
                         {/* <div className={styles.routeInfo}>
                             <div className={styles.routeInfoContainer}>
                                 <div className={styles.routeDescriptionContainer}>
