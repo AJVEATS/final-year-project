@@ -26,7 +26,7 @@ const LayoutComponent = ({ children }) => {
             {isScreenMobile && <NavigationBarMobileComponent />}
             {!isScreenMobile && <NavigationBarComponent />}
             <div className={styles.mainContentContainer}>
-                <p className={styles.introText}>Good Afternoon Alex</p>
+                {/* <p className={styles.introText}>Good Afternoon Alex</p> */}
                 {children}
             </div>
         </div>

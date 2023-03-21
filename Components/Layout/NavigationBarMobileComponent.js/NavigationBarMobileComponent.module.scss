@@ -4,29 +4,88 @@
   height: 7.5%;
   transition: width 0.3s;
   transition-timing-function: ease;
-  display: flex;
-  justify-content: space-between;
-  z-index: 2;
-  color: white;
 
-  .logo {
-    height: 100%;
-    width: max-content;
+  .navigationBarMobile {
     display: flex;
-    align-items: center;
-    margin-left: 2%;
-    svg {
-      height: 80%;
+    width: 100%;
+    height: 100%;
+    justify-content: space-between;
+    z-index: 2;
+    color: white;
+
+    .logo {
+      height: 100%;
+      width: max-content;
+      display: flex;
+      align-items: center;
+      margin-left: 2%;
+      svg {
+        height: 80%;
+      }
+    }
+    .bars {
+      height: 100%;
+      width: max-content;
+      display: flex;
+      align-items: center;
+      margin-right: 2%;
+      svg {
+        height: 80%;
+      }
     }
   }
-  .bars {
+  .curtainMenu {
     height: 100%;
-    width: max-content;
-    display: flex;
-    align-items: center;
-    margin-right: 2%;
-    svg {
-      height: 80%;
+    width: 0;
+    position: fixed;
+    top: 0;
+    right: 0;
+    background-color: #306b34;
+    z-index: 5;
+    color: white;
+
+    transition: width 0.3s;
+    transition-timing-function: ease;
+
+    .curtainTop {
+      width: 100%;
+      height: 10%;
+      padding: 3% 0 5% 0;
+      display: flex;
+      flex-wrap: nowrap;
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: center;
+      overflow: hidden;
+
+      svg {
+        height: 90%;
+        margin-left: 5%;
+      }
+
+      .closeButton {
+        height: 50%;
+        margin-left: 0;
+        margin-left: 40%;
+        margin-right: 5%;
+      }
+    }
+
+    .curtainNavigationLinks {
+      width: 100%;
+      display: flex;
+      flex-wrap: wrap;
+      flex-direction: row;
+      justify-content: center;
+      align-items: center;
+      a {
+        font-size: 3em;
+        width: 100%;
+        text-align: center;
+        color: white;
+        text-decoration: none;
+        margin-bottom: 5%;
+      }
     }
   }
 }
