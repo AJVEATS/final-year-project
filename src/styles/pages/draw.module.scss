@@ -25,4 +25,13 @@
     padding: 0.5em;
     display: flex;
   }
+
+  @media screen and (max-width: 1000px) {
+    p {
+      font-size: 1.8em;
+    }
+    .subTitle {
+      display: none;
+    }
+  }
 }

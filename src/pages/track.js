@@ -12,7 +12,7 @@ import ExploreComponent from 'Components/ExploreComponent/ExploreComponent';
 const Track = () => {
     const [routes, setRoutes] = useState([]);
     const [routesNull, setRoutesNull] = useState(false);
-    const title = 'Your Created Routes';
+    const title = 'Your Routes';
 
     useEffect(() => {
         getUserRoutes();

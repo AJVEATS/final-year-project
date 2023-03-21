@@ -69,9 +69,6 @@
             width: 1em;
             margin-right: 0.2em;
           }
-
-          p {
-          }
         }
 
         .routeDistance {
@@ -83,6 +80,20 @@
           font-size: 1.35em;
         }
       }
+    }
+  }
+
+  @media screen and (max-width: 1000px) {
+    .exploreList {
+      margin: 0;
+    }
+    .exploreTitle {
+      margin: 2% 0;
+      font-size: 1.6em;
+    }
+
+    .routeCard {
+      margin: 0 0 0.5em 0 !important;
     }
   }
 }

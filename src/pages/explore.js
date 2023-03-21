@@ -12,7 +12,7 @@ import RouteSearchComponent from 'Components/RouteSearchComponent/RouteSearchCom
 const Explore = () => {
     const [routes, setRoutes] = useState([]);
     const [routesNull, setRoutesNull] = useState(false);
-    const title = 'Explore Community Made Routes';
+    const title = 'Explore Community Routes';
     useEffect(() => {
         getPublicRoutes();
     }, []);
