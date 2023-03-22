@@ -1,13 +1,14 @@
 import styles from './RouteStatsComponent.module.scss';
 import { faHeart, faPersonHiking } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { saveAs } from "file-saver";
 import React, { useState, useEffect } from 'react';
 import { getDistance } from 'geolib';
 import { doc, setDoc } from 'firebase/firestore';
-
 const RouteStatsComponent = ({ routeInfo, geoJsonPath, db, routeId }) => {
     const [distance, setDistance] = useState();
-    console.log(routeInfo);
+    // console.log(routeInfo);
+    // console.log(JSON.stringify(routeInfo.directions));
 
     // useEffect(() => {
 
@@ -39,8 +40,11 @@ const RouteStatsComponent = ({ routeInfo, geoJsonPath, db, routeId }) => {
     // }
 
     const handleDirectionsClick = () => {
-        console.log('handleDirectionsClick initiated');
-        return null;
+        // console.log('handleDirectionsClick initiated');
+        let directions = JSON.stringify(routeInfo.directions);
+        const blob = new Blob([directions], { type: "text/plain;charset=utf-8" });
+        saveAs(blob, `${routeInfo.name}_directions}.txt`);
+        // return null;
     }
 
     return (
