@@ -12,6 +12,7 @@ import DrawFormComponent from './DrawFormComponent/DrawFormComponent';
 import { useRouter } from 'next/router';
 import { faFloppyDisk } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { getDistance } from 'geolib';
 
 mapboxgl.accessToken = MapBoxKey.key;
 
@@ -26,6 +27,7 @@ const DrawComponent = () => {
 
     const [drawnRoute, setdrawnRoute] = useState({});
     const [directions, setDirections] = useState([]);
+    const [geoJsonPath, setGeoJsonPath] = useState([]);
 
     const [formState, setFormState] = useState('none');
     const [privacy, setPrivacy] = useState('public');
@@ -132,8 +134,6 @@ const DrawComponent = () => {
             visualizePitch: true
         });
         map.current.addControl(nav, 'top-right');
-
-
 
         scale.setUnit('metric');
 
@@ -261,8 +261,6 @@ const DrawComponent = () => {
         setFormState('block');
     };
 
-
-
     const uploadRoute = () => {
         const auth = getAuth();
         const firebaseUID = auth.currentUser.uid;
@@ -275,6 +273,26 @@ const DrawComponent = () => {
         try {
             const db = getFirestore(firebaseApp);
 
+            // let geoJsonPath = [];
+            for (let sets in drawnRoute) {
+                geoJsonPath.push([drawnRoute[sets].latitude, drawnRoute[sets].longitude]);
+                // console.log(route.route[sets].latitude);
+                // console.log(route.route[sets].longitude);
+            };
+
+            const calculateDistance = (coordinatesArray) => {
+                // console.log(coordinatesArray);
+                let total = 0;
+                for (let i = 0; i < coordinatesArray.length; i++) {
+                    if ((i + 1) < coordinatesArray.length) {
+                        // console.log(geoJsonPath[i]);
+                        // console.log(geoJsonPath[i + 1]);
+                        total = total + getDistance(coordinatesArray[i], coordinatesArray[i + 1]);
+                    }
+                }
+                return total;
+            };
+
             console.log(difficulty);
             console.log(typeof difficulty);
 
@@ -283,6 +301,7 @@ const DrawComponent = () => {
                 name: name,
                 description: description,
                 date: moment().format('YYYY-MM-DD'),
+                distance: calculateDistance(geoJsonPath),
                 time: moment().format('hh:mm:ss'),
                 route: drawnRoute,
                 directions: directions,

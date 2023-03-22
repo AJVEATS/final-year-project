@@ -7,62 +7,63 @@ import { doc, setDoc } from 'firebase/firestore';
 
 const RouteStatsComponent = ({ routeInfo, geoJsonPath, db, routeId }) => {
     const [distance, setDistance] = useState();
+    console.log(routeInfo);
 
-    useEffect(() => {
+    // useEffect(() => {
 
-        if (routeInfo.route && !routeInfo.distance) {
-            const coordinates = geoJsonPath;
-            routeInfo.distance = calculateDistance(geoJsonPath);
+    //     if (routeInfo.route && !routeInfo.distance) {
+    //         const coordinates = geoJsonPath;
+    //         routeInfo.distance = calculateDistance(geoJsonPath);
 
-            try {
-                const collectionRef = doc(db, 'routes', routeId);
-                setDoc(collectionRef, routeInfo, { merge: true });
+    //         try {
+    //             const collectionRef = doc(db, 'routes', routeId);
+    //             setDoc(collectionRef, routeInfo, { merge: true });
 
-            } catch (e) {
-                console.error(`Error adding document: ${e}`);
-            }
-        };
+    //         } catch (e) {
+    //             console.error(`Error adding document: ${e}`);
+    //         }
+    //     };
 
-        if (routeInfo.route && !routeInfo.elevation) {
-            // const coordinates = geoJsonPath;
-            routeInfo.distance = getElevationData(geoJsonPath);
+    //     if (routeInfo.route && !routeInfo.elevation) {
+    //         // const coordinates = geoJsonPath;
+    //         routeInfo.distance = getElevationData(geoJsonPath);
 
-            // try {
-            //     const collectionRef = doc(db, 'routes', routeId);
-            //     setDoc(collectionRef, routeInfo, { merge: true });
+    //         // try {
+    //         //     const collectionRef = doc(db, 'routes', routeId);
+    //         //     setDoc(collectionRef, routeInfo, { merge: true });
 
-            // } catch (e) {
-            //     console.error(`Error adding document: ${e}`);
-            // }
-        }
-        // setDistance(geoJsonPath.length);
-        // console.log(distance);
-    }, [routeInfo, geoJsonPath]);
+    //         // } catch (e) {
+    //         //     console.error(`Error adding document: ${e}`);
+    //         // }
+    //     }
+    //     // setDistance(geoJsonPath.length);
+    //     // console.log(distance);
+    // }, [routeInfo, geoJsonPath]);
 
-    const calculateDistance = (coordinatesArray) => {
-        // console.log(coordinatesArray);
-        let total = 0;
-        for (let i = 0; i < coordinatesArray.length; i++) {
-            if ((i + 1) < coordinatesArray.length) {
-                // console.log(geoJsonPath[i]);
-                // console.log(geoJsonPath[i + 1]);
-                total = total + getDistance(coordinatesArray[i], coordinatesArray[i + 1]);
-            }
-        }
-        setDistance(total);
-        return total;
-    };
+    // const calculateDistance = (coordinatesArray) => {
+    //     // console.log(coordinatesArray);
+    //     let total = 0;
+    //     for (let i = 0; i < coordinatesArray.length; i++) {
+    //         if ((i + 1) < coordinatesArray.length) {
+    //             // console.log(geoJsonPath[i]);
+    //             // console.log(geoJsonPath[i + 1]);
+    //             total = total + getDistance(coordinatesArray[i], coordinatesArray[i + 1]);
+    //         }
+    //     }
+    //     setDistance(total);
+    //     return total;
+    // };
 
-    const getElevationData = (coordinatesArray) => {
-        // console.log('getElevation() initiated');
-        // console.log(coordinatesArray);
-        // let total = 0;
-        // for (let i = 0; i < coordinatesArray.length; i++) {
-        //     // console.log(coordinatesArray[i]);
+    // const getElevationData = (coordinatesArray) => {
+    //     // console.log('getElevation() initiated');
+    //     // console.log(coordinatesArray);
+    //     // let total = 0;
+    //     // for (let i = 0; i < coordinatesArray.length; i++) {
+    //     //     // console.log(coordinatesArray[i]);
 
-        // }
-        // return total;
-    }
+    //     // }
+    //     // return total;
+    // }
 
     return (
         <div className={styles.routeInfoComponent}>
@@ -74,7 +75,7 @@ const RouteStatsComponent = ({ routeInfo, geoJsonPath, db, routeId }) => {
                 <div className={styles.routeStatsDashboard}>
                     <div className={styles.routeStat}>
                         <div className={styles.routeStatValue}>
-                            <p>20</p>
+                            <p>{routeInfo.duration}</p>
                             <p className={styles.routeStatValueMetric}>mins</p>
                         </div>
                         <p className={styles.routeStatLabel}>Length</p>

@@ -19,6 +19,9 @@
     height: 80%;
     display: flex;
     justify-content: space-evenly;
+    flex-wrap: wrap;
+    flex-direction: row;
+    align-content: flex-start;
 
     .routeInfo {
       padding: 0.75em;
