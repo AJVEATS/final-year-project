@@ -11,19 +11,6 @@ const RouteStatsComponent = ({ routeInfo, geoJsonPath, db, routeId }) => {
 
     // useEffect(() => {
 
-    //     if (routeInfo.route && !routeInfo.distance) {
-    //         const coordinates = geoJsonPath;
-    //         routeInfo.distance = calculateDistance(geoJsonPath);
-
-    //         try {
-    //             const collectionRef = doc(db, 'routes', routeId);
-    //             setDoc(collectionRef, routeInfo, { merge: true });
-
-    //         } catch (e) {
-    //             console.error(`Error adding document: ${e}`);
-    //         }
-    //     };
-
     //     if (routeInfo.route && !routeInfo.elevation) {
     //         // const coordinates = geoJsonPath;
     //         routeInfo.distance = getElevationData(geoJsonPath);
@@ -40,20 +27,6 @@ const RouteStatsComponent = ({ routeInfo, geoJsonPath, db, routeId }) => {
     //     // console.log(distance);
     // }, [routeInfo, geoJsonPath]);
 
-    // const calculateDistance = (coordinatesArray) => {
-    //     // console.log(coordinatesArray);
-    //     let total = 0;
-    //     for (let i = 0; i < coordinatesArray.length; i++) {
-    //         if ((i + 1) < coordinatesArray.length) {
-    //             // console.log(geoJsonPath[i]);
-    //             // console.log(geoJsonPath[i + 1]);
-    //             total = total + getDistance(coordinatesArray[i], coordinatesArray[i + 1]);
-    //         }
-    //     }
-    //     setDistance(total);
-    //     return total;
-    // };
-
     // const getElevationData = (coordinatesArray) => {
     //     // console.log('getElevation() initiated');
     //     // console.log(coordinatesArray);
@@ -64,6 +37,11 @@ const RouteStatsComponent = ({ routeInfo, geoJsonPath, db, routeId }) => {
     //     // }
     //     // return total;
     // }
+
+    const handleDirectionsClick = () => {
+        console.log('handleDirectionsClick initiated');
+        return null;
+    }
 
     return (
         <div className={styles.routeInfoComponent}>
@@ -103,7 +81,7 @@ const RouteStatsComponent = ({ routeInfo, geoJsonPath, db, routeId }) => {
                     </div>
                     <p className={styles.routeDescription}>{routeInfo.description}</p>
                 </div>
-                {/* <button id='downloadIntructions' className={styles.intructionsButton}>Download Route Intructions</button> */}
+                <button id='downloadIntructions' className={styles.intructionsButton} onClick={() => handleDirectionsClick()}>Download Route Intructions</button>
                 <div className={styles.routeElevationContainer}>
 
                 </div>
