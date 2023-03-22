@@ -5,7 +5,9 @@ import { doc, setDoc } from 'firebase/firestore';
 import { getAuth } from 'firebase/auth';
 import DeleteAccountComponent from '../DeleteAccountComponent/DeleteAccountComponent';
 
-const EditDetailsComponents = ({ db, firebaseUID, auth, user }) => {
+import { useRouter } from 'next/router'
+
+const EditDetailsComponents = ({ db, firebaseUID, auth, user, getUserDetails }) => {
     const [firstname, setFirstname] = useState('');
     const [lastname, setLastname] = useState('');
     const [location, setLocation] = useState('');
@@ -13,6 +15,8 @@ const EditDetailsComponents = ({ db, firebaseUID, auth, user }) => {
 
     const [popUpState, setPopUpState] = useState('none');
     const [password, setPassword] = useState('');
+
+    const router = useRouter();
 
     useEffect(() => {
         setFirstname(user.firstname);
@@ -56,6 +60,7 @@ const EditDetailsComponents = ({ db, firebaseUID, auth, user }) => {
             setDoc(collectionRef, editUserDetailsObject, { merge: true });
 
             alert('Your details have been updated');
+            getUserDetails();
         } catch (e) {
             console.error(`Error adding document: ${e}`);
         }
@@ -70,30 +75,32 @@ const EditDetailsComponents = ({ db, firebaseUID, auth, user }) => {
             </Head>
             <form className={styles.profileFormContainer}>
                 <p className={styles.profileFormTitle}>Edit details</p>
-                <label>
-                    First name
-                    <input
-                        type='text'
-                        id='firstname'
-                        name='firstname'
-                        value={firstname}
-                        onChange={e => {
-                            setFirstname(e.target.value);
-                        }}
-                    />
-                </label>
-                <label>
-                    Last name
-                    <input
-                        type='text'
-                        id='lastname'
-                        name='lastname'
-                        value={lastname}
-                        onChange={e => {
-                            setLastname(e.target.value);
-                        }}
-                    />
-                </label>
+                <div className={styles.nameSection}>
+                    <label>
+                        First name
+                        <input
+                            type='text'
+                            id='firstname'
+                            name='firstname'
+                            value={firstname}
+                            onChange={e => {
+                                setFirstname(e.target.value);
+                            }}
+                        />
+                    </label>
+                    <label>
+                        Last name
+                        <input
+                            type='text'
+                            id='lastname'
+                            name='lastname'
+                            value={lastname}
+                            onChange={e => {
+                                setLastname(e.target.value);
+                            }}
+                        />
+                    </label>
+                </div>
                 <label>
                     location
                     <input
@@ -111,7 +118,7 @@ const EditDetailsComponents = ({ db, firebaseUID, auth, user }) => {
                     <textarea value={bio} onChange={e => setBio(e.target.value)} />
                 </label>
                 {/* <button type='button' value='' onClick={() => openDeleteAccountPopUp()}>Delete Account</button> */}
-                <button type='button' value='' onClick={() => handleEditDetailForm()}>Save</button>
+                <button type='button' value='' onClick={() => handleEditDetailForm()}>Save Details</button>
             </form>
             {/* <DeleteAccountComponent popUpState={popUpState} setPopUpState={setPopUpState} auth={auth} /> */}
         </div>

@@ -7,11 +7,62 @@
 }
 
 .profileSubTitle {
-  font-size: 1.3em;
+  font-size: 1.5em;
 }
 
 .profileFormContainer {
   .profileFormTitle {
-    font-size: 1.1em;
+    font-size: 1.5em;
+  }
+
+  label {
+    font-size: 1.2em;
+    input,
+    textarea {
+      display: block;
+      width: 33%;
+      height: 1.5em;
+
+      @media screen and (max-width: 1000px) {
+        width: 98%;
+      }
+    }
+
+    textarea {
+      height: 4em;
+    }
+  }
+
+  .nameSection {
+    display: flex;
+    justify-content: flex-start;
+    flex-direction: row;
+    align-items: center;
+
+    @media screen and (max-width: 1000px) {
+      display: block;
+    }
+
+    .firstname {
+      margin-right: 0.5%;
+    }
+
+    label {
+      flex-basis: 33.3%;
+      input {
+        width: 98%;
+      }
+    }
+  }
+
+  .clearButton {
+    margin-right: 0.5%;
+  }
+
+  button {
+    font-size: 1.2em;
+    border-radius: 4px;
+    padding: 0.75% 1%;
+    cursor: pointer;
   }
 }

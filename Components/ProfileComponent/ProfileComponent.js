@@ -1,4 +1,3 @@
-import Head from 'next/head';
 import styles from './ProfileComponent.module.scss'
 import ProfileNavigationComponent from './ProfileNavigationComponent/ProfileNavigationComponent';
 import React, { useState, useEffect } from 'react';
@@ -25,7 +24,7 @@ const ProfileComponent = () => {
             setNavigationState('add');
         } else if (navigationState === 'edit') {
             setNavigationState('edit');
-        }
+        };
     }, []);
 
     async function getUserDetails() {
@@ -33,7 +32,7 @@ const ProfileComponent = () => {
         const docSnap = await getDoc(docRef);
 
         if (docSnap.exists()) {
-            console.log("Document data:", docSnap.data());
+            // console.log("Document data:", docSnap.data());
             setUserInfo({ ...docSnap.data() });
             // console.log(userInfo);
         } else {
@@ -44,25 +43,21 @@ const ProfileComponent = () => {
     const handleNav = () => {
         if (navigationState === 'add') {
             return (
-                <AddDetailsComponent db={db} firebaseUID={firebaseUID} />
+                <AddDetailsComponent db={db} firebaseUID={firebaseUID} getUserDetails={getUserDetails} />
             );
         } else if (navigationState === 'edit') {
             return (
-                <EditDetailsComponents db={db} firebaseUID={firebaseUID} auth={auth} user={userInfo} />
+                <EditDetailsComponents db={db} firebaseUID={firebaseUID} auth={auth} user={userInfo} getUserDetails={getUserDetails} />
             )
         }
-    }
-
-    const clearForm = () => {
-        console.log('clear form');
-    }
+    };
 
     return (
         <div className={styles.profileComponent}>
-            <p className={styles.profileTitle}>Profile</p>
-            <p className={styles.profileSubTitle}>Welcome {userInfo.firstname}</p>
+            <p className={styles.profileTitle}>
+                Welcome {userInfo.firstname} 👋</p>
             <ProfileInfoComponent user={userInfo} />
-            <ProfileNavigationComponent navigationState={navigationState} setNavigationState={setNavigationState} />
+            <ProfileNavigationComponent navigationState={navigationState} setNavigationState={setNavigationState} getUserDetails={getUserDetails} />
             {handleNav()}
         </div>
     )

@@ -3,14 +3,14 @@ import React, { useState, useEffect } from 'react';
 import { doc, setDoc } from 'firebase/firestore';
 import Head from 'next/head';
 
-const AddDetailsComponent = ({ db, firebaseUID }) => {
+const AddDetailsComponent = ({ db, firebaseUID, getUserDetails }) => {
     const [firstname, setFirstname] = useState('');
     const [lastname, setLastname] = useState('');
     const [location, setLocation] = useState('');
     const [bio, setBio] = useState('');
 
     const handleAddDetailForm = () => {
-        console.log('handleAddDetailsForm initiated');
+        // console.log('handleAddDetailsForm initiated');
 
         const addUserDetailsObject = {
             firstname: firstname,
@@ -19,7 +19,7 @@ const AddDetailsComponent = ({ db, firebaseUID }) => {
             bio: bio,
         };
 
-        console.log(addUserDetailsObject);
+        // console.log(addUserDetailsObject);
 
         try {
 
@@ -28,6 +28,7 @@ const AddDetailsComponent = ({ db, firebaseUID }) => {
             setDoc(collectionRef, addUserDetailsObject, { merge: true });
 
             alert('Your details have been saved');
+            getUserDetails();
         } catch (e) {
             console.error(`Error adding document: ${e}`);
         }
@@ -36,7 +37,7 @@ const AddDetailsComponent = ({ db, firebaseUID }) => {
     };
 
     const clearForm = () => {
-        console.log('clearForm initiated');
+        // console.log('clearForm initiated');
         setFirstname('');
         setLastname('');
         setLocation('');
@@ -50,30 +51,32 @@ const AddDetailsComponent = ({ db, firebaseUID }) => {
             </Head>
             <form className={styles.profileFormContainer}>
                 <p className={styles.profileFormTitle}>Add details</p>
-                <label>
-                    First name
-                    <input
-                        type='text'
-                        id='firstname'
-                        name='firstname'
-                        value={firstname}
-                        onChange={e => {
-                            setFirstname(e.target.value);
-                        }}
-                    />
-                </label>
-                <label>
-                    Last name
-                    <input
-                        type='text'
-                        id='lastname'
-                        name='lastname'
-                        value={lastname}
-                        onChange={e => {
-                            setLastname(e.target.value);
-                        }}
-                    />
-                </label>
+                <div className={styles.nameSection}>
+                    <label className={styles.firstname}>
+                        First name
+                        <input
+                            type='text'
+                            id='firstname'
+                            name='firstname'
+                            value={firstname}
+                            onChange={e => {
+                                setFirstname(e.target.value);
+                            }}
+                        />
+                    </label>
+                    <label>
+                        Last name
+                        <input
+                            type='text'
+                            id='lastname'
+                            name='lastname'
+                            value={lastname}
+                            onChange={e => {
+                                setLastname(e.target.value);
+                            }}
+                        />
+                    </label>
+                </div>
                 <label>
                     location
                     <input
@@ -90,8 +93,8 @@ const AddDetailsComponent = ({ db, firebaseUID }) => {
                     Bio
                     <textarea value={bio} onChange={e => setBio(e.target.value)} />
                 </label>
-                <button type='button' value='' onClick={() => { clearForm() }}>Clear</button>
-                <button type='button' value='' onClick={() => handleAddDetailForm()}>Save</button>
+                <button type='button' value='' className={styles.clearButton} onClick={() => { clearForm() }}>Clear</button>
+                <button type='button' value='' onClick={() => handleAddDetailForm()}>Save Details</button>
             </form>
         </div>
     )

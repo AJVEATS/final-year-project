@@ -3,11 +3,12 @@ import styles from './ProfileInfoComponent.module.scss';
 const ProfileInfoComponent = ({ user }) => {
     // console.log(user);
     return (
-        <div>
-            <p className={styles.profileInfoComponent}>Firstname: {user.firstname}</p>
-            <p className={styles.profileInfoComponent}>Lastname: {user.lastname}</p>
-            <p className={styles.profileInfoComponent}>Location: {user.location}</p>
-            <p className={styles.profileInfoComponent}>Bio: {user.bio}</p>
+        <div className={styles.profileInfoComponent}>
+            <p className={styles.profileInfoComponentTitle}>Your details</p>
+            <p className={styles.profileInfoComponentText}><b>Firstname:</b> {user.firstname}</p>
+            <p className={styles.profileInfoComponentText}><b>Lastname:</b> {user.lastname}</p>
+            <p className={styles.profileInfoComponentText}><b>Location:</b> {user.location}</p>
+            <p className={styles.profileInfoComponentText}><b>Bio:</b> {user.bio}</p>
         </div>
     );
 }
