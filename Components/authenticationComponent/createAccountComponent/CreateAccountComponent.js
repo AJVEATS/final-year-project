@@ -22,7 +22,8 @@ const CreateAccountComponent = ({ updateDisplayedComponent, auth }) => {
                     router.push('/home');
                 })
                 .catch((error) => {
-                    console.log(error.code, error.message);
+                    // console.log(error.code, error.message);
+                    alert(`${error.code} ${error.message}`);
                 })
         } else {
             alert(`The entered passwords do not match`);

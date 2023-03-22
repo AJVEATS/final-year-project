@@ -20,7 +20,8 @@ const LoginComponent = ({ updateDisplayedComponent, auth }) => {
                 router.replace('/home');
             })
             .catch((error) => {
-                console.log(error.code, error.message);
+                // console.log(error.code, error.message);
+                alert(`${error.code} ${error.message}`);
             });
     };
 

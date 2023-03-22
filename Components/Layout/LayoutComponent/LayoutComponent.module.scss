@@ -7,18 +7,18 @@
   justify-content: space-between;
   align-items: stretch;
 
-  .navigationBarContainer {
-    width: 7.5%;
-    background-color: lightblue;
-    height: 100vh;
+  // .navigationBarContainer {
+  //   width: 7.5%;
+  //   background-color: lightblue;
+  //   height: 100vh;
 
-    transition: 0.3s;
+  //   transition: 0.3s;
 
-    &:hover {
-      width: 15%;
-      position: relative;
-    }
-  }
+  //   &:hover {
+  //     width: 15%;
+  //     position: relative;
+  //   }
+  // }
 
   .mainContentContainer {
     z-index: 0;

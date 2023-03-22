@@ -14,7 +14,8 @@ const ForgotPassword = ({ updateDisplayedComponent, auth }) => {
                 updateDisplayedComponent('login');
             })
             .catch((error) => {
-                console.log(error.code, error.message);
+                // console.log(error.code, error.message);
+                alert(`${error.code} ${error.message}`);
             })
     }
 
