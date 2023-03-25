@@ -4,7 +4,7 @@ import styles from './SearchComponent.module.scss';
 import React, { useEffect, useState } from 'react';
 import { collection, query, where } from "firebase/firestore";
 
-const SearchComponent = ({ distanceQuery, setDistanceQuery, filterRoutesByDistance }) => {
+const SearchComponent = ({ distanceQuery, setDistanceQuery, filterRoutesByDistance, durationQuery, setDurationQuery, filterRoutesByDuration, clearFilters }) => {
     const [formState, setFormState] = useState(false);
 
     const toggleSearchForm = () => {
@@ -15,13 +15,11 @@ const SearchComponent = ({ distanceQuery, setDistanceQuery, filterRoutesByDistan
         }
     };
 
-
-
     return (
         <div className={styles.searchComponent}>
             {formState ? (
                 <div className={styles.searchFormContainer}>
-                    {/* <form>
+                    <form>
                         <label>
                             <p>Max Duration: {durationQuery} minutes</p>
                             <input
@@ -29,7 +27,7 @@ const SearchComponent = ({ distanceQuery, setDistanceQuery, filterRoutesByDistan
                                 id='duration'
                                 name='duration'
                                 min='0'
-                                max='1000'
+                                max='100'
                                 value={durationQuery}
                                 onChange={e => {
                                     setDurationQuery(e.target.value);
@@ -37,9 +35,8 @@ const SearchComponent = ({ distanceQuery, setDistanceQuery, filterRoutesByDistan
                         </label>
                         <button type='button' value='' onClick={() => {
                             filterRoutesByDuration(durationQuery);
-                            console.log(durationQuery);
                         }}>Search</button>
-                    </form> */}
+                    </form>
                     <form>
                         <label>
                             <p>Max Distance: {distanceQuery} m</p>
@@ -56,6 +53,7 @@ const SearchComponent = ({ distanceQuery, setDistanceQuery, filterRoutesByDistan
                         </label>
                         <button type='button' value='' onClick={() => filterRoutesByDistance(distanceQuery)}>Search</button>
                     </form>
+                    <button type='button' value='' onClick={() => clearFilters()}>Clear filters</button>
                 </div>
             ) : (
                 <div></div>

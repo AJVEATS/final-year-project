@@ -13,6 +13,7 @@ const Explore = () => {
     const [routes, setRoutes] = useState([]);
     const [routesNull, setRoutesNull] = useState(false);
     const [distanceQuery, setDistanceQuery] = useState(10000);
+    const [durationQuery, setDurationQuery] = useState(100);
     const [querySubmitted, setQuerySubmitted] = useState(false);
     const [routeQuery, setRouteQuery] = useState();
     const title = 'Explore Community Routes';
@@ -49,6 +50,21 @@ const Explore = () => {
         setRoutes(distanceFilteredRoutes);
     }
 
+    const filterRoutesByDuration = (duration) => {
+        setRoutes([]);
+        const durationFilteredRoutes = allRoutes.filter(routes => routes.routeData.duration <= duration);
+        console.log(durationFilteredRoutes);
+        setRoutes(durationFilteredRoutes);
+        // setRoutes(durationFilteredRoutes);
+    };
+
+    const clearFilters = () => {
+        setDistanceQuery(10000);
+        setDurationQuery(100);
+        setRoutes([]);
+        setRoutes(allRoutes);
+    };
+
     return (
         <Base>
             <Head>
@@ -56,8 +72,18 @@ const Explore = () => {
             </Head>
             <LayoutComponent>
                 <div className={styles.exploreMain}>
-                    <ExploreComponent routes={routes} routesNull={routesNull} title={title} />
-                    <SearchComponent distanceQuery={distanceQuery} setDistanceQuery={setDistanceQuery} filterRoutesByDistance={filterRoutesByDistance} />
+                    <ExploreComponent
+                        routes={routes}
+                        routesNull={routesNull}
+                        title={title} />
+                    <SearchComponent
+                        distanceQuery={distanceQuery}
+                        setDistanceQuery={setDistanceQuery}
+                        filterRoutesByDistance={filterRoutesByDistance}
+                        durationQuery={durationQuery}
+                        setDurationQuery={setDurationQuery}
+                        filterRoutesByDuration={filterRoutesByDuration}
+                        clearFilters={clearFilters} />
                 </div>
             </LayoutComponent>
         </Base >
