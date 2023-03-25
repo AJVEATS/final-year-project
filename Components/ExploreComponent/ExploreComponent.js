@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import styles from './ExploreComponent.module.scss';
-import { faStopwatch, faPersonHiking } from "@fortawesome/free-solid-svg-icons";
+import { faRoute, faClock, faPersonHiking } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React, { useEffect, useState } from 'react';
 
@@ -13,9 +13,6 @@ const ExploreComponent = ({ routes, routesNull, title }) => {
         }
 
     }, []);
-    // console.log(routes);
-
-    // console.log(routes);
 
     return (
         <div className={styles.exploreList}>
@@ -30,8 +27,12 @@ const ExploreComponent = ({ routes, routesNull, title }) => {
                         <div key={data.routeId} className={styles.routeCard}>
                             <p className={styles.routeTitle}>{(data.routeData.name)}</p>
                             <div className={styles.routeStats}>
+                                <div className={styles.routeLength}>
+                                    <FontAwesomeIcon icon={faRoute} />
+                                    <p>{`${data.routeData.distance} meters`}</p>
+                                </div>
                                 <div className={styles.routeDuration}>
-                                    <FontAwesomeIcon icon={faStopwatch} />
+                                    <FontAwesomeIcon icon={faClock} />
                                     <p>{`${data.routeData.duration} minutes`}</p>
                                 </div>
                                 <div className={styles.routeDifficulty}>

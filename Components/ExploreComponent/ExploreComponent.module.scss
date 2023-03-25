@@ -1,7 +1,6 @@
 .exploreList {
   margin: 0% 0% 0% 1%;
-  // width: 79%;
-  width: 85%;
+  width: 100%;
   height: fit-content;
 
   a {
@@ -60,6 +59,7 @@
       .routeStats {
         display: flex;
 
+        .routeLength,
         .routeDuration,
         .routeDifficulty {
           display: flex;
