@@ -35,6 +35,8 @@ const NavigationBarMobileComponent = () => {
                     <Link href='/explore'>Explore</Link>
                     {/* <Link href='/home'>Favourites</Link> */}
                     <Link href='/track'>Your Walks</Link>
+                    <Link href='/favourites'>Favourites</Link>
+                    <Link href='/locations'>Nature Spots</Link>
                     <Link href='/account'>Account</Link>
                 </div>
             </div>

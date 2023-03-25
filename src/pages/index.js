@@ -8,7 +8,7 @@ const Index = () => {
   return (
     <Base>
       <Head>
-        <title>Index page</title>
+        <title>Welcome to the BUWS App</title>
       </Head>
       <div className={styles.main}>
         <div className={styles.titleSection}>
