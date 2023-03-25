@@ -15,7 +15,8 @@
     height: 100%;
     right: 0;
     top: 0;
-    overflow-y: scroll;
+    overflow-y: auto;
+    overflow-x: hidden;
   }
   @media screen and (max-width: 1000px) {
     display: block;

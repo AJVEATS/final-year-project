@@ -1,7 +1,8 @@
 .route {
   padding: 1% 2%;
   width: 96%;
-  overflow: scroll;
+  padding-bottom: 0;
+  // overflow: scroll;
   height: 98%;
 
   .routeName {
@@ -106,8 +107,13 @@
     width: 100%;
     display: flex;
 
+    @media screen and (max-width: 1000px) {
+      justify-content: space-between;
+    }
+
     .formButton {
       margin-left: 0;
+      margin-right: 10px;
       display: inline-flex;
       text-align: center;
       justify-content: center;
@@ -115,6 +121,7 @@
 
       @media screen and (max-width: 1000px) {
         flex-basis: 49%;
+        margin-right: 0;
       }
 
       svg {

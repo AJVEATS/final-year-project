@@ -24,7 +24,7 @@
       height: 1.5em;
 
       @media screen and (max-width: 1000px) {
-        width: 98%;
+        width: -webkit-fill-available;
       }
     }
 
@@ -45,6 +45,10 @@
 
     .firstnameLabel {
       margin-right: 10px;
+
+      @media screen and (max-width: 1000px) {
+        margin: 0;
+      }
     }
 
     label {

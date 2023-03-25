@@ -6,8 +6,8 @@ import Head from 'next/head';
 import { getAuth } from 'firebase/auth';
 import { firebaseApp } from './api/FirebaseApp';
 import { collection, getDocs, getFirestore, query, where } from 'firebase/firestore';
-import RouteSearchComponent from 'Components/SearchComponent/RouteSearchComponent/RouteSearchComponent';
 import ExploreComponent from 'Components/ExploreComponent/ExploreComponent';
+import SearchComponent from 'Components/SearchComponent/SearchComponent';
 
 const Track = () => {
     const [routes, setRoutes] = useState([]);
@@ -45,7 +45,7 @@ const Track = () => {
             <LayoutComponent>
                 <div className={styles.trackMain}>
                     <ExploreComponent routes={routes} routesNull={routesNull} title={title} />
-                    <RouteSearchComponent />
+                    <SearchComponent />
                 </div>
             </LayoutComponent>
         </Base>

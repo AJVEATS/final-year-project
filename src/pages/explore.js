@@ -1,5 +1,4 @@
 import styles from '@/styles/pages/explore.module.scss';
-
 import React, { useEffect, useState } from 'react';
 import ExploreComponent from 'Components/ExploreComponent/ExploreComponent';
 import Base from 'Components/Layout/Base/BaseComponent';
@@ -13,10 +12,23 @@ import SearchComponent from 'Components/SearchComponent/SearchComponent';
 const Explore = () => {
     const [routes, setRoutes] = useState([]);
     const [routesNull, setRoutesNull] = useState(false);
+    const [searchName, setSearchName] = useState('');
+    const [searchQuerySent, setSearchQuerySent] = useState(false);
     const title = 'Explore Community Routes';
     useEffect(() => {
         getPublicRoutes();
     }, []);
+
+    useEffect(() => {
+        console.log(searchName);
+    }, [searchName]);
+
+    useEffect(() => {
+        if (searchQuerySent) {
+            console.log(`the value is ${searchQuerySent}`);
+            getPublicRoutes(searchQuerySent);
+        }
+    }, [searchQuerySent]);
 
     async function getPublicRoutes() {
         const auth = getAuth(firebaseApp);
@@ -45,8 +57,7 @@ const Explore = () => {
             <LayoutComponent>
                 <div className={styles.exploreMain}>
                     <ExploreComponent routes={routes} routesNull={routesNull} title={title} />
-                    {/* <RouteSearchComponent /> */}
-                    <SearchComponent />
+                    <SearchComponent searchName={searchName} setSearchName={setSearchName} setSearchQuerySent={setSearchQuerySent} />
                 </div>
             </LayoutComponent>
         </Base >

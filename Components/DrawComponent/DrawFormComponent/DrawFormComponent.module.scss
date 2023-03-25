@@ -46,9 +46,12 @@
       display: flex;
       justify-content: space-evenly;
       align-items: center;
-      flex-wrap: nowrap;
       width: 100%;
       margin: 1em 0 0 0;
+
+      @media screen and (max-width: 1000px) {
+        flex-wrap: wrap;
+      }
     }
 
     .buttonContainer {
