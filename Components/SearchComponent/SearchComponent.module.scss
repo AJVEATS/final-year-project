@@ -10,6 +10,10 @@
   bottom: 0;
   color: white;
 
+  @media screen and (max-width: 1000px) {
+    width: 97%;
+  }
+
   .searchFormContainer {
     background: #306b34;
     margin-right: 20px;
@@ -41,6 +45,7 @@
       cursor: pointer;
 
       p {
+        color: #306b34;
         margin-right: 15px;
         display: inline;
       }
@@ -51,8 +56,13 @@
     }
 
     p {
-      color: #306b34;
+      color: white;
       display: none;
+
+      @media screen and (max-width: 1000px) {
+        margin-right: 15px;
+        display: inline;
+      }
     }
 
     svg {
