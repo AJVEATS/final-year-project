@@ -12,7 +12,7 @@
 
   .searchFormContainer {
     background: #306b34;
-    margin-right: 1%;
+    margin-right: 20px;
     width: 100%;
     padding: 3%;
     border-radius: 4px;
@@ -32,15 +32,27 @@
     padding: 20px;
     margin: 20px;
     border: 2px solid #306b34;
-    border-radius: 50%;
+    border-radius: 50px;
+
+    transition: all 0.5s linear;
 
     &:hover {
       background-color: white;
       cursor: pointer;
 
+      p {
+        margin-right: 15px;
+        display: inline;
+      }
+
       svg {
         color: #306b34;
       }
+    }
+
+    p {
+      color: #306b34;
+      display: none;
     }
 
     svg {

@@ -59,6 +59,7 @@ const SearchComponent = ({ distanceQuery, setDistanceQuery, filterRoutesByDistan
                 <div></div>
             )}
             <div className={styles.searchButtonContaier} onClick={() => toggleSearchForm()} >
+                <p>Search</p>
                 <FontAwesomeIcon icon={faMagnifyingGlass} />
             </div>
         </div>
