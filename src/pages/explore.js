@@ -9,35 +9,28 @@ import { firebaseApp } from './api/FirebaseApp';
 import { collection, getDocs, getFirestore, query, where } from 'firebase/firestore';
 import SearchComponent from 'Components/SearchComponent/SearchComponent';
 const Explore = () => {
+    const [allRoutes, setAllRoutes] = useState([]);
     const [routes, setRoutes] = useState([]);
     const [routesNull, setRoutesNull] = useState(false);
-    const [searchName, setSearchName] = useState('');
-    const [searchQuerySent, setSearchQuerySent] = useState(false);
+    const [distanceQuery, setDistanceQuery] = useState(10000);
+    const [querySubmitted, setQuerySubmitted] = useState(false);
+    const [routeQuery, setRouteQuery] = useState();
     const title = 'Explore Community Routes';
+
+    const auth = getAuth(firebaseApp);
+    const db = getFirestore(firebaseApp);
+
     useEffect(() => {
         getPublicRoutes();
     }, []);
 
-    useEffect(() => {
-        console.log(searchName);
-    }, [searchName]);
-
-    useEffect(() => {
-        if (searchQuerySent) {
-            console.log(`the value is ${searchQuerySent}`);
-            getPublicRoutes(searchQuerySent);
-        }
-    }, [searchQuerySent]);
-
     async function getPublicRoutes() {
-        const auth = getAuth(firebaseApp);
-        const db = getFirestore(firebaseApp);
         const routeQuery = query(collection(db, 'routes'), where('privacy', '==', 'public'));
-
         const querySnapshot = await getDocs(routeQuery);
         setRoutes([]);
         querySnapshot.forEach((doc) => {
             setRoutes(routes => [...routes, { routeId: doc.id, routeData: doc.data() }]);
+            setAllRoutes(routes => [...routes, { routeId: doc.id, routeData: doc.data() }]);
             // routes.push({ routeId: doc.id, routeData: doc.data() });
             // console.log(doc.id, " => ", doc.data()); // For Testing
         });
@@ -48,6 +41,14 @@ const Explore = () => {
         };
     };
 
+    const filterRoutesByDistance = (distance) => {
+        setRoutes([]);
+        const distanceFilteredRoutes = allRoutes.filter(route => route.routeData.distance <= distance);
+        console.log(distanceFilteredRoutes);
+        // setRoutes([distanceFilteredRoutes]);
+        setRoutes(distanceFilteredRoutes);
+    }
+
     return (
         <Base>
             <Head>
@@ -56,7 +57,7 @@ const Explore = () => {
             <LayoutComponent>
                 <div className={styles.exploreMain}>
                     <ExploreComponent routes={routes} routesNull={routesNull} title={title} />
-                    <SearchComponent searchName={searchName} setSearchName={setSearchName} setSearchQuerySent={setSearchQuerySent} />
+                    <SearchComponent distanceQuery={distanceQuery} setDistanceQuery={setDistanceQuery} filterRoutesByDistance={filterRoutesByDistance} />
                 </div>
             </LayoutComponent>
         </Base >
