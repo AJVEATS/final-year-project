@@ -10,8 +10,10 @@ const SearchComponent = ({ distanceQuery, setDistanceQuery, filterRoutesByDistan
     const toggleSearchForm = () => {
         if (formState == false) {
             setFormState(true);
+            document.getElementById('searchLabel').style.display = 'inline';
         } else if (formState == true) {
             setFormState(false);
+            document.getElementById('searchLabel').style.display = 'none';
         }
     };
 
@@ -59,7 +61,7 @@ const SearchComponent = ({ distanceQuery, setDistanceQuery, filterRoutesByDistan
                 <div></div>
             )}
             <div className={styles.searchButtonContaier} onClick={() => toggleSearchForm()} >
-                <p>Search</p>
+                <p id='searchLabel'>Search</p>
                 <FontAwesomeIcon icon={faMagnifyingGlass} />
             </div>
         </div>
