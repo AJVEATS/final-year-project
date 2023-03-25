@@ -8,7 +8,8 @@ import Head from 'next/head';
 import { getAuth } from 'firebase/auth';
 import { firebaseApp } from './api/FirebaseApp';
 import { collection, getDocs, getFirestore, query, where } from 'firebase/firestore';
-import RouteSearchComponent from 'Components/RouteSearchComponent/RouteSearchComponent';
+import RouteSearchComponent from 'Components/SearchComponent/RouteSearchComponent/RouteSearchComponent';
+import SearchComponent from 'Components/SearchComponent/SearchComponent';
 const Explore = () => {
     const [routes, setRoutes] = useState([]);
     const [routesNull, setRoutesNull] = useState(false);
@@ -45,6 +46,7 @@ const Explore = () => {
                 <div className={styles.exploreMain}>
                     <ExploreComponent routes={routes} routesNull={routesNull} title={title} />
                     {/* <RouteSearchComponent /> */}
+                    <SearchComponent />
                 </div>
             </LayoutComponent>
         </Base >

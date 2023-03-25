@@ -52,7 +52,7 @@ const AddDetailsComponent = ({ db, firebaseUID, getUserDetails }) => {
             <form className={styles.profileFormContainer}>
                 <p className={styles.profileFormTitle}>Add details</p>
                 <div className={styles.nameSection}>
-                    <label className={styles.firstname}>
+                    <label className={styles.firstnameLabel}>
                         First name
                         <input
                             type='text'

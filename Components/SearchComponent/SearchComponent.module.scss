@@ -1,0 +1,8 @@
+.searchComponent {
+  width: 15%;
+  display: block;
+
+  @media screen and (max-width: 1000px) {
+    position: fixed;
+  }
+}

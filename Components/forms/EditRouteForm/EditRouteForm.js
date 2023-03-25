@@ -5,7 +5,7 @@ import { faPenToSquare } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useRouter } from 'next/router';
 
-const EditRouteForm = ({ displaySetting, route, setDisplaySetting, uid, db, routeId }) => {
+const EditRouteForm = ({ displaySetting, route, setDisplaySetting, db, routeId }) => {
     const [privacy, setPrivacy] = useState('');
     const [name, setName] = useState('');
     const [description, setDescription] = useState('');

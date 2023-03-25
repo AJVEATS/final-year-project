@@ -98,9 +98,11 @@ const CreateAccountComponent = ({ updateDisplayedComponent, auth }) => {
                     />
                 </label>
                 <p>By creating an account, you agree to the <br /><a>Terms of Service</a>. View the <a>Privacy Policy</a></p>
-                <button type='submit' value='submit'>Submit</button>
+                <div className={styles.buttons}>
+                    <button type='submit' value='submit'>Create Account</button>
+                    <button type='button' value='' onClick={() => updateDisplayedComponent('login')}>Go to login</button>
+                </div>
             </form>
-            <button type='button' value='' onClick={() => updateDisplayedComponent('login')}>Already have an account?</button>
         </div>
     )
 }

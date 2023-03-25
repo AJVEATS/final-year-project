@@ -22,17 +22,17 @@ const Route = () => {
 
     const router = useRouter();
     const routeId = router.query.route;
+    const auth = getAuth(firebaseApp);
+    const db = getFirestore(firebaseApp);
 
     useEffect(() => {
         getRoute();
     }, []);
 
-    const auth = getAuth(firebaseApp);
-    const db = getFirestore(firebaseApp);
-    const docRef = doc(db, 'routes', routeId);
-    const uid = (auth.currentUser.uid);
+
 
     async function getRoute() {
+        const docRef = doc(getFirestore(firebaseApp), 'routes', router.query.route);
 
         const docSnap = await getDoc(docRef);
 
@@ -40,6 +40,7 @@ const Route = () => {
             // console.log("Document data:", docSnap.data());
             setRoute({ ...docSnap.data() });
 
+            const uid = (auth.currentUser.uid);
             // console.log(uid);
             // console.log(docSnap.data().uid);
 
@@ -136,7 +137,7 @@ const Route = () => {
                             Delete Route
                         </button>
                     </div>
-                    <EditRouteForm displaySetting={formState} route={route} setDisplaySetting={setFormState} uid={uid} db={db} routeId={routeId} />
+                    <EditRouteForm displaySetting={formState} route={route} setDisplaySetting={setFormState} db={db} routeId={routeId} />
                 </div>
             </LayoutComponent>
         </Base>

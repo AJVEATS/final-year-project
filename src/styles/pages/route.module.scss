@@ -109,6 +109,13 @@
     .formButton {
       margin-left: 0;
       display: inline-flex;
+      text-align: center;
+      justify-content: center;
+      align-items: center;
+
+      @media screen and (max-width: 1000px) {
+        flex-basis: 49%;
+      }
 
       svg {
         width: 1em;

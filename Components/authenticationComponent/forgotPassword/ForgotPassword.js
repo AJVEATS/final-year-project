@@ -21,8 +21,8 @@ const ForgotPassword = ({ updateDisplayedComponent, auth }) => {
 
     return (
         <div className={styles.forogtPassword}>
-            <p>Reset Your Password</p>
-            <form onSubmit={handlePasswordResetForm}>
+            <p className={styles.title}>Reset Your Password</p>
+            <form className={styles.forgotPasswordForm} onSubmit={handlePasswordResetForm}>
                 <label>
                     Email
                     <input
@@ -34,9 +34,11 @@ const ForgotPassword = ({ updateDisplayedComponent, auth }) => {
                         required
                     />
                 </label>
-                <button type='submit' value='submit'>Send</button>
+                <div className={styles.buttons}>
+                    <button type='submit' value='submit'>Send reset email</button>
+                    <button type='button' value='' onClick={() => updateDisplayedComponent('login')}>login</button>
+                </div>
             </form>
-            <button type='button' value='' onClick={() => updateDisplayedComponent('login')}>Go Back</button>
         </div>
     );
 }

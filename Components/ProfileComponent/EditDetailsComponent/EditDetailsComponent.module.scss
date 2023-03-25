@@ -43,15 +43,28 @@
       display: block;
     }
 
-    .firstname {
-      margin-right: 0.5%;
+    .firstnameLabel {
+      margin-right: 10px;
     }
 
     label {
       flex-basis: 33.3%;
       input {
-        width: 98%;
+        width: 99%;
       }
+    }
+  }
+
+  button {
+    margin: 0;
+    background-color: #306b34;
+    border-color: #306b34;
+    color: white;
+
+    &:hover {
+      color: #306b34;
+      background-color: white;
+      font-style: italic;
     }
   }
 
@@ -64,5 +77,6 @@
     border-radius: 4px;
     padding: 0.75% 1%;
     cursor: pointer;
+    border-width: 2px;
   }
 }

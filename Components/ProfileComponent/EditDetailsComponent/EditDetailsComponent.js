@@ -76,7 +76,7 @@ const EditDetailsComponents = ({ db, firebaseUID, auth, user, getUserDetails }) 
             <form className={styles.profileFormContainer}>
                 <p className={styles.profileFormTitle}>Edit details</p>
                 <div className={styles.nameSection}>
-                    <label>
+                    <label className={styles.firstnameLabel}>
                         First name
                         <input
                             type='text'

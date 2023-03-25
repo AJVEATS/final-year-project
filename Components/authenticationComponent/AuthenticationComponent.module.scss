@@ -1,3 +1,7 @@
 .authenticationComponent {
   width: 49%;
+
+  @media screen and (max-width: 1000px) {
+    width: 100%;
+  }
 }

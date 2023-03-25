@@ -7,43 +7,23 @@ import { getDistance } from 'geolib';
 import { doc, setDoc } from 'firebase/firestore';
 const RouteStatsComponent = ({ routeInfo, geoJsonPath, db, routeId }) => {
     const [distance, setDistance] = useState();
+    const [favouriteState, setFavouriteState] = useState();
+
+    useEffect(() => {
+
+    }, []);
     // console.log(routeInfo);
     // console.log(JSON.stringify(routeInfo.directions));
 
-    // useEffect(() => {
-
-    //     if (routeInfo.route && !routeInfo.elevation) {
-    //         // const coordinates = geoJsonPath;
-    //         routeInfo.distance = getElevationData(geoJsonPath);
-
-    //         // try {
-    //         //     const collectionRef = doc(db, 'routes', routeId);
-    //         //     setDoc(collectionRef, routeInfo, { merge: true });
-
-    //         // } catch (e) {
-    //         //     console.error(`Error adding document: ${e}`);
-    //         // }
-    //     }
-    //     // setDistance(geoJsonPath.length);
-    //     // console.log(distance);
-    // }, [routeInfo, geoJsonPath]);
-
-    // const getElevationData = (coordinatesArray) => {
-    //     // console.log('getElevation() initiated');
-    //     // console.log(coordinatesArray);
-    //     // let total = 0;
-    //     // for (let i = 0; i < coordinatesArray.length; i++) {
-    //     //     // console.log(coordinatesArray[i]);
-
-    //     // }
-    //     // return total;
-    // }
+    const handleFavouritePress = () => {
+        console.log('handleFavouritePress() initiated');
+    }
 
     const handleDirectionsClick = () => {
         // console.log('handleDirectionsClick initiated');
         let directions = JSON.stringify(routeInfo.directions);
         const blob = new Blob([directions], { type: "text/plain;charset=utf-8" });
-        saveAs(blob, `${routeInfo.name}_directions}.txt`);
+        saveAs(blob, `${routeInfo.name}_directions.txt`);
         // return null;
     }
 
@@ -52,7 +32,9 @@ const RouteStatsComponent = ({ routeInfo, geoJsonPath, db, routeId }) => {
             <div className={styles.routeStatsContainer}>
                 <div className={styles.routeStatsHeader}>
                     <p>Route Details</p>
-                    <FontAwesomeIcon icon={faHeart} />
+                    <div className={styles.heartContainer}>
+                        <FontAwesomeIcon icon={faHeart} onClick={() => handleFavouritePress()} />
+                    </div>
                 </div>
                 <div className={styles.routeStatsDashboard}>
                     <div className={styles.routeStat}>

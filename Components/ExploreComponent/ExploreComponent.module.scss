@@ -1,7 +1,7 @@
 .exploreList {
   margin: 0% 0% 0% 1%;
   // width: 79%;
-  width: 100%;
+  width: 85%;
   height: 100%;
 
   a {
@@ -84,6 +84,7 @@
   }
 
   @media screen and (max-width: 1000px) {
+    width: 100%;
     .exploreList {
       margin: 0;
     }

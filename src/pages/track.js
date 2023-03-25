@@ -6,7 +6,7 @@ import Head from 'next/head';
 import { getAuth } from 'firebase/auth';
 import { firebaseApp } from './api/FirebaseApp';
 import { collection, getDocs, getFirestore, query, where } from 'firebase/firestore';
-import RouteSearchComponent from 'Components/RouteSearchComponent/RouteSearchComponent';
+import RouteSearchComponent from 'Components/SearchComponent/RouteSearchComponent/RouteSearchComponent';
 import ExploreComponent from 'Components/ExploreComponent/ExploreComponent';
 
 const Track = () => {
@@ -45,7 +45,7 @@ const Track = () => {
             <LayoutComponent>
                 <div className={styles.trackMain}>
                     <ExploreComponent routes={routes} routesNull={routesNull} title={title} />
-                    {/* <RouteSearchComponent /> */}
+                    <RouteSearchComponent />
                 </div>
             </LayoutComponent>
         </Base>
