@@ -12,8 +12,9 @@ const Explore = () => {
     const [allRoutes, setAllRoutes] = useState([]);
     const [routes, setRoutes] = useState([]);
     const [routesNull, setRoutesNull] = useState(false);
+    const [nameQuery, setNameQuery] = useState('');
     const [distanceQuery, setDistanceQuery] = useState(10000);
-    const [durationQuery, setDurationQuery] = useState(100);
+    const [durationQuery, setDurationQuery] = useState(180);
     const [querySubmitted, setQuerySubmitted] = useState(false);
     const [routeQuery, setRouteQuery] = useState();
     const title = 'Explore Community Routes';
@@ -42,25 +43,9 @@ const Explore = () => {
         };
     };
 
-    const filterRoutesByDistance = (distance) => {
-        setRoutes([]);
-        const distanceFilteredRoutes = allRoutes.filter(route => route.routeData.distance <= distance);
-        console.log(distanceFilteredRoutes);
-        // setRoutes([distanceFilteredRoutes]);
-        setRoutes(distanceFilteredRoutes);
-    }
-
-    const filterRoutesByDuration = (duration) => {
-        setRoutes([]);
-        const durationFilteredRoutes = allRoutes.filter(routes => routes.routeData.duration <= duration);
-        console.log(durationFilteredRoutes);
-        setRoutes(durationFilteredRoutes);
-        // setRoutes(durationFilteredRoutes);
-    };
-
     const clearFilters = () => {
         setDistanceQuery(10000);
-        setDurationQuery(100);
+        setDurationQuery(180);
         setRoutes([]);
         setRoutes(allRoutes);
     };
@@ -79,11 +64,13 @@ const Explore = () => {
                     <SearchComponent
                         distanceQuery={distanceQuery}
                         setDistanceQuery={setDistanceQuery}
-                        filterRoutesByDistance={filterRoutesByDistance}
                         durationQuery={durationQuery}
                         setDurationQuery={setDurationQuery}
-                        filterRoutesByDuration={filterRoutesByDuration}
-                        clearFilters={clearFilters} />
+                        clearFilters={clearFilters}
+                        nameQuery={nameQuery}
+                        setNameQuery={setNameQuery}
+                        setRoutes={setRoutes}
+                        allRoutes={allRoutes} />
                 </div>
             </LayoutComponent>
         </Base >

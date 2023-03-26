@@ -40,7 +40,7 @@ const Home = () => {
             <Head>
                 <title>Home</title>
             </Head>
-            <LayoutComponent>
+            <LayoutComponent styles={{ overflow: 'hidden' }}>
                 <p className={styles.welcomeMessage}>Welcome {username}</p>
                 <Link className={styles.drawButton} href='/draw'>
                     <FontAwesomeIcon icon={faPencil} />
