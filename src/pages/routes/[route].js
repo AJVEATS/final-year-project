@@ -33,7 +33,6 @@ const Route = () => {
 
     async function getRoute() {
         const docRef = doc(getFirestore(firebaseApp), 'routes', router.query.route);
-
         const docSnap = await getDoc(docRef);
 
         if (docSnap.exists()) {
@@ -50,20 +49,6 @@ const Route = () => {
             }
         } else {
             console.log("No such document!");
-        }
-    };
-
-    // console.log(route);
-
-    const displayDirections = () => {
-        if (route.directions) {
-            return (
-                route.directions.map((direction) => (
-                    <p className={styles.routeStep}>{direction}</p>
-                ))
-            );
-        } else {
-            return ('route directions is not set');
         }
     };
 
@@ -99,33 +84,7 @@ const Route = () => {
                     <p className={styles.routeName}>{route.name}</p>
                     <div className={styles.routeMain}>
                         <RouteMapComponent routeInfo={route} geoJsonPath={geoJsonPath} />
-                        <RouteStatsComponent routeInfo={route} geoJsonPath={geoJsonPath} db={db} routeId={routeId} />
-                        {/* <div className={styles.routeInfo}>
-                            <div className={styles.routeInfoContainer}>
-                                <div className={styles.routeDescriptionContainer}>
-                                    <p className={styles.routeDescriptionTitle}>Description:</p>
-                                    <p className={styles.routeDescription}>{route.description}</p>
-                                </div>
-                                <div className={styles.routeDifficultyContainer}>
-                                    <FontAwesomeIcon icon={faHiking} />
-                                    <p className={styles.routeDifficulty}>{`${route.difficulty} level`}</p>
-                                </div>
-                                <div className={styles.routeDurationContainer}>
-                                    <FontAwesomeIcon icon={faStopwatch} />
-                                    <p className={styles.routeDuration}>{`${route.duration} minutes`}</p>
-                                </div>
-                            </div>
-                            <div className={styles.accordion}>
-                                <div className={styles.accordionItem}>
-                                    <div className={styles.accordionTitle}
-                                        onClick={() => setIsActive(!isActive)}>
-                                        <div>Route Directions</div>
-                                        <div className={styles.accordionButton}>{isActive ? <FontAwesomeIcon icon={faCaretUp} size={'xs'} /> : <FontAwesomeIcon icon={faCaretDown} />}</div>
-                                    </div>
-                                    {isActive && <div className={styles.accordionContent}>{displayDirections()}</div>}
-                                </div>
-                            </div>
-                        </div> */}
+                        <RouteStatsComponent routeInfo={route} />
                     </div>
                     <div className={styles.routeButtons} style={{ 'display': isAuthor }}>
                         <button id='edit' className={styles.formButton} onClick={() => handleForm()}>

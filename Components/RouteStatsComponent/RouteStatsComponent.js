@@ -3,28 +3,20 @@ import { faHeart, faPersonHiking } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { saveAs } from "file-saver";
 import React, { useState, useEffect } from 'react';
-import { getDistance } from 'geolib';
-import { doc, setDoc } from 'firebase/firestore';
-const RouteStatsComponent = ({ routeInfo, geoJsonPath, db, routeId }) => {
-    const [distance, setDistance] = useState();
-    const [favouriteState, setFavouriteState] = useState();
-
-    useEffect(() => {
-
-    }, []);
-    // console.log(routeInfo);
-    // console.log(JSON.stringify(routeInfo.directions));
+const RouteStatsComponent = ({ routeInfo }) => {
 
     const handleFavouritePress = () => {
         console.log('handleFavouritePress() initiated');
     }
 
     const handleDirectionsClick = () => {
-        // console.log('handleDirectionsClick initiated');
-        let directions = JSON.stringify(routeInfo.directions);
+        let directions = `Directions for ${routeInfo.name} \n`;
+        console.log(routeInfo.directions[0]);
+        for (const step in routeInfo.directions) {
+            directions = directions + `- ${routeInfo.directions[step]} \n`;
+        };
         const blob = new Blob([directions], { type: "text/plain;charset=utf-8" });
         saveAs(blob, `${routeInfo.name}_directions.txt`);
-        // return null;
     }
 
     return (
