@@ -15,8 +15,6 @@ const Explore = () => {
     const [nameQuery, setNameQuery] = useState('');
     const [distanceQuery, setDistanceQuery] = useState(10000);
     const [durationQuery, setDurationQuery] = useState(180);
-    const [querySubmitted, setQuerySubmitted] = useState(false);
-    const [routeQuery, setRouteQuery] = useState();
     const title = 'Explore Community Routes';
 
     const auth = getAuth(firebaseApp);
@@ -33,11 +31,9 @@ const Explore = () => {
         querySnapshot.forEach((doc) => {
             setRoutes(routes => [...routes, { routeId: doc.id, routeData: doc.data() }]);
             setAllRoutes(routes => [...routes, { routeId: doc.id, routeData: doc.data() }]);
-            // routes.push({ routeId: doc.id, routeData: doc.data() });
             // console.log(doc.id, " => ", doc.data()); // For Testing
         });
 
-        // console.log(Object.keys(routes).length);
         if (Object.keys(routes).length === 0) {
             setRoutesNull(true);
         };
