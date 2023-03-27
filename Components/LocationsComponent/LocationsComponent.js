@@ -31,7 +31,8 @@ const LocationsComponent = ({ locations }) => {
 
         // Map Interaction -----------------------------------
         map.current.on('dblclick', (e) => {
-            // document.getElementById("createMarkerForm").style.display = "block";
+            document.getElementById("createMarkerForm").style.display = "block";
+            document.getElementById("subTitleContainer").style.display = "none";
             let coordinates = { 'coordinates': [e.lngLat.lng, e.lngLat.lat] }
             console.log(coordinates);
             setNewMarkerObject(newMarkerObject => ({
@@ -80,34 +81,41 @@ const LocationsComponent = ({ locations }) => {
                     .setPopup(
                         new mapboxgl.Popup({ offset: 25 }) // add popups
                             .setHTML(
-                                `<h3>${locations[location].locationData.title}</h3><p>${locations[location].locationData.description}</p>`
+                                `<h3>${locations[location].locationData.name}</h3><p>${locations[location].locationData.description}</p>`
                             )
                     )
                     .addTo(map.current);
             }
         });
+        newMarkerObject.length = 0;
     }, [locations]);
 
-    const handleAddMarkerClick = () => {
-        if (addMode === false) {
-            setAddMode(true);
-            // console.log(addMode);
-        } else if (addMode === true) {
-            setAddMode(false);
-            // console.log(addMode);
-        }
-        // console.log('handleAddMarkerClick initated');
-    };
+    const addNewMarker = (marker) => {
+        new mapboxgl.Marker()
+            .setLngLat(marker.coordinates)
+            .setPopup(
+                new mapboxgl.Popup({ offset: 25 }) // add popups
+                    .setHTML(
+                        `<h3>${marker.name}</h3><p>${marker.description}</p>`
+                    )
+            )
+            .addTo(map.current);
+    }
 
     return (
         <div className={styles.locationsMapComponent}>
+            <div className={styles.pageInfo}>
+                <div className={styles.titleContainer}>
+                    <p>Coummunity Nature Locations</p>
+                </div>
+                <div id='subTitleContainer' className={styles.subTitleContainer}>
+                    <p>Double click to add a new location</p>
+                </div>
+            </div>
             <div ref={mapContainer} className={styles.mapContainer} />
-            <button type='button' value='' className={styles.addMarkerButton} onClick={() => handleAddMarkerClick()}>
-                <FontAwesomeIcon icon={faLocationDot} />
-                Add Marker
-            </button>
             <CreateMarkerForm
-                newMarkerObject={newMarkerObject} />
+                newMarkerObject={newMarkerObject}
+                addNewMarker={addNewMarker} />
         </div>
     );
 }

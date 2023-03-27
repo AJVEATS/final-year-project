@@ -5,7 +5,7 @@ import { getAuth } from 'firebase/auth';
 import { firebaseApp } from '@/pages/api/FirebaseApp';
 import { addDoc, collection, doc, getFirestore } from 'firebase/firestore';
 
-const CreateMarkerForm = ({ newMarkerObject }) => {
+const CreateMarkerForm = ({ newMarkerObject, addNewMarker }) => {
     const [markerName, setMarkerName] = useState('');
     const [markerDescription, setMarkerDescription] = useState('');
     const [markerCategory, setMarkerCategory] = useState('No category');
@@ -16,8 +16,7 @@ const CreateMarkerForm = ({ newMarkerObject }) => {
     }, [newMarkerObject]);
 
     async function saveMarker() {
-        console.log('saveMarker initated');
-
+        // console.log('saveMarker initated');
         try {
             const auth = getAuth();
             const firebaseUID = auth.currentUser.uid;
@@ -33,6 +32,11 @@ const CreateMarkerForm = ({ newMarkerObject }) => {
             // console.log(newMarkerObject);
 
             const collectionRef = await addDoc(collection(db, 'natureLocations'), newMarkerObject);
+            document.getElementById("createMarkerForm").style.display = "none";
+            document.getElementById("subTitleContainer").style.display = "block";
+
+            alert(`${newMarkerObject.name} has been added`);
+            addNewMarker(newMarkerObject);
         } catch (e) {
             console.error(`Error adding document: ${e}`);
             alert(`Error uploading route - ${e}`);
@@ -42,7 +46,9 @@ const CreateMarkerForm = ({ newMarkerObject }) => {
     };
 
     const cancel = () => {
-        console.log('cancel initated');
+        // console.log('cancel initated');        
+        document.getElementById("createMarkerForm").style.display = "none";
+        document.getElementById("subTitleContainer").style.display = "block";
         return null;
     };
 
