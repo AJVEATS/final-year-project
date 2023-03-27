@@ -3,11 +3,12 @@ import { faHeart, faPersonHiking } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { saveAs } from "file-saver";
 import React, { useState, useEffect } from 'react';
+
 const RouteStatsComponent = ({ routeInfo }) => {
 
     const handleFavouritePress = () => {
         console.log('handleFavouritePress() initiated');
-    }
+    };
 
     const handleDirectionsClick = () => {
         let directions = `Directions for ${routeInfo.name} \n`;
@@ -17,7 +18,7 @@ const RouteStatsComponent = ({ routeInfo }) => {
         };
         const blob = new Blob([directions], { type: "text/plain;charset=utf-8" });
         saveAs(blob, `${routeInfo.name}_directions.txt`);
-    }
+    };
 
     return (
         <div className={styles.routeInfoComponent}>
@@ -65,7 +66,7 @@ const RouteStatsComponent = ({ routeInfo }) => {
                 </div>
             </div>
         </div>
-    )
+    );
 }
 
 export default RouteStatsComponent;

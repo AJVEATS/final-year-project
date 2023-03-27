@@ -8,6 +8,7 @@ import { getAuth } from 'firebase/auth';
 import { firebaseApp } from './api/FirebaseApp';
 import { collection, getDocs, getFirestore, query, where } from 'firebase/firestore';
 import SearchComponent from 'Components/SearchComponent/SearchComponent';
+
 const Explore = () => {
     const [allRoutes, setAllRoutes] = useState([]);
     const [routes, setRoutes] = useState([]);

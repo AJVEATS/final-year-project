@@ -1,0 +1,55 @@
+.locationsMapComponent {
+  border-radius: 4px;
+  width: 100%;
+  height: 100%;
+  // height: 45%;
+  display: block;
+
+  .addMarkerButton {
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    z-index: 2;
+    border: solid black 2px;
+    font-size: 1.3em;
+    background-color: white;
+    padding: 0.2em 0.5em;
+    display: flex;
+
+    svg {
+      width: 1em;
+      margin-right: 0.5em;
+    }
+
+    &:hover {
+      border: 2px solid #306b34;
+      color: #306b34;
+    }
+  }
+
+  @media screen and (max-width: 1000px) {
+    border: 2px solid black;
+    border-radius: 4px;
+    width: 100%;
+    aspect-ratio: 16/9;
+    display: block;
+  }
+}
+
+.mapContainer {
+  height: 100%;
+  z-index: 1;
+}
+
+.mapboxgl-canvas {
+  // width: 100%;
+}
+
+.mapboxgl-popup {
+  max-width: 200px;
+}
+
+.mapboxgl-popup-content {
+  text-align: center;
+  font-family: "Open Sans", sans-serif;
+}
