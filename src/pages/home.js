@@ -46,9 +46,11 @@ const Home = () => {
                     <FontAwesomeIcon icon={faPencil} />
                     Create a route
                 </Link>
-                <img
-                    className={styles.homeImage}
-                    src={`https://api.mapbox.com/styles/v1/mapbox/streets-v11/static/-1.8782,50.7220,11,0/1270x900?access_token=${MapBoxKey.key}`} />
+                <div className={styles.imgContainer}>
+                    <img
+                        className={styles.homeImage}
+                        src={`https://api.mapbox.com/styles/v1/mapbox/streets-v11/static/-1.8782,50.7220,11,0/1270x900?access_token=${MapBoxKey.key}`} />
+                </div>
             </LayoutComponent>
         </Base>
     );

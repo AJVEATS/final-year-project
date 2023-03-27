@@ -13,60 +13,10 @@ const LocationsComponent = ({ locations }) => {
     const map = useRef(null);
     const [latitude, setLatitude] = useState(-1.879497);
     const [longitude, setLongitude] = useState(50.739994);
+    const [markerCoordinates, setMarkerCoordinates] = useState([]);
     const [zoom, setZoom] = useState(13);
     const [addMode, setAddMode] = useState(false);
-
-    // console.log(locations);
-
-    const geojson = {
-        type: 'FeatureCollection',
-        features: [
-            // {
-            //     type: 'Feature',
-            //     geometry: {
-            //         type: 'Point',
-            //         coordinates: [-1.8672507180326647, 50.739431618148444]
-            //     },
-            //     properties: {
-            //         title: 'The Winton Recreation Ground',
-            //         description: 'Winton, Bournemouth'
-            //     }
-            // },
-            {
-                type: 'Feature',
-                geometry: {
-                    type: 'Point',
-                    coordinates: [-1.9019653200398352, 50.7250298861336]
-                },
-                properties: {
-                    title: 'The Dingle',
-                    description: 'Westbourne, Bournemouth'
-                }
-            },
-            {
-                type: 'Feature',
-                geometry: {
-                    type: 'Point',
-                    coordinates: [-1.8728253234511953, 50.744936450010215]
-                },
-                properties: {
-                    title: 'Pine Road Play Area',
-                    description: 'Winton, Bournemouth'
-                }
-            },
-            {
-                type: 'Feature',
-                geometry: {
-                    type: 'Point',
-                    coordinates: [-1.9059539476056955, 50.730567548029086]
-                },
-                properties: {
-                    title: 'Coy Pond',
-                    description: 'Westbourne, Bournemouth'
-                }
-            },
-        ]
-    };
+    const [newMarkerObject, setNewMarkerObject] = useState({});
 
     useEffect(() => {
         map.current = new mapboxgl.Map({
@@ -77,27 +27,17 @@ const LocationsComponent = ({ locations }) => {
             attributionControl: false
         });
 
-        map.current.on('load', async () => {
-            for (const location in locations) {
-                // new mapboxgl.Marker().setLngLat(feature.geometry.coordinates).addTo(map.current);
-                console.log(locations[location]);
-                new mapboxgl.Marker()
-                    .setLngLat(locations[location].locationData.coordinates)
-                    .setPopup(
-                        new mapboxgl.Popup({ offset: 25 }) // add popups
-                            .setHTML(
-                                `<h3>${locations[location].locationData.title}</h3><p>${locations[location].locationData.description}</p>`
-                            )
-                    )
-                    .addTo(map.current);
-            }
-        });
+
 
         // Map Interaction -----------------------------------
         map.current.on('dblclick', (e) => {
-            document.getElementById("createMarkerForm").style.display = "block";
-            // console.log(e.lngLat);
-            // const marker = new mapboxgl.Marker().setLngLat(e.lngLat).addTo(map.current);
+            // document.getElementById("createMarkerForm").style.display = "block";
+            let coordinates = { 'coordinates': [e.lngLat.lng, e.lngLat.lat] }
+            console.log(coordinates);
+            setNewMarkerObject(newMarkerObject => ({
+                ...newMarkerObject,
+                ...coordinates
+            }));
         });
 
         // Map Controls ---------------------------------------
@@ -130,15 +70,33 @@ const LocationsComponent = ({ locations }) => {
         scale.setUnit('metric');
     }, []);
 
+    useEffect(() => {
+        map.current.on('load', async () => {
+            for (const location in locations) {
+                // new mapboxgl.Marker().setLngLat(feature.geometry.coordinates).addTo(map.current);
+                console.log(locations[location]);
+                new mapboxgl.Marker()
+                    .setLngLat(locations[location].locationData.coordinates)
+                    .setPopup(
+                        new mapboxgl.Popup({ offset: 25 }) // add popups
+                            .setHTML(
+                                `<h3>${locations[location].locationData.title}</h3><p>${locations[location].locationData.description}</p>`
+                            )
+                    )
+                    .addTo(map.current);
+            }
+        });
+    }, [locations]);
+
     const handleAddMarkerClick = () => {
         if (addMode === false) {
             setAddMode(true);
-            console.log(addMode);
+            // console.log(addMode);
         } else if (addMode === true) {
             setAddMode(false);
-            console.log(addMode);
+            // console.log(addMode);
         }
-        console.log('handleAddMarkerClick initated');
+        // console.log('handleAddMarkerClick initated');
     };
 
     return (
@@ -148,7 +106,8 @@ const LocationsComponent = ({ locations }) => {
                 <FontAwesomeIcon icon={faLocationDot} />
                 Add Marker
             </button>
-            <CreateMarkerForm />
+            <CreateMarkerForm
+                newMarkerObject={newMarkerObject} />
         </div>
     );
 }
