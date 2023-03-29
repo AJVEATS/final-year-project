@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react';
 import { doc, setDoc } from 'firebase/firestore';
 import Head from 'next/head';
 
-const AddDetailsComponent = ({ db, firebaseUID, getUserDetails }) => {
+const AddDetailsComponent = ({ db, firebaseUID, getUserDetails, setNavigationState }) => {
     const [firstname, setFirstname] = useState('');
     const [lastname, setLastname] = useState('');
     const [location, setLocation] = useState('');
@@ -29,6 +29,7 @@ const AddDetailsComponent = ({ db, firebaseUID, getUserDetails }) => {
 
             alert('Your details have been saved');
             getUserDetails();
+            setNavigationState('edit');
         } catch (e) {
             console.error(`Error adding document: ${e}`);
         }

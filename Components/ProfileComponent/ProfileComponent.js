@@ -34,6 +34,7 @@ const ProfileComponent = () => {
         if (docSnap.exists()) {
             // console.log("Document data:", docSnap.data());
             setUserInfo({ ...docSnap.data() });
+            setNavigationState('edit');
             // console.log(userInfo);
         } else {
             console.log("No such document!");
@@ -43,11 +44,11 @@ const ProfileComponent = () => {
     const handleNav = () => {
         if (navigationState === 'add') {
             return (
-                <AddDetailsComponent db={db} firebaseUID={firebaseUID} getUserDetails={getUserDetails} />
+                <AddDetailsComponent db={db} firebaseUID={firebaseUID} getUserDetails={getUserDetails} setNavigationState={setNavigationState} />
             );
         } else if (navigationState === 'edit') {
             return (
-                <EditDetailsComponents db={db} firebaseUID={firebaseUID} auth={auth} user={userInfo} getUserDetails={getUserDetails} />
+                <EditDetailsComponents db={db} firebaseUID={firebaseUID} auth={auth} user={userInfo} getUserDetails={getUserDetails} setUserInfo={setUserInfo} setNavigationState={setNavigationState} />
             )
         }
     };
@@ -57,7 +58,7 @@ const ProfileComponent = () => {
             <p className={styles.profileTitle}>
                 Welcome {userInfo.firstname} 👋</p>
             <ProfileInfoComponent user={userInfo} />
-            <ProfileNavigationComponent navigationState={navigationState} setNavigationState={setNavigationState} getUserDetails={getUserDetails} />
+            <ProfileNavigationComponent navigationState={navigationState} setNavigationState={setNavigationState} getUserDetails={getUserDetails} setUserInfo={setUserInfo} />
             {handleNav()}
         </div>
     )

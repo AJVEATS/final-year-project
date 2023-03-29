@@ -1,13 +1,13 @@
 import styles from './EditDetailsComponent.module.scss';
 import React, { useState, useEffect } from 'react';
 import Head from 'next/head';
-import { doc, setDoc } from 'firebase/firestore';
+import { collection, deleteDoc, doc, query, setDoc } from 'firebase/firestore';
 import { getAuth } from 'firebase/auth';
 import DeleteAccountComponent from '../DeleteAccountComponent/DeleteAccountComponent';
 
 import { useRouter } from 'next/router'
 
-const EditDetailsComponents = ({ db, firebaseUID, auth, user, getUserDetails }) => {
+const EditDetailsComponents = ({ db, firebaseUID, auth, user, getUserDetails, setUserInfo, setNavigationState }) => {
     const [firstname, setFirstname] = useState('');
     const [lastname, setLastname] = useState('');
     const [location, setLocation] = useState('');
@@ -68,6 +68,25 @@ const EditDetailsComponents = ({ db, firebaseUID, auth, user, getUserDetails }) 
         return null;
     };
 
+    async function handleDeleteDetails() {
+
+        try {
+            deleteDoc(doc(db, 'users', firebaseUID));
+            setFirstname('');
+            setLastname('')
+            setLocation('');
+            setBio('');
+            setUserInfo([]);
+            setNavigationState('add');
+            alert('details have been deleted');
+        } catch (e) {
+            console.error(`Error deleting details: ${e}`);
+            alert(`Error deleting details - ${e}`);
+        }
+
+        return null;
+    }
+
     return (
         <div>
             <Head>
@@ -85,8 +104,7 @@ const EditDetailsComponents = ({ db, firebaseUID, auth, user, getUserDetails }) 
                             value={firstname}
                             onChange={e => {
                                 setFirstname(e.target.value);
-                            }}
-                        />
+                            }} />
                     </label>
                     <label>
                         Last name
@@ -97,8 +115,7 @@ const EditDetailsComponents = ({ db, firebaseUID, auth, user, getUserDetails }) 
                             value={lastname}
                             onChange={e => {
                                 setLastname(e.target.value);
-                            }}
-                        />
+                            }} />
                     </label>
                 </div>
                 <label>
@@ -110,8 +127,7 @@ const EditDetailsComponents = ({ db, firebaseUID, auth, user, getUserDetails }) 
                         value={location}
                         onChange={e => {
                             setLocation(e.target.value);
-                        }}
-                    />
+                        }} />
                 </label>
                 <label>
                     Bio
@@ -119,6 +135,7 @@ const EditDetailsComponents = ({ db, firebaseUID, auth, user, getUserDetails }) 
                 </label>
                 {/* <button type='button' value='' onClick={() => openDeleteAccountPopUp()}>Delete Account</button> */}
                 <button type='button' value='' onClick={() => handleEditDetailForm()}>Save Details</button>
+                <button type='button' value='' className={styles.deleteDetailsButton} onClick={() => handleDeleteDetails()}>Delete Details</button>
             </form>
             {/* <DeleteAccountComponent popUpState={popUpState} setPopUpState={setPopUpState} auth={auth} /> */}
         </div>
