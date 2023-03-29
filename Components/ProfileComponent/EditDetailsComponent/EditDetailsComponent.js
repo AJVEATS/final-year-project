@@ -102,7 +102,7 @@ const EditDetailsComponents = ({ db, firebaseUID, auth, user, getUserDetails }) 
                     </label>
                 </div>
                 <label>
-                    location
+                    Location
                     <input
                         type='text'
                         id='location'

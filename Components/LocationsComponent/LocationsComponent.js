@@ -80,8 +80,15 @@ const LocationsComponent = ({ locations }) => {
                     .setLngLat(locations[location].locationData.coordinates)
                     .setPopup(
                         new mapboxgl.Popup({ offset: 25 }) // add popups
+                            .addClassName('popUpContainer')
                             .setHTML(
-                                `<h3>${locations[location].locationData.name}</h3><p>${locations[location].locationData.description}</p>`
+                                `<div class='popUp'>
+                                    <h3 class='popUpTitle'>${locations[location].locationData.name}</h3>
+                                    <p class='popUpDescription'>${locations[location].locationData.description}</p>
+                                    <p class='popUpAreaType'><b>Type:</b> ${locations[location].locationData.category}</p>
+                                    <p >Edit</p>
+                                    <p>Delete</p>
+                                </div>`
                             )
                     )
                     .addTo(map.current);
@@ -89,6 +96,10 @@ const LocationsComponent = ({ locations }) => {
         });
         newMarkerObject.length = 0;
     }, [locations]);
+
+    const deleteMarker = () => {
+        console.log('deleteMarker');
+    }
 
     const addNewMarker = (marker) => {
         new mapboxgl.Marker()
