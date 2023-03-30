@@ -11,7 +11,7 @@ const NavigationBarMobileComponent = () => {
     }
 
     const closeMenu = () => {
-        console.log('close menu initiated');
+        // console.log('close menu initiated');
         document.getElementById("curtainMenu").style.width = 0;
     }
     return (
@@ -33,9 +33,7 @@ const NavigationBarMobileComponent = () => {
                     <Link href='/home'>Home</Link>
                     <Link href='/draw'>Create</Link>
                     <Link href='/explore'>Explore</Link>
-                    {/* <Link href='/home'>Favourites</Link> */}
                     <Link href='/track'>Your Walks</Link>
-                    <Link href='/favourites'>Favourites</Link>
                     <Link href='/locations'>Nature Spots</Link>
                     <Link href='/account'>Account</Link>
                 </div>
