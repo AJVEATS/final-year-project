@@ -14,7 +14,7 @@ const SearchComponent = ({ distanceQuery, setDistanceQuery, durationQuery, setDu
         } else if (formState == true) {
             setFormState(false);
             document.getElementById('searchLabel').style.display = 'none';
-        }
+        };
     };
 
     const filterRoutesByDistance = (distance) => {
@@ -25,7 +25,7 @@ const SearchComponent = ({ distanceQuery, setDistanceQuery, durationQuery, setDu
         console.log(distanceFilteredRoutes);
         // setRoutes([distanceFilteredRoutes]);
         setRoutes(distanceFilteredRoutes);
-    }
+    };
 
     const filterRoutesByDuration = (duration) => {
         setRoutes([]);
@@ -45,7 +45,7 @@ const SearchComponent = ({ distanceQuery, setDistanceQuery, durationQuery, setDu
         console.log(nameFilteredRoutes);
         setRoutes(nameFilteredRoutes);
         // setRoutes(nameFilteredroutes);
-    }
+    };
 
     return (
         <div className={styles.searchComponent}>
@@ -62,8 +62,7 @@ const SearchComponent = ({ distanceQuery, setDistanceQuery, durationQuery, setDu
                                 onChange={e => {
                                     setNameQuery(e.target.value);
                                 }}
-                                maxLength='20'
-                            />
+                                maxLength='20' />
                         </label>
                         <button type='button' value='' onClick={() => {
                             filterRoutesByName(nameQuery);

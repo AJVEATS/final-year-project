@@ -6,7 +6,6 @@ import CreateMarkerForm from 'Components/forms/CreateMarkerForm/CreateMarkerForm
 import EditMarkerForm from 'Components/forms/EditMarkerForm/EditMarkerForm';
 import DeleteMarkerForm from 'Components/forms/DeleteMarkerForm/DeleteMarkerForm';
 import { getAuth } from 'firebase/auth';
-import SearchComponent from 'Components/SearchComponent/SearchComponent';
 import SearchLocationsComponent from 'Components/SearchLocationsComponent/SearchLocationsComponent';
 
 mapboxgl.accessToken = MapBoxKey.key;

@@ -4,10 +4,18 @@ import React, { useEffect, useState } from 'react';
 const SearchLocationsComponent = ({ locations, setLocations, removeMarkers, allLocations }) => {
     const [categoryQuery, setCategoryQuery] = useState('');
     const [dogFriendlyQuery, setDogFriendlyQuery] = useState('');
+    const [nameQuery, setNameQuery] = useState('');
+    const [showSearchForm, setShowSearchForm] = useState(false);
     // console.log(locations);
 
     const handleSearchPopUp = () => {
-        document.getElementById("searchLocationFormContainer").style.display = "block";
+        if (showSearchForm == false) {
+            document.getElementById("searchLocationFormContainer").style.display = "block";
+            setShowSearchForm(true);
+        } else if (showSearchForm == true) {
+            document.getElementById("searchLocationFormContainer").style.display = "none";
+            setShowSearchForm(false);
+        };
     };
 
     const searchByCategory = (query) => {
@@ -19,8 +27,14 @@ const SearchLocationsComponent = ({ locations, setLocations, removeMarkers, allL
     };
 
     const searchByDogFriendliness = (query) => {
-        console.log(query);
+        // console.log(query);
         const filteredMarkers = allLocations.filter(marker => marker.locationData.dogFriendly == query);
+        removeMarkers();
+        setLocations(filteredMarkers);
+    };
+
+    const searchByName = (query) => {
+        const filteredMarkers = allLocations.filter(marker => marker.locationData.name.toLowerCase().includes(query.toLowerCase()));
         removeMarkers();
         setLocations(filteredMarkers);
     }
@@ -29,12 +43,27 @@ const SearchLocationsComponent = ({ locations, setLocations, removeMarkers, allL
         setLocations(allLocations);
         setCategoryQuery('');
         setDogFriendlyQuery('');
-    }
+    };
 
     return (
         <div className={styles.searchLocationsComponent}>
             <div id='searchLocationFormContainer' className={styles.searchLocationFormContainer}>
                 <div className={styles.searchLocationForm}>
+                    <form>
+                        <label>
+                            Search by name
+                            <input
+                                type='name'
+                                id='name'
+                                name='name'
+                                value={nameQuery}
+                                onChange={e => {
+                                    setNameQuery(e.target.value);
+                                }}
+                                maxLength='20' />
+                        </label>
+                        <button type='button' value='' onClick={() => { searchByName(nameQuery) }}>Search</button>
+                    </form>
                     <form>
                         <label>
                             Search by category
