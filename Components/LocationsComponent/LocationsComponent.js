@@ -1,17 +1,17 @@
 import styles from './LocationsComponent.module.scss';
 import React, { useRef, useEffect, useState } from 'react';
-import { faLocationDot } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import MapBoxKey from '@/pages/api/MapBoxKey';
 import mapboxgl from '!mapbox-gl';
 import CreateMarkerForm from 'Components/forms/CreateMarkerForm/CreateMarkerForm';
 import EditMarkerForm from 'Components/forms/EditMarkerForm/EditMarkerForm';
 import DeleteMarkerForm from 'Components/forms/DeleteMarkerForm/DeleteMarkerForm';
 import { getAuth } from 'firebase/auth';
+import SearchComponent from 'Components/SearchComponent/SearchComponent';
+import SearchLocationsComponent from 'Components/SearchLocationsComponent/SearchLocationsComponent';
 
 mapboxgl.accessToken = MapBoxKey.key;
 
-const LocationsComponent = ({ locations }) => {
+const LocationsComponent = ({ locations, setLocations, allLocations }) => {
     const mapContainer = useRef(null);
     const map = useRef(null);
     const [latitude, setLatitude] = useState(-1.879497);
@@ -22,6 +22,7 @@ const LocationsComponent = ({ locations }) => {
     const [newMarkerObject, setNewMarkerObject] = useState({});
     const [currentMarker, setCurrentMarker] = useState([]);
     const [currentMarkerId, setCurrentMarkerId] = useState('');
+    const [markers, setMarker] = useState([]);
 
     useEffect(() => {
         map.current = new mapboxgl.Map({
@@ -76,42 +77,46 @@ const LocationsComponent = ({ locations }) => {
         const auth = getAuth();
         const firebaseUID = auth.currentUser.uid;
 
-        map.current.on('load', async () => {
-            for (const location in locations) {
-                // new mapboxgl.Marker().setLngLat(feature.geometry.coordinates).addTo(map.current);
-                // console.log(locations[location]);
-                new mapboxgl.Marker()
-                    .setLngLat(locations[location].locationData.coordinates)
-                    .setPopup(
-                        new mapboxgl.Popup({ offset: 25 }) // add popups
-                            .addClassName('popUpContainer')
-                            .on('open', function (e) {
-                                if (firebaseUID == locations[location].locationData.uid) {
-                                    document.getElementById("editMarkerButton").style.display = "block";
-                                    document.getElementById("deleteMarkerButton").style.display = "block";
-                                    setCurrentMarker({ ...locations[location].locationData });
-                                    setCurrentMarkerId(locations[location].locationId);
-                                    // console.log(locations[location].locationData.uid);
-                                }
-                                // console.log(currentMarker);
-                            })
-                            .on('close', function (e) {
-                                document.getElementById("editMarkerButton").style.display = "none";
-                                document.getElementById("deleteMarkerButton").style.display = "none";
-                                setCurrentMarker({});
-                                // console.log(currentMarker);
-                            })
-                            .setHTML(
-                                `<div class='popUp'>
+        // map.current.on('load', async () => {
+        for (const location in locations) {
+            // new mapboxgl.Marker().setLngLat(feature.geometry.coordinates).addTo(map.current);
+            // console.log(locations[location]);
+            let marker = new mapboxgl.Marker()
+                .setLngLat(locations[location].locationData.coordinates)
+                .setPopup(
+                    new mapboxgl.Popup({ offset: 25 }) // add popups
+                        .addClassName('popUpContainer')
+                        .on('open', function (e) {
+                            if (firebaseUID == locations[location].locationData.uid) {
+                                document.getElementById("editMarkerButton").style.display = "block";
+                                document.getElementById("deleteMarkerButton").style.display = "block";
+                                setCurrentMarker({ ...locations[location].locationData });
+                                setCurrentMarkerId(locations[location].locationId);
+                                // console.log(locations[location].locationData.uid);
+                            }
+                            // console.log(currentMarker);
+                        })
+                        .on('close', function (e) {
+                            document.getElementById("editMarkerButton").style.display = "none";
+                            document.getElementById("deleteMarkerButton").style.display = "none";
+                            setCurrentMarker({});
+                            // console.log(currentMarker);
+                        })
+                        .setHTML(
+                            `<div class='popUp'>
                                     <h3 class='popUpTitle'>${locations[location].locationData.name}</h3>
                                     <p class='popUpDescription'>${locations[location].locationData.description}</p>
                                     <p class='popUpAreaType'><b>Type:</b> ${locations[location].locationData.category}</p>
                                     <p class='popUpAreaDogs'><b>Dogs Allowed:</b> ${locations[location].locationData.dogFriendly}</p>
                                 </div>`)
-                    )
-                    .addTo(map.current);
-            }
-        });
+                )
+                .addTo(map.current);
+            markers.push(marker);
+        }
+        // });
+        console.log(markers);
+        // marker.remove();
+
         newMarkerObject.length = 0;
     }, [locations]);
 
@@ -154,6 +159,14 @@ const LocationsComponent = ({ locations }) => {
         document.getElementById("deleteMarkerFormContainer").style.display = "block";
     };
 
+    const removeMarkers = () => {
+        if (markers !== null) {
+            for (let i = markers.length - 1; i >= 0; i--) {
+                markers[i].remove();
+            }
+        }
+    }
+
     return (
         <div className={styles.locationsMapComponent}>
             <div className={styles.pageInfo}>
@@ -178,6 +191,11 @@ const LocationsComponent = ({ locations }) => {
             <DeleteMarkerForm
                 currentMarker={currentMarker}
                 currentMarkerId={currentMarkerId} />
+            <SearchLocationsComponent
+                locations={locations}
+                setLocations={setLocations}
+                removeMarkers={removeMarkers}
+                allLocations={allLocations} />
         </div>
     );
 }

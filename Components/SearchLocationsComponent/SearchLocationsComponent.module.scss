@@ -1,0 +1,17 @@
+.searchLocationsComponent {
+  display: block;
+  position: fixed;
+  bottom: 3%;
+  left: 12.5%;
+  z-index: 2;
+
+  .searchLocationFormContainer {
+    display: none;
+    background-color: white;
+    border-radius: 4px;
+    padding: 15px;
+  }
+
+  .searchLocationsButtonContainer {
+  }
+}

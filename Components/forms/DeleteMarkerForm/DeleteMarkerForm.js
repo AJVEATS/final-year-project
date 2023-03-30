@@ -10,12 +10,12 @@ const DeleteMarkerForm = ({ currentMarker, currentMarkerId }) => {
         // console.log(newMarkerObject.coordinates);
     }, [currentMarker]);
 
-    console.log(currentMarker.name);
+    // console.log(currentMarker.name);
 
     async function handleDeleteClick(inputtedName) {
-        console.log(typeof currentMarker.name);
-        console.log(typeof inputtedName);
-        console.log(inputtedName == currentMarker);
+        // console.log(typeof currentMarker.name);
+        // console.log(typeof inputtedName);
+        // console.log(inputtedName == currentMarker);
 
         if (inputtedName === currentMarker.name) {
             // alert('they match');

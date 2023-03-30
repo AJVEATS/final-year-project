@@ -31,9 +31,7 @@ const CreateMarkerForm = ({ newMarkerObject, addNewMarker }) => {
             newMarkerObject.uid = firebaseUID;
 
             delete newMarkerObject.length;
-            console.log(newMarkerObject);
-
-
+            // console.log(newMarkerObject);
 
             const collectionRef = await addDoc(collection(db, 'natureLocations'), newMarkerObject);
             document.getElementById("createMarkerForm").style.display = "none";
@@ -53,7 +51,7 @@ const CreateMarkerForm = ({ newMarkerObject, addNewMarker }) => {
             setMarkerCategory('No category');
             setDogFriendly('Unknown');
 
-            console.log(newMarkerObject);
+            // console.log(newMarkerObject);
         } catch (e) {
             console.error(`Error adding document: ${e}`);
             alert(`Error uploading route - ${e}`);

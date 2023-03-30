@@ -10,7 +10,7 @@ const EditMarkerForm = ({ currentMarker, currentMarkerId }) => {
     const [editDogFriendly, setEditDogFriendly] = useState('');
 
     useEffect(() => {
-        console.log(currentMarker);
+        // console.log(currentMarker);
         setEditName(currentMarker.name);
         setEditDescription(currentMarker.description);
         setEditCategory(currentMarker.category);
@@ -18,8 +18,8 @@ const EditMarkerForm = ({ currentMarker, currentMarkerId }) => {
 
     }, [currentMarker]);
 
-    console.log(currentMarker);
-    console.log(currentMarkerId);
+    // console.log(currentMarker);
+    // console.log(currentMarkerId);
 
     const closeEditForm = () => {
         document.getElementById("editMarkerFormContainer").style.display = "none";
@@ -57,7 +57,7 @@ const EditMarkerForm = ({ currentMarker, currentMarkerId }) => {
                         value={editName}
                         onChange={e => {
                             setEditName(e.target.value)
-                            console.log(editName)
+                            // console.log(editName)
                         }} />
                 </label>
                 <label>
@@ -68,7 +68,7 @@ const EditMarkerForm = ({ currentMarker, currentMarkerId }) => {
                         value={editDescription}
                         onChange={e => {
                             setEditDescription(e.target.value)
-                            console.log(editDescription)
+                            // console.log(editDescription)
                         }} />
                 </label>
                 <label>
@@ -77,7 +77,7 @@ const EditMarkerForm = ({ currentMarker, currentMarkerId }) => {
                         name='area'
                         onChange={(e => {
                             setEditCategory(e.target.value);
-                            console.log(editCategory);
+                            // console.log(editCategory);
                         })}>
                         <option value={currentMarker.category}>{currentMarker.category}</option>
                         <option value={'No category'}>No category</option>
@@ -96,7 +96,7 @@ const EditMarkerForm = ({ currentMarker, currentMarkerId }) => {
                         defaultValue={currentMarker.dogFriendly}
                         onChange={(e => {
                             setEditDogFriendly(e.target.value);
-                            console.log(editDogFriendly);
+                            // console.log(editDogFriendly);
                         })}>
                         <option value={currentMarker.dogFriendly}>{currentMarker.dogFriendly}</option>
                         <option value={'Unknown'}>Unknown</option>
