@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react';
 import moment from 'moment/moment';
 import { getAuth } from 'firebase/auth';
 import { firebaseApp } from '@/pages/api/FirebaseApp';
-import { addDoc, collection, doc, getFirestore } from 'firebase/firestore';
+import { addDoc, collection, getFirestore } from 'firebase/firestore';
 
 const CreateMarkerForm = ({ newMarkerObject, addNewMarker }) => {
     const [markerName, setMarkerName] = useState('');
@@ -29,7 +29,11 @@ const CreateMarkerForm = ({ newMarkerObject, addNewMarker }) => {
             newMarkerObject.dogFriendly = dogFriendly;
             newMarkerObject.date = date;
             newMarkerObject.uid = firebaseUID;
-            // console.log(newMarkerObject);
+
+            delete newMarkerObject.length;
+            console.log(newMarkerObject);
+
+
 
             const collectionRef = await addDoc(collection(db, 'natureLocations'), newMarkerObject);
             document.getElementById("createMarkerForm").style.display = "none";
@@ -37,6 +41,19 @@ const CreateMarkerForm = ({ newMarkerObject, addNewMarker }) => {
 
             alert(`${newMarkerObject.name} has been added`);
             addNewMarker(newMarkerObject);
+
+            for (var variableKey in newMarkerObject) {
+                if (newMarkerObject.hasOwnProperty(variableKey)) {
+                    delete newMarkerObject[variableKey];
+                };
+            };
+
+            setMarkerName('');
+            setMarkerDescription('');
+            setMarkerCategory('No category');
+            setDogFriendly('Unknown');
+
+            console.log(newMarkerObject);
         } catch (e) {
             console.error(`Error adding document: ${e}`);
             alert(`Error uploading route - ${e}`);
@@ -65,10 +82,9 @@ const CreateMarkerForm = ({ newMarkerObject, addNewMarker }) => {
                         value={markerName}
                         onChange={e => {
                             setMarkerName(e.target.value)
-                            console.log(markerName);
+                            // console.log(markerName);
                         }}
-                        required
-                    />
+                        required />
                 </label>
                 <label>
                     Area's description
@@ -79,10 +95,9 @@ const CreateMarkerForm = ({ newMarkerObject, addNewMarker }) => {
                         value={markerDescription}
                         onChange={e => {
                             setMarkerDescription(e.target.value)
-                            console.log(markerDescription);
+                            // console.log(markerDescription);
                         }}
-                        required
-                    />
+                        required />
                 </label>
                 <label>
                     Area type
@@ -90,11 +105,11 @@ const CreateMarkerForm = ({ newMarkerObject, addNewMarker }) => {
                         name='area'
                         onChange={(e => {
                             setMarkerCategory(e.target.value);
-                            console.log(markerCategory);
-                        })}
-                    >
+                            // console.log(markerCategory);
+                        })}>
                         <option value={'No category'}>No category</option>
                         <option value={'Woodland'}>Woodland</option>
+                        <option value={'Garden'}>Garden</option>
                         <option value={'Mooreland'}>Mooreland</option>
                         <option value={'Park'}>Park</option>
                         <option value={'River'}>River</option>
@@ -108,9 +123,8 @@ const CreateMarkerForm = ({ newMarkerObject, addNewMarker }) => {
                         name='dogFriendly'
                         onChange={(e => {
                             setDogFriendly(e.target.value);
-                            console.log(dogFriendly);
-                        })}
-                    >
+                            // console.log(dogFriendly);
+                        })}>
                         <option value={'Unknown'}>Unknown</option>
                         <option value={'Yes'}>Yes</option>
                         <option value={'No'}>No</option>

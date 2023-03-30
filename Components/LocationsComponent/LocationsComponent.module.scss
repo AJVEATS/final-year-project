@@ -32,8 +32,21 @@
     }
   }
 
+  .placeButtons {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    z-index: 2;
+    width: fit-content;
+    text-align: right;
+
+    button {
+      display: none;
+    }
+  }
+
   @media screen and (max-width: 1000px) {
-    border: 2px solid black;
+    // border: 2px solid black;
     border-radius: 4px;
     width: 100%;
     aspect-ratio: 16/9;

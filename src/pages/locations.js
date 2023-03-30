@@ -23,7 +23,7 @@ const Locations = () => {
         setLocations([]);
         querySnapshot.forEach((doc) => {
             setLocations(locations => [...locations, { locationId: doc.id, locationData: doc.data() }]);
-            // console.log(doc.id, " => ", doc.data()); // For Testing
+            console.log(doc.id, " => ", doc.data()); // For Testing
         });
     };
 

@@ -5,6 +5,8 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import MapBoxKey from '@/pages/api/MapBoxKey';
 import mapboxgl from '!mapbox-gl';
 import CreateMarkerForm from 'Components/forms/CreateMarkerForm/CreateMarkerForm';
+import EditMarkerForm from 'Components/forms/EditMarkerForm/EditMarkerForm';
+import DeleteMarkerForm from 'Components/forms/DeleteMarkerForm/DeleteMarkerForm';
 
 mapboxgl.accessToken = MapBoxKey.key;
 
@@ -17,6 +19,8 @@ const LocationsComponent = ({ locations }) => {
     const [zoom, setZoom] = useState(13);
     const [addMode, setAddMode] = useState(false);
     const [newMarkerObject, setNewMarkerObject] = useState({});
+    const [currentMarker, setCurrentMarker] = useState([]);
+    const [currentMarkerId, setCurrentMarkerId] = useState('');
 
     useEffect(() => {
         map.current = new mapboxgl.Map({
@@ -26,8 +30,6 @@ const LocationsComponent = ({ locations }) => {
             zoom: zoom,
             attributionControl: false
         });
-
-
 
         // Map Interaction -----------------------------------
         map.current.on('dblclick', (e) => {
@@ -47,7 +49,7 @@ const LocationsComponent = ({ locations }) => {
 
         const scale = new mapboxgl.ScaleControl({
             maxWidth: 80,
-            unit: 'imperial'
+            unit: 'metric'
         });
         map.current.addControl(scale);
 
@@ -68,28 +70,39 @@ const LocationsComponent = ({ locations }) => {
         });
         map.current.addControl(nav, 'top-right');
 
-        scale.setUnit('metric');
+        // scale.setUnit('metric');
     }, []);
 
     useEffect(() => {
         map.current.on('load', async () => {
             for (const location in locations) {
                 // new mapboxgl.Marker().setLngLat(feature.geometry.coordinates).addTo(map.current);
-                console.log(locations[location]);
+                // console.log(locations[location]);
                 new mapboxgl.Marker()
                     .setLngLat(locations[location].locationData.coordinates)
                     .setPopup(
                         new mapboxgl.Popup({ offset: 25 }) // add popups
                             .addClassName('popUpContainer')
+                            .on('open', function (e) {
+                                document.getElementById("editMarkerButton").style.display = "block";
+                                document.getElementById("deleteMarkerButton").style.display = "block";
+                                setCurrentMarker({ ...locations[location].locationData });
+                                setCurrentMarkerId(locations[location].locationId);
+                                // console.log(currentMarker);
+                            })
+                            .on('close', function (e) {
+                                document.getElementById("editMarkerButton").style.display = "none";
+                                document.getElementById("deleteMarkerButton").style.display = "none";
+                                setCurrentMarker({});
+                                console.log(currentMarker);
+                            })
                             .setHTML(
                                 `<div class='popUp'>
                                     <h3 class='popUpTitle'>${locations[location].locationData.name}</h3>
                                     <p class='popUpDescription'>${locations[location].locationData.description}</p>
                                     <p class='popUpAreaType'><b>Type:</b> ${locations[location].locationData.category}</p>
-                                    <p >Edit</p>
-                                    <p>Delete</p>
-                                </div>`
-                            )
+                                    <p class='popUpAreaDogs'><b>Dogs Allowed:</b> ${locations[location].locationData.dogFriendly}</p>
+                                </div>`)
                     )
                     .addTo(map.current);
             }
@@ -97,21 +110,43 @@ const LocationsComponent = ({ locations }) => {
         newMarkerObject.length = 0;
     }, [locations]);
 
-    const deleteMarker = () => {
-        console.log('deleteMarker');
-    }
-
     const addNewMarker = (marker) => {
         new mapboxgl.Marker()
             .setLngLat(marker.coordinates)
             .setPopup(
                 new mapboxgl.Popup({ offset: 25 }) // add popups
+                    .addClassName('popUpContainer')
+                    .on('open', function (e) {
+                        document.getElementById("editMarkerButton").style.display = "block";
+                        document.getElementById("deleteMarkerButton").style.display = "block";
+                        setCurrentMarker({ marker });
+                        // setCurrentMarkerId(locations[location].locationId);
+                        // console.log(currentMarker);
+                    })
+                    .on('close', function (e) {
+                        document.getElementById("editMarkerButton").style.display = "none";
+                        document.getElementById("deleteMarkerButton").style.display = "none";
+                        setCurrentMarker({});
+                        console.log(currentMarker);
+                    })
                     .setHTML(
-                        `<h3>${marker.name}</h3><p>${marker.description}</p>`
+                        `<div class='popUp'>
+                            <h3 class='popUpTitle'>${marker.name}</h3>
+                            <p class='popUpDescription'>${marker.description}</p>
+                            <p class='popUpAreaType'><b>Type:</b> ${marker.category}</p>
+                        </div>`
                     )
             )
             .addTo(map.current);
-    }
+    };
+
+    const handleEditClick = () => {
+        document.getElementById("editMarkerFormContainer").style.display = "block";
+    };
+
+    const handleDeleteClick = () => {
+        document.getElementById("deleteMarkerFormContainer").style.display = "block";
+    };
 
     return (
         <div className={styles.locationsMapComponent}>
@@ -124,9 +159,19 @@ const LocationsComponent = ({ locations }) => {
                 </div>
             </div>
             <div ref={mapContainer} className={styles.mapContainer} />
+            <div className={styles.placeButtons}>
+                <button id='editMarkerButton' type='button' value='' onClick={() => handleEditClick()}>Edit Marker</button>
+                <button id='deleteMarkerButton' type='button' value='' onClick={() => handleDeleteClick()}>Delete Marker</button>
+            </div>
             <CreateMarkerForm
                 newMarkerObject={newMarkerObject}
                 addNewMarker={addNewMarker} />
+            <EditMarkerForm
+                currentMarker={currentMarker}
+                currentMarkerId={currentMarkerId} />
+            <DeleteMarkerForm
+                currentMarker={currentMarker}
+                currentMarkerId={currentMarkerId} />
         </div>
     );
 }
