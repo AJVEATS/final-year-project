@@ -7,6 +7,7 @@ import mapboxgl from '!mapbox-gl';
 import CreateMarkerForm from 'Components/forms/CreateMarkerForm/CreateMarkerForm';
 import EditMarkerForm from 'Components/forms/EditMarkerForm/EditMarkerForm';
 import DeleteMarkerForm from 'Components/forms/DeleteMarkerForm/DeleteMarkerForm';
+import { getAuth } from 'firebase/auth';
 
 mapboxgl.accessToken = MapBoxKey.key;
 
@@ -36,7 +37,7 @@ const LocationsComponent = ({ locations }) => {
             document.getElementById("createMarkerForm").style.display = "block";
             document.getElementById("subTitleContainer").style.display = "none";
             let coordinates = { 'coordinates': [e.lngLat.lng, e.lngLat.lat] }
-            console.log(coordinates);
+            // console.log(coordinates);
             setNewMarkerObject(newMarkerObject => ({
                 ...newMarkerObject,
                 ...coordinates
@@ -69,11 +70,12 @@ const LocationsComponent = ({ locations }) => {
             visualizePitch: true
         });
         map.current.addControl(nav, 'top-right');
-
-        // scale.setUnit('metric');
     }, []);
 
     useEffect(() => {
+        const auth = getAuth();
+        const firebaseUID = auth.currentUser.uid;
+
         map.current.on('load', async () => {
             for (const location in locations) {
                 // new mapboxgl.Marker().setLngLat(feature.geometry.coordinates).addTo(map.current);
@@ -84,17 +86,20 @@ const LocationsComponent = ({ locations }) => {
                         new mapboxgl.Popup({ offset: 25 }) // add popups
                             .addClassName('popUpContainer')
                             .on('open', function (e) {
-                                document.getElementById("editMarkerButton").style.display = "block";
-                                document.getElementById("deleteMarkerButton").style.display = "block";
-                                setCurrentMarker({ ...locations[location].locationData });
-                                setCurrentMarkerId(locations[location].locationId);
+                                if (firebaseUID == locations[location].locationData.uid) {
+                                    document.getElementById("editMarkerButton").style.display = "block";
+                                    document.getElementById("deleteMarkerButton").style.display = "block";
+                                    setCurrentMarker({ ...locations[location].locationData });
+                                    setCurrentMarkerId(locations[location].locationId);
+                                    // console.log(locations[location].locationData.uid);
+                                }
                                 // console.log(currentMarker);
                             })
                             .on('close', function (e) {
                                 document.getElementById("editMarkerButton").style.display = "none";
                                 document.getElementById("deleteMarkerButton").style.display = "none";
                                 setCurrentMarker({});
-                                console.log(currentMarker);
+                                // console.log(currentMarker);
                             })
                             .setHTML(
                                 `<div class='popUp'>
@@ -127,13 +132,14 @@ const LocationsComponent = ({ locations }) => {
                         document.getElementById("editMarkerButton").style.display = "none";
                         document.getElementById("deleteMarkerButton").style.display = "none";
                         setCurrentMarker({});
-                        console.log(currentMarker);
+                        // console.log(currentMarker);
                     })
                     .setHTML(
                         `<div class='popUp'>
                             <h3 class='popUpTitle'>${marker.name}</h3>
                             <p class='popUpDescription'>${marker.description}</p>
                             <p class='popUpAreaType'><b>Type:</b> ${marker.category}</p>
+                            <p class='popUpAreaDogs'><b>Dogs Allowed:</b> ${marker.dogFriendly}</p>
                         </div>`
                     )
             )

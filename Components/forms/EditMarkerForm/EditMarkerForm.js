@@ -38,6 +38,7 @@ const EditMarkerForm = ({ currentMarker, currentMarkerId }) => {
             const db = getFirestore(firebaseApp);
             const collectionRef = doc(db, 'natureLocations', currentMarkerId);
             setDoc(collectionRef, updatedMarker, { merge: true });
+            document.getElementById("editMarkerFormContainer").style.display = "none";
             alert(`${editName} has been updated`);
         } catch (e) {
             console.error(`Error adding document: ${e}`);
