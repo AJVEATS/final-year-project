@@ -1,4 +1,6 @@
 import styles from './SearchLocationsComponent.module.scss';
+import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React, { useEffect, useState } from 'react';
 
 const SearchLocationsComponent = ({ locations, setLocations, removeMarkers, allLocations }) => {
@@ -10,10 +12,10 @@ const SearchLocationsComponent = ({ locations, setLocations, removeMarkers, allL
 
     const handleSearchPopUp = () => {
         if (showSearchForm == false) {
-            document.getElementById("searchLocationFormContainer").style.display = "block";
+            document.getElementById("searchLabel").style.display = "block";
             setShowSearchForm(true);
         } else if (showSearchForm == true) {
-            document.getElementById("searchLocationFormContainer").style.display = "none";
+            document.getElementById("searchLabel").style.display = "none";
             setShowSearchForm(false);
         };
     };
@@ -47,66 +49,71 @@ const SearchLocationsComponent = ({ locations, setLocations, removeMarkers, allL
 
     return (
         <div className={styles.searchLocationsComponent}>
-            <div id='searchLocationFormContainer' className={styles.searchLocationFormContainer}>
-                <div className={styles.searchLocationForms}>
-                    <form>
-                        <label>Search by name</label>
-                        <div className={styles.inputButtonContainer}>
-                            <input
-                                type='name'
-                                id='name'
-                                name='name'
-                                value={nameQuery}
-                                onChange={e => {
-                                    setNameQuery(e.target.value);
-                                }}
-                                onKeyDown={(e) => { e.key === 'Enter' && e.preventDefault() }}
-                                maxLength='20' />
-                            <button type='button' value='' onClick={() => { searchByName(nameQuery) }}>Search</button>
-                        </div>
-                    </form>
-                    <form>
-                        <label>Search by category</label>
-                        <div className={styles.inputButtonContainer}>
-                            <select
-                                name='category'
-                                onChange={e => {
-                                    setCategoryQuery(e.target.value)
-                                }}
-                                required>
-                                <option value={'No category'}>No category</option>
-                                <option value={'Woodland'}>Woodland</option>
-                                <option value={'Garden'}>Garden</option>
-                                <option value={'Mooreland'}>Mooreland</option>
-                                <option value={'Park'}>Park</option>
-                                <option value={'River'}>River</option>
-                                <option value={'Lake/ Pond'}>Lake/ Pond</option>
-                                <option value={'Golf Course'}>Golf Course</option>
-                            </select>
-                            <button type='button' value='' onClick={() => searchByCategory(categoryQuery)}>Search</button>
-                        </div>
-                    </form>
-                    <form>
-                        <label>Search by dog friendliness</label>
-                        <div className={styles.inputButtonContainer}>
-                            <select
-                                name='dogFriendly'
-                                onChange={e => {
-                                    setDogFriendlyQuery(e.target.value)
-                                }}
-                                required>
-                                <option value={'Unknown'}>Unknown</option>
-                                <option value={'Yes'}>Yes</option>
-                                <option value={'No'}>No</option>
-                            </select>
-                            <button type='button' value='' onClick={() => searchByDogFriendliness(dogFriendlyQuery)}>Search</button>
-                        </div>
-                    </form>
-                    <button type='button' value='' onClick={() => resetFilters()}>Reset</button>
+            {showSearchForm ? (
+                <div id='searchLocationFormContainer' className={styles.searchLocationFormContainer}>
+                    <div className={styles.searchLocationForms}>
+                        <form>
+                            <label>Search by name</label>
+                            <div className={styles.inputButtonContainer}>
+                                <input
+                                    type='name'
+                                    id='name'
+                                    name='name'
+                                    value={nameQuery}
+                                    onChange={e => {
+                                        setNameQuery(e.target.value);
+                                    }}
+                                    onKeyDown={(e) => { e.key === 'Enter' && e.preventDefault() }}
+                                    maxLength='20' />
+                                <button type='button' value='' onClick={() => { searchByName(nameQuery) }}>Search</button>
+                            </div>
+                        </form>
+                        <form>
+                            <label>Search by category</label>
+                            <div className={styles.inputButtonContainer}>
+                                <select
+                                    name='category'
+                                    onChange={e => {
+                                        setCategoryQuery(e.target.value)
+                                    }}
+                                    required>
+                                    <option value={'No category'}>No category</option>
+                                    <option value={'Woodland'}>Woodland</option>
+                                    <option value={'Garden'}>Garden</option>
+                                    <option value={'Mooreland'}>Mooreland</option>
+                                    <option value={'Park'}>Park</option>
+                                    <option value={'River'}>River</option>
+                                    <option value={'Lake/ Pond'}>Lake/ Pond</option>
+                                    <option value={'Golf Course'}>Golf Course</option>
+                                </select>
+                                <button type='button' value='' onClick={() => searchByCategory(categoryQuery)}>Search</button>
+                            </div>
+                        </form>
+                        <form>
+                            <label>Search by dog friendliness</label>
+                            <div className={styles.inputButtonContainer}>
+                                <select
+                                    name='dogFriendly'
+                                    onChange={e => {
+                                        setDogFriendlyQuery(e.target.value)
+                                    }}
+                                    required>
+                                    <option value={'Unknown'}>Unknown</option>
+                                    <option value={'Yes'}>Yes</option>
+                                    <option value={'No'}>No</option>
+                                </select>
+                                <button type='button' value='' onClick={() => searchByDogFriendliness(dogFriendlyQuery)}>Search</button>
+                            </div>
+                        </form>
+                        <button type='button' value='' onClick={() => resetFilters()}>Reset</button>
+                    </div>
                 </div>
-            </div>
-            <div className={styles.searchLocationsButtonContainer}>
-                <button type='button' value='' onClick={() => handleSearchPopUp()}>Search</button>
+            ) : (
+                <div></div>
+            )}
+            <div className={styles.searchLocationsButtonContainer} onClick={() => handleSearchPopUp()}>
+                <p id='searchLabel'>Search</p>
+                <FontAwesomeIcon icon={faMagnifyingGlass} />
             </div>
         </div>
     );

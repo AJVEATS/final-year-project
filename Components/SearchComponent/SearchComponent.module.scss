@@ -23,6 +23,10 @@
 
     label {
       width: max-content;
+
+      input {
+        border-color: white;
+      }
     }
 
     button {
@@ -74,8 +78,5 @@
       color: white;
       width: 1.4em;
     }
-  }
-
-  .searchButtonContaier {
   }
 }

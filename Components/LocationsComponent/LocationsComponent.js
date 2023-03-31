@@ -8,6 +8,9 @@ import DeleteMarkerForm from 'Components/forms/DeleteMarkerForm/DeleteMarkerForm
 import { getAuth } from 'firebase/auth';
 import SearchLocationsComponent from 'Components/SearchLocationsComponent/SearchLocationsComponent';
 
+import { faPenToSquare, faTrash } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+
 mapboxgl.accessToken = MapBoxKey.key;
 
 const LocationsComponent = ({ locations, setLocations, allLocations }) => {
@@ -22,6 +25,8 @@ const LocationsComponent = ({ locations, setLocations, allLocations }) => {
     const [currentMarker, setCurrentMarker] = useState([]);
     const [currentMarkerId, setCurrentMarkerId] = useState('');
     const [markers, setMarker] = useState([]);
+    const [deleteFormState, setDeleteFormState] = useState(false);
+    const [editFormState, setEditFormState] = useState(false);
 
     useEffect(() => {
         map.current = new mapboxgl.Map({
@@ -151,11 +156,19 @@ const LocationsComponent = ({ locations, setLocations, allLocations }) => {
     };
 
     const handleEditClick = () => {
-        document.getElementById("editMarkerFormContainer").style.display = "block";
+        if (editFormState == false) {
+            setEditFormState(true);
+        } else if (editFormState == true) {
+            setEditFormState(false);
+        }
     };
 
     const handleDeleteClick = () => {
-        document.getElementById("deleteMarkerFormContainer").style.display = "block";
+        if (deleteFormState == false) {
+            setDeleteFormState(true);
+        } else if (deleteFormState == true) {
+            setDeleteFormState(false);
+        }
     };
 
     const removeMarkers = () => {
@@ -180,8 +193,12 @@ const LocationsComponent = ({ locations, setLocations, allLocations }) => {
             <div className={styles.locationsButtonsContainer}>
 
                 <div className={styles.placeButtons}>
-                    <button id='editMarkerButton' type='button' value='' onClick={() => handleEditClick()}>Edit Marker</button>
-                    <button id='deleteMarkerButton' type='button' value='' onClick={() => handleDeleteClick()}>Delete Marker</button>
+                    <button id='editMarkerButton' type='button' value='' onClick={() => handleEditClick()}>
+                        <FontAwesomeIcon icon={faPenToSquare} />
+                    </button>
+                    <button id='deleteMarkerButton' className={styles.deleteButton} type='button' value='' onClick={() => handleDeleteClick()}>
+                        <FontAwesomeIcon icon={faTrash} />
+                    </button>
                 </div>
 
                 <SearchLocationsComponent
@@ -190,16 +207,23 @@ const LocationsComponent = ({ locations, setLocations, allLocations }) => {
                     removeMarkers={removeMarkers}
                     allLocations={allLocations} />
             </div>
-
             <CreateMarkerForm
                 newMarkerObject={newMarkerObject}
                 addNewMarker={addNewMarker} />
-            <EditMarkerForm
-                currentMarker={currentMarker}
-                currentMarkerId={currentMarkerId} />
-            <DeleteMarkerForm
-                currentMarker={currentMarker}
-                currentMarkerId={currentMarkerId} />
+            {editFormState ? (
+                <EditMarkerForm
+                    currentMarker={currentMarker}
+                    currentMarkerId={currentMarkerId} />
+            ) : (
+                <div></div>
+            )}
+            {deleteFormState ? (
+                < DeleteMarkerForm
+                    currentMarker={currentMarker}
+                    currentMarkerId={currentMarkerId} />
+            ) : (
+                <div></div>
+            )}
         </div>
     );
 }
