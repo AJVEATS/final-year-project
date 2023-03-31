@@ -1,21 +1,60 @@
 .searchLocationsComponent {
-  display: block;
-  position: fixed;
-  bottom: 3%;
-  left: 12.5%;
+  // display: block;
+  // position: fixed;
+  // bottom: 3%;
+  // left: 12.5%;
   z-index: 2;
 
   .searchLocationFormContainer {
     display: none;
-    background-color: white;
+    background-color: #306b34;
     border-radius: 4px;
     padding: 5px 10px;
     // padding: 15px;
   }
 
   .searchLocationsButtonContainer {
+    text-align: right;
     button {
       margin: 10px 0 10px 0;
+    }
+  }
+
+  .searchLocationForms {
+    color: white;
+
+    form {
+      display: block;
+      padding-bottom: 5px;
+      label {
+        font-size: 1.2em;
+      }
+      .inputButtonContainer {
+        display: flex;
+        align-items: stretch;
+        flex-wrap: nowrap;
+        justify-content: space-between;
+
+        input,
+        select {
+          box-sizing: border-box;
+          border-color: #306b34;
+          width: 67.5%;
+        }
+
+        button {
+          flex-basis: 30%;
+          margin: 0;
+
+          &:hover {
+            border: 1px solid white;
+          }
+        }
+      }
+    }
+
+    button:hover {
+      border: 1px solid white;
     }
   }
 }

@@ -37,6 +37,7 @@ const LoginComponent = ({ updateDisplayedComponent, auth }) => {
                         name='email'
                         value={email}
                         onChange={e => { setEmail(e.target.value); }}
+                        onKeyDown={(e) => { e.key === 'Enter' && e.preventDefault() }}
                         required
                     />
                 </label>
@@ -48,6 +49,7 @@ const LoginComponent = ({ updateDisplayedComponent, auth }) => {
                         name='password'
                         value={password}
                         onChange={e => { setPassword(e.target.value); }}
+                        onKeyDown={(e) => { e.key === 'Enter' && e.preventDefault() }}
                         required
                     />
                 </label>

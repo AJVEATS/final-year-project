@@ -37,7 +37,7 @@ const SearchLocationsComponent = ({ locations, setLocations, removeMarkers, allL
         const filteredMarkers = allLocations.filter(marker => marker.locationData.name.toLowerCase().includes(query.toLowerCase()));
         removeMarkers();
         setLocations(filteredMarkers);
-    }
+    };
 
     const resetFilters = () => {
         setLocations(allLocations);
@@ -48,10 +48,10 @@ const SearchLocationsComponent = ({ locations, setLocations, removeMarkers, allL
     return (
         <div className={styles.searchLocationsComponent}>
             <div id='searchLocationFormContainer' className={styles.searchLocationFormContainer}>
-                <div className={styles.searchLocationForm}>
+                <div className={styles.searchLocationForms}>
                     <form>
-                        <label>
-                            Search by name
+                        <label>Search by name</label>
+                        <div className={styles.inputButtonContainer}>
                             <input
                                 type='name'
                                 id='name'
@@ -60,13 +60,14 @@ const SearchLocationsComponent = ({ locations, setLocations, removeMarkers, allL
                                 onChange={e => {
                                     setNameQuery(e.target.value);
                                 }}
+                                onKeyDown={(e) => { e.key === 'Enter' && e.preventDefault() }}
                                 maxLength='20' />
-                        </label>
-                        <button type='button' value='' onClick={() => { searchByName(nameQuery) }}>Search</button>
+                            <button type='button' value='' onClick={() => { searchByName(nameQuery) }}>Search</button>
+                        </div>
                     </form>
                     <form>
-                        <label>
-                            Search by category
+                        <label>Search by category</label>
+                        <div className={styles.inputButtonContainer}>
                             <select
                                 name='category'
                                 onChange={e => {
@@ -83,11 +84,11 @@ const SearchLocationsComponent = ({ locations, setLocations, removeMarkers, allL
                                 <option value={'Golf Course'}>Golf Course</option>
                             </select>
                             <button type='button' value='' onClick={() => searchByCategory(categoryQuery)}>Search</button>
-                        </label>
+                        </div>
                     </form>
                     <form>
-                        <label>
-                            Search by dog friendliness
+                        <label>Search by dog friendliness</label>
+                        <div className={styles.inputButtonContainer}>
                             <select
                                 name='dogFriendly'
                                 onChange={e => {
@@ -99,7 +100,7 @@ const SearchLocationsComponent = ({ locations, setLocations, removeMarkers, allL
                                 <option value={'No'}>No</option>
                             </select>
                             <button type='button' value='' onClick={() => searchByDogFriendliness(dogFriendlyQuery)}>Search</button>
-                        </label>
+                        </div>
                     </form>
                     <button type='button' value='' onClick={() => resetFilters()}>Reset</button>
                 </div>

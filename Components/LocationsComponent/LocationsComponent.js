@@ -170,17 +170,27 @@ const LocationsComponent = ({ locations, setLocations, allLocations }) => {
         <div className={styles.locationsMapComponent}>
             <div className={styles.pageInfo}>
                 <div className={styles.titleContainer}>
-                    <p>Coummunity Nature Locations</p>
+                    <p>Local Nature Areas</p>
                 </div>
                 <div id='subTitleContainer' className={styles.subTitleContainer}>
                     <p>Double click to add a new location</p>
                 </div>
             </div>
             <div ref={mapContainer} className={styles.mapContainer} />
-            <div className={styles.placeButtons}>
-                <button id='editMarkerButton' type='button' value='' onClick={() => handleEditClick()}>Edit Marker</button>
-                <button id='deleteMarkerButton' type='button' value='' onClick={() => handleDeleteClick()}>Delete Marker</button>
+            <div className={styles.locationsButtonsContainer}>
+
+                <div className={styles.placeButtons}>
+                    <button id='editMarkerButton' type='button' value='' onClick={() => handleEditClick()}>Edit Marker</button>
+                    <button id='deleteMarkerButton' type='button' value='' onClick={() => handleDeleteClick()}>Delete Marker</button>
+                </div>
+
+                <SearchLocationsComponent
+                    locations={locations}
+                    setLocations={setLocations}
+                    removeMarkers={removeMarkers}
+                    allLocations={allLocations} />
             </div>
+
             <CreateMarkerForm
                 newMarkerObject={newMarkerObject}
                 addNewMarker={addNewMarker} />
@@ -190,11 +200,6 @@ const LocationsComponent = ({ locations, setLocations, allLocations }) => {
             <DeleteMarkerForm
                 currentMarker={currentMarker}
                 currentMarkerId={currentMarkerId} />
-            <SearchLocationsComponent
-                locations={locations}
-                setLocations={setLocations}
-                removeMarkers={removeMarkers}
-                allLocations={allLocations} />
         </div>
     );
 }

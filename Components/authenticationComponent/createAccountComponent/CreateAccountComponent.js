@@ -56,6 +56,7 @@ const CreateAccountComponent = ({ updateDisplayedComponent, auth }) => {
                         onChange={e => {
                             setEmail(e.target.value);
                         }}
+                        onKeyDown={(e) => { e.key === 'Enter' && e.preventDefault() }}
                         required
                     />
                     <Tooltip anchorId='email' place='bottom' clickable>
@@ -74,6 +75,7 @@ const CreateAccountComponent = ({ updateDisplayedComponent, auth }) => {
                             setPassword(e.target.value);
                             checkPassword(e.target.value);
                         }}
+                        onKeyDown={(e) => { e.key === 'Enter' && e.preventDefault() }}
                         required
                     />
                     <Tooltip anchorId='password' place='bottom' clickable>
@@ -94,6 +96,7 @@ const CreateAccountComponent = ({ updateDisplayedComponent, auth }) => {
                         value={confirmPassword}
                         pattern="(?=.{8,25})(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=.!£%])(?=.*[0-9]).*$"
                         onChange={e => { setConfirmPassword(e.target.value); }}
+                        onKeyDown={(e) => { e.key === 'Enter' && e.preventDefault() }}
                         required
                     />
                 </label>

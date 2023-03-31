@@ -31,6 +31,7 @@ const ForgotPassword = ({ updateDisplayedComponent, auth }) => {
                         name='email'
                         value={forgottenEmail}
                         onChange={e => { setForgottenEmail(e.target.value); }}
+                        onKeyDown={(e) => { e.key === 'Enter' && e.preventDefault() }}
                         required
                     />
                 </label>
