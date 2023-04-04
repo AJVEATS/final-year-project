@@ -7,6 +7,16 @@
   width: 100%;
 }
 
+@media screen and (max-width: 1000px) {
+  .drawComponentContainer {
+    height: -webkit-fill-available;
+  }
+
+  .mapContainer {
+    height: 100%;
+  }
+}
+
 .saveButton {
   position: fixed;
   bottom: 2%;

@@ -326,7 +326,7 @@ const DrawComponent = () => {
     };
 
     return (
-        <div>
+        <div className={styles.drawComponentContainer}>
             <div ref={mapContainer} className={styles.mapContainer} />
             <DrawFormComponent
                 formState={formState}
@@ -340,8 +340,6 @@ const DrawComponent = () => {
                 setDifficulty={setDifficulty}
             />
             <button onClick={() => saveRouteButton()} className={styles.saveButton}>
-
-
                 <FontAwesomeIcon icon={faFloppyDisk} />
                 Save
             </button>
