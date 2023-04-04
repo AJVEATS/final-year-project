@@ -1,5 +1,6 @@
-## Walking Route Sharing Web Application
-Created using the Next.js framework and the React library.
+## University Final Year Project 
+A responsive web application for BU Walking Society members to create and share walking routes. 
+Created in React JS and the Next.js framework
 
 ## Getting Started
 
