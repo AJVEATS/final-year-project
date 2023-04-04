@@ -85,6 +85,7 @@ const EditMarkerForm = ({ currentMarker, currentMarkerId }) => {
                         <option value={'Mooreland'}>Mooreland</option>
                         <option value={'Park'}>Park</option>
                         <option value={'River'}>River</option>
+                        <option value={'Beach'}>Beach</option>
                         <option value={'Lake/ Pond'}>Lake/ Pond</option>
                         <option value={'Golf Course'}>Golf Course</option>
                     </select>

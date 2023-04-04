@@ -14,7 +14,7 @@ const NavigationBarComponent = () => {
                 <Link href='/draw'>Create</Link>
                 <Link href='/explore'>Explore</Link>
                 <Link href='/track'>Your Walks</Link>
-                <Link href='/locations'>Nature Spots</Link>
+                <Link href='/locations'>Nature Areas</Link>
                 <Link href='/account'>Account</Link>
             </div>
             <div className={styles.navigationIcon}>
