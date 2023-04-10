@@ -43,6 +43,7 @@ const SearchLocationsComponent = ({ locations, setLocations, removeMarkers, allL
 
     const resetFilters = () => {
         setLocations(allLocations);
+        setNameQuery('');
         setCategoryQuery('');
         setDogFriendlyQuery('');
     };

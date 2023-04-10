@@ -17,44 +17,48 @@ const CreateMarkerForm = ({ newMarkerObject, addNewMarker }) => {
 
     async function saveMarker() {
         // console.log('saveMarker initated');
-        try {
-            const auth = getAuth();
-            const firebaseUID = auth.currentUser.uid;
-            const db = getFirestore(firebaseApp);
-            const date = moment().format('LL');
+        if (markerName != '' && markerDescription != '') {
+            try {
+                const auth = getAuth();
+                const firebaseUID = auth.currentUser.uid;
+                const db = getFirestore(firebaseApp);
+                const date = moment().format('LL');
 
-            newMarkerObject.name = markerName;
-            newMarkerObject.description = markerDescription;
-            newMarkerObject.category = markerCategory;
-            newMarkerObject.dogFriendly = dogFriendly;
-            newMarkerObject.date = date;
-            newMarkerObject.uid = firebaseUID;
+                newMarkerObject.name = markerName;
+                newMarkerObject.description = markerDescription;
+                newMarkerObject.category = markerCategory;
+                newMarkerObject.dogFriendly = dogFriendly;
+                newMarkerObject.date = date;
+                newMarkerObject.uid = firebaseUID;
 
-            delete newMarkerObject.length;
-            // console.log(newMarkerObject);
+                delete newMarkerObject.length;
+                // console.log(newMarkerObject);
 
-            const collectionRef = await addDoc(collection(db, 'natureLocations'), newMarkerObject);
-            document.getElementById("createMarkerForm").style.display = "none";
-            document.getElementById("subTitleContainer").style.display = "block";
+                const collectionRef = await addDoc(collection(db, 'natureLocations'), newMarkerObject);
+                document.getElementById("createMarkerForm").style.display = "none";
+                document.getElementById("subTitleContainer").style.display = "block";
 
-            alert(`${newMarkerObject.name} has been added`);
-            addNewMarker(newMarkerObject);
+                alert(`${newMarkerObject.name} has been added`);
+                addNewMarker(newMarkerObject);
 
-            for (var variableKey in newMarkerObject) {
-                if (newMarkerObject.hasOwnProperty(variableKey)) {
-                    delete newMarkerObject[variableKey];
+                for (var variableKey in newMarkerObject) {
+                    if (newMarkerObject.hasOwnProperty(variableKey)) {
+                        delete newMarkerObject[variableKey];
+                    };
                 };
-            };
 
-            setMarkerName('');
-            setMarkerDescription('');
-            setMarkerCategory('No category');
-            setDogFriendly('Unknown');
+                setMarkerName('');
+                setMarkerDescription('');
+                setMarkerCategory('No category');
+                setDogFriendly('Unknown');
 
-            // console.log(newMarkerObject);
-        } catch (e) {
-            console.error(`Error adding document: ${e}`);
-            alert(`Error uploading route - ${e}`);
+                // console.log(newMarkerObject);
+            } catch (e) {
+                console.error(`Error adding document: ${e}`);
+                alert(`Error uploading route - ${e}`);
+            }
+        } else {
+            alert('Please fill in the locations details');
         }
 
         return null;

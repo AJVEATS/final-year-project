@@ -25,9 +25,9 @@ const RouteStatsComponent = ({ routeInfo }) => {
             <div className={styles.routeStatsContainer}>
                 <div className={styles.routeStatsHeader}>
                     <p>Route Details</p>
-                    <div className={styles.heartContainer}>
+                    {/* <div className={styles.heartContainer}>
                         <FontAwesomeIcon icon={faHeart} onClick={() => handleFavouritePress()} />
-                    </div>
+                    </div> */}
                 </div>
                 <div className={styles.routeStatsDashboard}>
                     <div className={styles.routeStat}>

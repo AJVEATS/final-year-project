@@ -44,6 +44,7 @@ const Explore = () => {
         setDistanceQuery(10000);
         setDurationQuery(180);
         setRoutes([]);
+        setNameQuery('');
         setRoutes(allRoutes);
     };
 

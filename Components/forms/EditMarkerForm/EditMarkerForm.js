@@ -26,22 +26,26 @@ const EditMarkerForm = ({ currentMarker, currentMarkerId }) => {
     };
 
     const handleEditFormClick = () => {
+        if (editName != '' && editDescription != '') {
 
-        const updatedMarker = {
-            name: editName,
-            description: editDescription,
-            category: editCategory,
-            dogFriendly: editDogFriendly
-        };
+            const updatedMarker = {
+                name: editName,
+                description: editDescription,
+                category: editCategory,
+                dogFriendly: editDogFriendly
+            };
 
-        try {
-            const db = getFirestore(firebaseApp);
-            const collectionRef = doc(db, 'natureLocations', currentMarkerId);
-            setDoc(collectionRef, updatedMarker, { merge: true });
-            document.getElementById("editMarkerFormContainer").style.display = "none";
-            alert(`${editName} has been updated`);
-        } catch (e) {
-            console.error(`Error adding document: ${e}`);
+            try {
+                const db = getFirestore(firebaseApp);
+                const collectionRef = doc(db, 'natureLocations', currentMarkerId);
+                setDoc(collectionRef, updatedMarker, { merge: true });
+                document.getElementById("editMarkerFormContainer").style.display = "none";
+                alert(`${editName} has been updated`);
+            } catch (e) {
+                console.error(`Error adding document: ${e}`);
+            };
+        } else {
+            alert('Please enter a name and description for the location');
         }
     };
 
