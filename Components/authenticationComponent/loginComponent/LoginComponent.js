@@ -53,9 +53,11 @@ const LoginComponent = ({ updateDisplayedComponent, auth }) => {
                         required
                     />
                 </label>
-                <button type='submit' value='submit'>login</button>
+                <div className={styles.inlineButtons}>
+                    <button type='submit' value='submit'>login</button>
+                    <button type='button' onClick={() => updateDisplayedComponent('forgotPassword')}>Forgot Password</button>
+                </div>
             </form>
-            <button type='button' onClick={() => updateDisplayedComponent('forgotPassword')}>Forgot Password</button>
             <button type='button' onClick={() => updateDisplayedComponent('createAccount')}>New Here?</button>
         </div>
     )

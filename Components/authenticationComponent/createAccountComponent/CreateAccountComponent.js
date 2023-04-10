@@ -78,13 +78,13 @@ const CreateAccountComponent = ({ updateDisplayedComponent, auth }) => {
                         onKeyDown={(e) => { e.key === 'Enter' && e.preventDefault() }}
                         required
                     />
-                    <Tooltip anchorId='password' place='bottom' clickable>
+                    <Tooltip anchorId='password' place='bottom' clickable style={{ background: 'black' }}>
                         <p><b>Must contain:</b></p>
-                        <p style={{ color: (passwordCriteria.hasUpperCase ? 'green' : 'red') }}>1 Uppercase</p>
-                        <p style={{ color: (passwordCriteria.hasLowerCase ? 'green' : 'red') }}>1 Lowercase</p>
-                        <p style={{ color: (passwordCriteria.hasNum ? 'green' : 'red') }}>1 Number</p>
-                        <p style={{ color: (passwordCriteria.hasSpecialCharacter ? 'green' : 'red') }}>1 Special Character</p>
-                        <p style={{ color: (passwordCriteria.meetsLength ? 'green' : 'red') }}>8 Characters long</p>
+                        <p style={{ color: (passwordCriteria.hasUpperCase ? 'green' : 'red') }}><b>1 Uppercase</b></p>
+                        <p style={{ color: (passwordCriteria.hasLowerCase ? 'green' : 'red') }}><b>1 Lowercase</b></p>
+                        <p style={{ color: (passwordCriteria.hasNum ? 'green' : 'red') }}><b>1 Number</b></p>
+                        <p style={{ color: (passwordCriteria.hasSpecialCharacter ? 'green' : 'red') }}><b>1 Special Character</b></p>
+                        <p style={{ color: (passwordCriteria.meetsLength ? 'green' : 'red') }}><b>8 Characters long</b></p>
                     </Tooltip>
                 </label>
                 <label>
@@ -99,6 +99,9 @@ const CreateAccountComponent = ({ updateDisplayedComponent, auth }) => {
                         onKeyDown={(e) => { e.key === 'Enter' && e.preventDefault() }}
                         required
                     />
+                    <Tooltip anchorId='confirmPassword' place='bottom' clickable style={{ background: 'black' }}>
+                        <p><b>Both passwords should match</b></p>
+                    </Tooltip>
                 </label>
                 <p>By creating an account, you agree to the <br /><a>Terms of Service</a>. View the <a>Privacy Policy</a></p>
                 <div className={styles.buttons}>

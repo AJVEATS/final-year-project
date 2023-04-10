@@ -14,6 +14,16 @@ const ExploreComponent = ({ routes, routesNull, title }) => {
 
     }, []);
 
+    const formatDistance = (distance) => {
+        let formattedDistance = '';
+        if (distance => 1000) {
+            formattedDistance = `${(distance / 1000).toFixed(2)}km`
+        } else {
+            formattedDistance = `${distance}m`;
+        };
+        return formattedDistance
+    };
+
     return (
         <div className={styles.exploreList}>
             <p className={styles.exploreTitle}>{title}</p>
@@ -29,7 +39,7 @@ const ExploreComponent = ({ routes, routesNull, title }) => {
                             <div className={styles.routeStats}>
                                 <div className={styles.routeLength}>
                                     <FontAwesomeIcon icon={faRoute} />
-                                    <p>{`${data.routeData.distance} meters`}</p>
+                                    <p>{formatDistance(data.routeData.distance)}</p>
                                 </div>
                                 <div className={styles.routeDuration}>
                                     <FontAwesomeIcon icon={faClock} />

@@ -25,5 +25,13 @@
         width: 100%;
       }
     }
+
+    .inlineButtons {
+      display: flex;
+
+      button {
+        min-width: fit-content;
+      }
+    }
   }
 }
