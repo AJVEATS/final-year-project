@@ -16,6 +16,7 @@ const NavigationBarComponent = () => {
                 <Link href='/track'>Your Walks</Link>
                 <Link href='/locations'>Nature Areas</Link>
                 <Link href='/account'>Account</Link>
+                <Link href='/likes'>likes</Link>
             </div>
             <div className={styles.navigationIcon}>
                 <FontAwesomeIcon icon={faEllipsis} />

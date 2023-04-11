@@ -114,7 +114,7 @@ const RouteStatsComponent = ({ routeInfo, auth, db, routeId }) => {
         } else if (distance < 1000) {
             formattedDistance = `${distance}m`;
         };
-        return formattedDistance
+        return formattedDistance;
     };
 
     const formatDuration = (duration) => {
