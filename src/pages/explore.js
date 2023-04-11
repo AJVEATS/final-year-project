@@ -23,6 +23,8 @@ const Explore = () => {
 
     useEffect(() => {
         getPublicRoutes();
+        document.getElementById("public").style.backgroundColor = "#306b34";
+        document.getElementById("public").style.color = "#ffffff";
     }, []);
 
     async function getPublicRoutes() {

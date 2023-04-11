@@ -23,6 +23,8 @@ const Track = () => {
 
     useEffect(() => {
         getUserRoutes();
+        document.getElementById("users").style.backgroundColor = "#306b34";
+        document.getElementById("users").style.color = "#ffffff";
     }, []);
 
     async function getUserRoutes() {

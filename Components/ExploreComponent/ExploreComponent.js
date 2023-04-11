@@ -3,6 +3,7 @@ import styles from './ExploreComponent.module.scss';
 import { faRoute, faClock, faPersonHiking } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React, { useEffect, useState } from 'react';
+import ExploreNavigationComponent from './ExploreNavigationComponent/ExploreNavigationComponent';
 
 const ExploreComponent = ({ routes, routesNull, title }) => {
     const [noRoutesState, setNoRoutesState] = useState('none');
@@ -36,6 +37,7 @@ const ExploreComponent = ({ routes, routesNull, title }) => {
     return (
         <div className={styles.exploreList}>
             <p className={styles.exploreTitle}>{title}</p>
+            <ExploreNavigationComponent />
             <div className={styles.routesContainer}>
                 <p className={styles.noRoutes} style={{ 'display': noRoutesState }}>No saved routes</p>
                 {routes.map((data) => (

@@ -11,7 +11,8 @@ import ExploreComponent from "Components/ExploreComponent/ExploreComponent";
 const Likes = () => {
     const [likes, setLikes] = useState([]);
     const [routes, setRoutes] = useState([]);
-    let title = 'Your liked walks ❤️';
+
+    let title = 'Your liked walks';
     const auth = getAuth();
     const firebaseUID = auth.currentUser.uid;
     const db = getFirestore(firebaseApp);
@@ -19,8 +20,8 @@ const Likes = () => {
     useEffect(() => {
         getLikedRoutes();
         getLikedRoutesList();
-        // console.log(likes);
-        // console.log(routes);
+        document.getElementById("likes").style.backgroundColor = "#306b34";
+        document.getElementById("likes").style.color = "#ffffff";
     });
 
     async function getLikedRoutes() {
@@ -28,7 +29,6 @@ const Likes = () => {
         const docSnap = await getDoc(docRef);
 
         if (docSnap.exists()) {
-            // console.log(docSnap.data().likes);
             setLikes([...docSnap.data().likes]);
         } else {
             console.log('No document');
@@ -45,12 +45,12 @@ const Likes = () => {
                 setRoutes(routes => [...routes, { routeId: doc.id, routeData: doc.data() }]);
                 // console.log(doc.data());
             } else {
-                console.log('This is not a liked routes');
+                // console.log('This is not a liked routes');
                 title = 'No liked routes';
             }
             // setRoutes(routes => [...routes, doc.data()]);
         });
-        console.log(routes);
+        // console.log(routes);
     };
 
     return (
