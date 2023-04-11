@@ -10,18 +10,27 @@ const ExploreComponent = ({ routes, routesNull, title }) => {
     useEffect(() => {
         if (routesNull == true) {
             setNoRoutesState('block');
-        }
-
+        };
     }, []);
 
     const formatDistance = (distance) => {
         let formattedDistance = '';
-        if (distance => 1000) {
+        if (distance >= 1000) {
             formattedDistance = `${(distance / 1000).toFixed(2)}km`
         } else {
             formattedDistance = `${distance}m`;
         };
-        return formattedDistance
+        return formattedDistance;
+    };
+
+    const formatDuration = (duration) => {
+        let formattedDuration = '';
+        if (duration >= 60) {
+            formattedDuration = `${(duration / 60).toFixed(1)}hrs`
+        } else if (duration < 60) {
+            formattedDuration = `${duration}mins`
+        };
+        return formattedDuration;
     };
 
     return (
@@ -43,7 +52,7 @@ const ExploreComponent = ({ routes, routesNull, title }) => {
                                 </div>
                                 <div className={styles.routeDuration}>
                                     <FontAwesomeIcon icon={faClock} />
-                                    <p>{`${data.routeData.duration} minutes`}</p>
+                                    <p>{formatDuration(data.routeData.duration)}</p>
                                 </div>
                                 <div className={styles.routeDifficulty}>
                                     <FontAwesomeIcon icon={faPersonHiking} />

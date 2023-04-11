@@ -65,7 +65,7 @@ const RouteMapComponent = ({ routeInfo, geoJsonPath }) => {
                 padding: 20
             });
 
-            console.log(geoJsonPath);
+            // console.log(geoJsonPath);
 
             async function getElevationProfile(geoJsonPath) {
                 let elevationArray = [];

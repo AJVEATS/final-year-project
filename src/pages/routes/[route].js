@@ -84,7 +84,7 @@ const Route = () => {
                     <p className={styles.routeName}>{route.name}</p>
                     <div className={styles.routeMain}>
                         <RouteMapComponent routeInfo={route} geoJsonPath={geoJsonPath} />
-                        <RouteStatsComponent routeInfo={route} />
+                        <RouteStatsComponent routeInfo={route} auth={auth} db={db} routeId={routeId} />
                     </div>
                     <div className={styles.routeButtons} style={{ 'display': isAuthor }}>
                         <button id='edit' className={styles.formButton} onClick={() => handleForm()}>

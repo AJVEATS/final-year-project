@@ -4,7 +4,6 @@ import LayoutComponent from 'Components/Layout/LayoutComponent/LayoutComponent';
 import React, { useState, useEffect } from 'react';
 import { getAuth } from 'firebase/auth';
 import Head from 'next/head';
-
 import MapBoxKey from '@/pages/api/MapBoxKey';
 import { firebaseApp } from './api/FirebaseApp';
 import { doc, getDoc, getFirestore } from 'firebase/firestore';
