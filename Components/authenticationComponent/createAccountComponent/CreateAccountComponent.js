@@ -3,8 +3,9 @@ import { createUserWithEmailAndPassword } from 'firebase/auth';
 import { useState } from 'react';
 import { useRouter } from 'next/router';
 import { Tooltip } from 'react-tooltip';
+import { doc, setDoc } from 'firebase/firestore';
 
-const CreateAccountComponent = ({ updateDisplayedComponent, auth }) => {
+const CreateAccountComponent = ({ updateDisplayedComponent, auth, db }) => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
@@ -19,6 +20,22 @@ const CreateAccountComponent = ({ updateDisplayedComponent, auth }) => {
         if (password === confirmPassword) {
             createUserWithEmailAndPassword(auth, email, password)
                 .then((userCredential) => {
+                    console.log(userCredential.user.uid);
+                    const newUserObject = {
+                        bio: '',
+                        firstname: '',
+                        lastname: '',
+                        likes: [],
+                        location: ''
+                    };
+
+                    try {
+                        const collectionRef = doc(db, 'users', userCredential.user.uid);
+                        setDoc(collectionRef, newUserObject, { merge: true });
+
+                    } catch (e) {
+                        console.error(`Error adding document: ${e}`);
+                    }
                     router.push('/home');
                 })
                 .catch((error) => {

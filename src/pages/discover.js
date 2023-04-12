@@ -105,8 +105,10 @@ const Discover = () => {
         const docRef = doc(db, 'users', uid);
         const docSnap = await getDoc(docRef);
         if (docSnap.exists()) {
+            // if (docSnap.data().likes) {
             console.log(docSnap.data().likes);
             setUsersLikes([...docSnap.data().likes]);
+            // }
         } else {
             console.log('No such document');
         }
@@ -119,8 +121,6 @@ const Discover = () => {
         setRoutes(currentRoutes);
         // setFilter('public');
     };
-
-    // async function
 
     return (
         <Base>

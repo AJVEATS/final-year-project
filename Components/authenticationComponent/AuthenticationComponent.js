@@ -17,12 +17,15 @@ import { getAuth } from 'firebase/auth';
 import CreateAccountComponent from './createAccountComponent/CreateAccountComponent';
 import ForgotPasswordComponet from './ForgotPasswordComponet/ForgotPasswordComponet';
 import LoginComponent from './loginComponent/LoginComponent';
+import { firebaseApp } from '@/pages/api/FirebaseApp';
+import { getFirestore } from 'firebase/firestore';
 
 const AuthenticationComponent = () => {
     const [componentDisplayed, setComponentDisplayed] = useState('createAccount');
 
     const app = initializeApp(firebaseConfig);
     const auth = getAuth(app);
+    const db = getFirestore(firebaseApp);
 
     const updateComponentDisplayedState = (newValue) => {
         setComponentDisplayed(newValue);
@@ -40,7 +43,7 @@ const AuthenticationComponent = () => {
             );
         } else if (componentDisplayed === 'createAccount') {
             return (
-                <CreateAccountComponent updateDisplayedComponent={updateComponentDisplayedState} auth={auth} />
+                <CreateAccountComponent updateDisplayedComponent={updateComponentDisplayedState} auth={auth} db={db} />
             );
         };
     };
