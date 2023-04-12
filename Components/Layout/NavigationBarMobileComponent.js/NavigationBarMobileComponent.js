@@ -32,7 +32,7 @@ const NavigationBarMobileComponent = () => {
                 <div className={styles.curtainNavigationLinks}>
                     <Link href='/home'>Home</Link>
                     <Link href='/draw'>Create</Link>
-                    <Link href='/explore'>Routes</Link>
+                    <Link href='/discover'>Routes</Link>
                     <Link href='/locations'>Nature Areas</Link>
                     <Link href='/account'>Account</Link>
                 </div>
