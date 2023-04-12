@@ -4,10 +4,16 @@
   justify-content: space-between;
   align-items: stretch;
 
-  & > button {
+  button {
+    border: 2px solid #306b34;
     padding: 1% 1.5%;
     font-size: 1.3em;
     margin: 0;
     flex-basis: 33%;
+
+    &:hover {
+      background-color: #306b34 !important;
+      color: white !important;
+    }
   }
 }

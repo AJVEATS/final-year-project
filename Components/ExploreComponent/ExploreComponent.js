@@ -5,14 +5,8 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React, { useEffect, useState } from 'react';
 import ExploreNavigationComponent from './ExploreNavigationComponent/ExploreNavigationComponent';
 
-const ExploreComponent = ({ routes, routesNull, title, filter, setFilter }) => {
+const ExploreComponent = ({ routes, title, filter, setFilter }) => {
     const [noRoutesState, setNoRoutesState] = useState('none');
-
-    useEffect(() => {
-        if (routesNull == true) {
-            setNoRoutesState('block');
-        };
-    }, []);
 
     const formatDistance = (distance) => {
         let formattedDistance = '';

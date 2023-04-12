@@ -48,6 +48,9 @@ const Discover = () => {
     useEffect(() => {
         // console.log('routes');
         // console.log(routes);
+        if (routes.length == 0) {
+            setTitle('No routes found');
+        }
     }, [routes]);
 
     useEffect(() => {
@@ -131,7 +134,6 @@ const Discover = () => {
                 <div className={styles.exploreMain}>
                     <ExploreComponent
                         routes={routes}
-                        routesNull={false}
                         title={title}
                         filter={filter}
                         setFilter={setFilter} />
