@@ -49,8 +49,8 @@ const ProfileComponent = () => {
         } else if (navigationState === 'edit') {
             return (
                 <EditDetailsComponents db={db} firebaseUID={firebaseUID} auth={auth} user={userInfo} getUserDetails={getUserDetails} setUserInfo={setUserInfo} setNavigationState={setNavigationState} />
-            )
-        }
+            );
+        };
     };
 
     return (
