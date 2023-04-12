@@ -13,7 +13,7 @@ const ExploreNavigationComponent = ({ filter, setFilter }) => {
                     color: filter == 'public' ? '#ffffff' : '#000000'
                 }}
                 onClick={() => {
-                    setFilter('public')
+                    setFilter('public');
                 }}>Public Walks</button>
             <button
                 style={{
@@ -21,7 +21,7 @@ const ExploreNavigationComponent = ({ filter, setFilter }) => {
                     color: filter == 'users' ? '#ffffff' : '#000000'
                 }}
                 onClick={() => {
-                    setFilter('users')
+                    setFilter('users');
                 }}>Your Walks</button>
             <button
                 style={{
@@ -29,7 +29,7 @@ const ExploreNavigationComponent = ({ filter, setFilter }) => {
                     color: filter == 'likes' ? '#ffffff' : '#000000'
                 }}
                 onClick={() => {
-                    setFilter('likes')
+                    setFilter('likes');
                 }}>Likes</button>
         </div>
     );

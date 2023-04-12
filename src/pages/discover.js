@@ -8,15 +8,21 @@ import ExploreComponent from 'Components/ExploreComponent/ExploreComponent';
 import { getAuth } from 'firebase/auth';
 import { firebaseApp } from './api/FirebaseApp';
 import { collection, doc, getDoc, getDocs, getFirestore } from 'firebase/firestore';
+import SearchComponent from 'Components/SearchComponent/SearchComponent';
 
 const Discover = () => {
     const [routes, setRoutes] = useState([]);
+    const [currentRoutes, setCurrentRoutes] = useState([]);
     const [allRoutes, setAllRoutes] = useState([]);
     const [likedRoutes, setLikedRoutes] = useState([]);
     const [usersRoutes, setUsersRoutes] = useState([]);
     const [usersLikes, setUsersLikes] = useState([]);
     const [title, setTitle] = useState('default title');
     const [filter, setFilter] = useState('public');
+
+    const [nameQuery, setNameQuery] = useState('');
+    const [distanceQuery, setDistanceQuery] = useState(100000);
+    const [durationQuery, setDurationQuery] = useState(180);
 
     const auth = getAuth(firebaseApp);
     const db = getFirestore(firebaseApp);
@@ -54,14 +60,17 @@ const Discover = () => {
         console.log(filter);
         if (filter === 'public') {
             setRoutes([]);
+            setCurrentRoutes(allRoutes.filter(routes => routes.routeData.privacy == 'public'));
             setRoutes(allRoutes.filter(routes => routes.routeData.privacy == 'public'));
             setTitle('Public routes');
         } else if (filter === 'users') {
             setRoutes([]);
+            setCurrentRoutes(usersRoutes);
             setRoutes(usersRoutes);
             setTitle('Your routes');
         } else if (filter === 'likes') {
             setRoutes([]);
+            setCurrentRoutes(likedRoutes);
             setRoutes(likedRoutes);
             setTitle('Liked routes');
         };
@@ -103,6 +112,14 @@ const Discover = () => {
         }
     };
 
+    const clearFilters = () => {
+        setDistanceQuery(10000);
+        setDurationQuery(180);
+        setRoutes([]);
+        setRoutes(currentRoutes);
+        // setFilter('public');
+    };
+
     // async function
 
     return (
@@ -118,7 +135,7 @@ const Discover = () => {
                         title={title}
                         filter={filter}
                         setFilter={setFilter} />
-                    {/* <SearchComponent
+                    <SearchComponent
                         distanceQuery={distanceQuery}
                         setDistanceQuery={setDistanceQuery}
                         durationQuery={durationQuery}
@@ -127,7 +144,7 @@ const Discover = () => {
                         nameQuery={nameQuery}
                         setNameQuery={setNameQuery}
                         setRoutes={setRoutes}
-                        allRoutes={allRoutes} /> */}
+                        allRoutes={routes} />
                 </div>
             </LayoutComponent>
         </Base >
