@@ -1,13 +1,11 @@
 import { sendPasswordResetEmail } from 'firebase/auth';
 import { useState } from 'react';
-import styles from './ForgotPassword.module.scss';
+import styles from './ForgotPasswordComponet.module.scss';
 
 const ForgotPassword = ({ updateDisplayedComponent, auth }) => {
     const [forgottenEmail, setForgottenEmail] = useState('');
 
-    const handlePasswordResetForm = (e) => {
-        e.preventDefault();
-
+    const handlePasswordResetForm = () => {
         sendPasswordResetEmail(auth, forgottenEmail)
             .then(() => {
                 alert(`Password reset email has been sent to ${forgottenEmail}`);
@@ -36,7 +34,7 @@ const ForgotPassword = ({ updateDisplayedComponent, auth }) => {
                     />
                 </label>
                 <div className={styles.buttons}>
-                    <button type='submit' value='submit'>Send reset email</button>
+                    <button type='button' value='' onClick={() => handlePasswordResetForm()}>Send reset email</button>
                     <button type='button' value='' onClick={() => updateDisplayedComponent('login')}>login</button>
                 </div>
             </form>

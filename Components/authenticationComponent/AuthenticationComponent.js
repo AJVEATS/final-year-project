@@ -1,11 +1,21 @@
+/**
+ * @fileoverview This file represets the AuthenicationComponent which handle the authentication for the application.
+ * It includes:
+ *  - LoginComponent to allow the user to login to their account if they have an account already
+ *  - ForgotPa
+ * 
+ * @param {Object} data - An object of the activities altitude and the time stamp for the altitude value.
+ * 
+ */
+
+import styles from './AuthenticationComponent.module.scss';
+import React, { useState } from 'react';
+
 import { firebaseConfig } from '@/pages/api/FirebaseAPI';
 import { initializeApp } from 'firebase/app';
 import { getAuth } from 'firebase/auth';
-import { getFirestore } from 'firebase/firestore';
-import { useState } from 'react';
-import styles from './AuthenticationComponent.module.scss';
 import CreateAccountComponent from './createAccountComponent/CreateAccountComponent';
-import ForgotPassword from './forgotPassword/ForgotPassword';
+import ForgotPasswordComponet from './ForgotPasswordComponet/ForgotPasswordComponet';
 import LoginComponent from './loginComponent/LoginComponent';
 
 const AuthenticationComponent = () => {
@@ -23,17 +33,17 @@ const AuthenticationComponent = () => {
         if (componentDisplayed === 'login') {
             return (
                 <LoginComponent updateDisplayedComponent={updateComponentDisplayedState} auth={auth} />
-            )
+            );
         } else if (componentDisplayed === 'forgotPassword') {
             return (
-                <ForgotPassword updateDisplayedComponent={updateComponentDisplayedState} auth={auth} />
-            )
+                <ForgotPasswordComponet updateDisplayedComponent={updateComponentDisplayedState} auth={auth} />
+            );
         } else if (componentDisplayed === 'createAccount') {
             return (
                 <CreateAccountComponent updateDisplayedComponent={updateComponentDisplayedState} auth={auth} />
-            )
-        }
-    }
+            );
+        };
+    };
 
     return (
         <div className={styles.authenticationComponent}>

@@ -1,5 +1,3 @@
-import { firebaseConfig } from '@/pages/api/FirebaseAPI';
-import { initializeApp } from 'firebase/app';
 import { signInWithEmailAndPassword } from 'firebase/auth';
 import { useRouter } from 'next/router';
 import { useState } from 'react';
@@ -12,9 +10,7 @@ const LoginComponent = ({ updateDisplayedComponent, auth }) => {
 
     const router = useRouter();
 
-    const handleLoginForm = (e) => {
-        e.preventDefault();
-
+    const handleLoginForm = () => {
         signInWithEmailAndPassword(auth, email, password)
             .then((userCredential) => {
                 router.replace('/home');
@@ -54,7 +50,7 @@ const LoginComponent = ({ updateDisplayedComponent, auth }) => {
                     />
                 </label>
                 <div className={styles.inlineButtons}>
-                    <button type='submit' value='submit'>login</button>
+                    <button type='button' onClick={() => handleLoginForm()}>login</button>
                     <button type='button' onClick={() => updateDisplayedComponent('forgotPassword')}>Forgot Password</button>
                 </div>
             </form>

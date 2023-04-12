@@ -13,8 +13,8 @@ const CreateAccountComponent = ({ updateDisplayedComponent, auth }) => {
 
     const router = useRouter();
 
-    const handleCreateAccountForm = (e) => {
-        e.preventDefault();
+    const handleCreateAccountForm = () => {
+        // e.preventDefault();
 
         if (password === confirmPassword) {
             createUserWithEmailAndPassword(auth, email, password)
@@ -105,7 +105,7 @@ const CreateAccountComponent = ({ updateDisplayedComponent, auth }) => {
                 </label>
                 <p>By creating an account, you agree to the <br /><a>Terms of Service</a>. View the <a>Privacy Policy</a></p>
                 <div className={styles.buttons}>
-                    <button type='submit' value='submit'>Create Account</button>
+                    <button type='button' value='' onClick={() => handleCreateAccountForm()}>Create Account</button>
                     <button type='button' value='' onClick={() => updateDisplayedComponent('login')}>Go to login</button>
                 </div>
             </form>
