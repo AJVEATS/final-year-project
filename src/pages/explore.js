@@ -76,4 +76,5 @@ const Explore = () => {
         </Base >
     );
 }
+
 export default Explore;

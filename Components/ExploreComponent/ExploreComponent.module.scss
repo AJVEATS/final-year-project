@@ -1,6 +1,6 @@
 .exploreList {
   margin: 0% 0% 0% 1%;
-  width: 100%;
+  width: 99%;
   height: fit-content;
 
   a {
@@ -96,10 +96,12 @@
   }
 
   @media screen and (max-width: 1000px) {
-    width: 100%;
+    width: 99%;
+
     .exploreList {
       margin: 0;
     }
+
     .exploreTitle {
       margin: 2% 0;
       font-size: 1.6em;

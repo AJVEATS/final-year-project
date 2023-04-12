@@ -11,16 +11,17 @@
     margin: 0.5em 6px 0.5em 0;
   }
 
-  a {
+  button {
     border: 2px solid #306b34;
     border-radius: 4px;
     width: 32%;
     text-align: center;
     padding: 10px 0;
+    margin: 0;
 
     &:hover {
-      color: white;
-      background-color: #306b34;
+      color: white !important;
+      background-color: #306b34 !important;
     }
   }
 }

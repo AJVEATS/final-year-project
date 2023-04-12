@@ -13,8 +13,10 @@ const NavigationBarComponent = () => {
                 <Link href='/home'>Home</Link>
                 <Link href='/draw'>Create</Link>
                 <Link href='/explore'>Routes</Link>
+                <Link href='/track'>track</Link>
                 <Link href='/locations'>Nature Areas</Link>
                 <Link href='/account'>Account</Link>
+                <Link href='/discover'>discover</Link>
             </div>
             <div className={styles.navigationIcon}>
                 <FontAwesomeIcon icon={faEllipsis} />
