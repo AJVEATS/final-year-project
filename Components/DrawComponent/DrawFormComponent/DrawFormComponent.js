@@ -6,13 +6,13 @@ const DrawFormComponent = ({ formState, setFormState, setPrivacy, setName, setDe
         // console.log('cancel initiated');
         setFormState('none');
         return null;
-    }
+    };
 
     return (
         <div className={styles.drawFormComponent} style={{ 'display': formState }}>
             <p className={styles.formTitle}>Save Route</p>
             <form className={styles.drawForm}>
-                <label >
+                <label>
                     <input
                         className={styles.routeName}
                         type='text'
@@ -24,8 +24,7 @@ const DrawFormComponent = ({ formState, setFormState, setPrivacy, setName, setDe
                             setName(e.target.value);
                         }}
                         required
-                        maxLength='40'
-                    />
+                        maxLength='40' />
                 </label>
                 <label>
                     <textarea

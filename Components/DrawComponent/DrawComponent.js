@@ -268,7 +268,7 @@ const DrawComponent = () => {
 
         const redirectUser = () => {
             router.push(`/routes/${firebaseUID.concat(timeStamp)}`);
-        }
+        };
 
         try {
             const db = getFirestore(firebaseApp);
@@ -302,6 +302,7 @@ const DrawComponent = () => {
                 description: description,
                 date: moment().format('YYYY-MM-DD'),
                 distance: calculateDistance(geoJsonPath),
+                likes: 0,
                 time: moment().format('hh:mm:ss'),
                 route: drawnRoute,
                 directions: directions,
@@ -322,7 +323,7 @@ const DrawComponent = () => {
         } catch (e) {
             console.error(`Error adding document: ${e}`);
             alert(`Error uploading route - ${e}`);
-        }
+        };
     };
 
     return (
