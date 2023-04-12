@@ -34,7 +34,9 @@ const ProfileComponent = () => {
         if (docSnap.exists()) {
             // console.log("Document data:", docSnap.data());
             setUserInfo({ ...docSnap.data() });
-            setNavigationState('edit');
+            if (docSnap.data().name == '') {
+                setNavigationState('edit');
+            }
             // console.log(userInfo);
         } else {
             console.log("No such document!");
