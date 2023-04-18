@@ -29,8 +29,6 @@ const Route = () => {
         getRoute();
     }, []);
 
-
-
     async function getRoute() {
         const docRef = doc(getFirestore(firebaseApp), 'routes', router.query.route);
         const docSnap = await getDoc(docRef);
@@ -70,8 +68,7 @@ const Route = () => {
         console.log('deleteRoute() initiated');
         await deleteDoc(doc(db, 'routes', routeId));
         alert('Your route has been deleted');
-        router.push('/explore');
-        return null;
+        router.push('/discover');
     };
 
     return (

@@ -10,6 +10,12 @@
   z-index: 1;
   border-radius: 4px;
 
+  @media screen and (max-width: 1000px) {
+    width: 90%;
+    margin: 20% auto;
+    left: 5%;
+  }
+
   .formTitle {
     margin: 2% 0 0 2%;
     font-size: 1.5em;

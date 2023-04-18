@@ -16,6 +16,7 @@ const AddDetailsComponent = ({ db, firebaseUID, getUserDetails, setNavigationSta
             firstname: firstname,
             lastname: lastname,
             location: location,
+            likes: [],
             bio: bio,
         };
 

@@ -36,7 +36,7 @@
       padding: 10px;
 
       @media screen and (max-width: 1000px) {
-        display: none;
+        margin-right: 40px;
       }
     }
   }
@@ -56,6 +56,7 @@
     width: fit-content;
     display: flex;
     justify-content: center;
+    z-index: 10;
 
     button {
       display: none;

@@ -12,6 +12,13 @@
   color: black;
   z-index: 2;
 
+  @media screen and (max-width: 1000px) {
+    top: 20%;
+    right: unset;
+    left: auto;
+    width: 82%;
+  }
+
   .title {
     font-size: 2em;
     display: flex;
@@ -30,7 +37,7 @@
     .formButtons {
       display: flex;
       flex-direction: row;
-      flex-wrap: nowrap;
+      flex-wrap: wrap;
       justify-content: space-around;
       align-items: center;
       font-size: 1.2em;
