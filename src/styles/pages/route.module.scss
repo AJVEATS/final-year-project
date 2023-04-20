@@ -1,3 +1,5 @@
+@use "../../../src/styles/colors.module.scss" as colors;
+
 .route {
   padding: 1% 2%;
   width: 96%;
@@ -10,9 +12,6 @@
     font-weight: bold;
     margin-bottom: 0.5em;
     width: fit-content;
-  }
-
-  .routeDuration {
   }
 
   .routeMain {
@@ -70,8 +69,8 @@
         width: fit-content;
         height: fit-content;
         font-size: 1.3em;
-        background-color: #306b34;
-        color: white;
+        background-color: colors.$primary-green;
+        color: colors.$white;
         border-radius: 4px;
         padding: 0.5em 1em;
 
@@ -96,7 +95,7 @@
 
             .routeStep {
               margin-bottom: 2%;
-              border-bottom: 2px solid white;
+              border-bottom: 2px solid colors.$white;
             }
           }
         }
@@ -132,9 +131,6 @@
 
     #edit {
       margin-left: 0;
-    }
-
-    #delete {
     }
   }
 }

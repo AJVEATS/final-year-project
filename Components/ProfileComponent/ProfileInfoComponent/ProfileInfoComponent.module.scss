@@ -1,6 +1,8 @@
+@use "../../../src/styles/colors.module.scss" as colors;
+
 .profileInfoComponent {
-  color: white;
-  background-color: #306b34;
+  color: colors.$white;
+  background-color: colors.$primary-green;
   border-radius: 4px;
   padding: 1% 1.5%;
   font-size: 1.3em;

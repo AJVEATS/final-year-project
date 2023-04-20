@@ -1,6 +1,8 @@
+@use "../../../src/styles/colors.module.scss" as colors;
+
 .navigationBarComponent {
   width: 7.5%;
-  background-color: #306b34;
+  background-color: colors.$primary-green;
   height: 100vh;
   transition: width 0.3s;
   transition-timing-function: ease;
@@ -36,7 +38,7 @@
     display: block;
     width: 2em;
     margin: 1em auto;
-    color: white;
+    color: colors.$white;
   }
 
   .navigationLinks {
@@ -52,7 +54,7 @@
       display: block;
       width: 100%;
       text-decoration: none;
-      color: white;
+      color: colors.$white;
       font-size: 1.4em;
       margin-bottom: 0.25em;
     }
@@ -62,7 +64,7 @@
     display: block;
     width: 2em;
     margin: 1em auto;
-    color: white;
+    color: colors.$white;
     position: absolute;
     bottom: 0;
     left: 2.5%;

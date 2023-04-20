@@ -2,7 +2,6 @@ import { firebaseConfig } from '@/pages/api/FirebaseAPI';
 import { initializeApp } from 'firebase/app';
 import { getAuth } from 'firebase/auth';
 import { useRouter } from 'next/router';
-import styles from './SignOutComponent.module.scss';
 
 const SignOutComponent = () => {
 

@@ -2,7 +2,6 @@
   border: 2px solid black;
   border-radius: 4px;
   width: 49.5%;
-  // height: 45%;
   display: block;
 
   @media screen and (max-width: 1000px) {
@@ -17,8 +16,4 @@
 .mapContainer {
   height: 100%;
   z-index: 1;
-}
-
-.mapboxgl-canvas {
-  // width: 100%;
 }

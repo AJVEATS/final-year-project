@@ -1,3 +1,5 @@
+@use "../../../src/styles/colors.module.scss" as colors;
+
 .profileNavigationComponent {
   padding: 0.75em 0;
   display: flex;
@@ -5,15 +7,15 @@
   align-items: stretch;
 
   button {
-    border: 2px solid #306b34;
+    border: 2px solid colors.$primary-green;
     padding: 1% 1.5%;
     font-size: 1.3em;
     margin: 0;
     flex-basis: 33%;
 
     &:hover {
-      background-color: #306b34 !important;
-      color: white !important;
+      background-color: colors.$primary-green !important;
+      color: colors.$white !important;
     }
   }
 }

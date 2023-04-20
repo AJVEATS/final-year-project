@@ -1,3 +1,5 @@
+@use "../../../src/styles/colors.module.scss" as colors;
+
 .drawFormComponent {
   width: 70%;
   position: absolute;
@@ -5,8 +7,8 @@
   margin: 10% auto;
   top: 0;
   left: 15%;
-  background-color: #306b34;
-  color: white;
+  background-color: colors.$primary-green;
+  color: colors.$white;
   z-index: 1;
   border-radius: 4px;
 
@@ -72,7 +74,7 @@
         border: 2px solid black;
 
         &:hover {
-          border: 2px solid white;
+          border: 2px solid colors.$white;
         }
       }
     }

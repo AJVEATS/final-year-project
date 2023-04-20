@@ -1,3 +1,5 @@
+@use "../../../src/styles/colors.module.scss" as colors;
+
 .profileTitle {
   font-size: 1.7em;
   padding-bottom: 10px;
@@ -61,13 +63,13 @@
 
   button {
     margin: 0;
-    background-color: #306b34;
-    border-color: #306b34;
-    color: white;
+    background-color: colors.$primary-green;
+    border-color: colors.$primary-green;
+    color: colors.$white;
 
     &:hover {
-      color: #306b34;
-      background-color: white;
+      color: colors.$primary-green;
+      background-color: colors.$white;
       // font-style: italic;
     }
   }

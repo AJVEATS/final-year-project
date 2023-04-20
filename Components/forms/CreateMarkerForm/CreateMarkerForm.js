@@ -90,7 +90,7 @@ const CreateMarkerForm = ({ newMarkerObject, addNewMarker }) => {
                 </label>
                 <label>
                     <p>Area's description</p>
-                    <input
+                    <textarea
                         type='text'
                         id='location'
                         name='location'

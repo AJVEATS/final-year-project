@@ -1,7 +1,9 @@
+@use "../../src/styles/colors.module.scss" as colors;
+
 .profileComponent {
   padding: 1% 2%;
   border-radius: 4px;
-  background-color: white;
+  background-color: colors.$white;
 
   .profileTitle {
     font-size: 2.2em;

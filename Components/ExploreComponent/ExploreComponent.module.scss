@@ -1,3 +1,5 @@
+@use "../../src/styles/colors.module.scss" as colors;
+
 .exploreList {
   margin: 0% 0% 0% 1%;
   width: 99%;
@@ -8,33 +10,14 @@
     color: black;
 
     &:hover {
-      color: white;
+      color: colors.$white;
 
       .routeCard {
-        border: 2px #306b34 solid;
-        background-color: #306b34;
+        border: 2px colors.$primary-green solid;
+        background-color: colors.$primary-green;
       }
     }
   }
-
-  // * {
-  //   scrollbar-width: auto;
-  //   scrollbar-color: #306b34 white;
-  // }
-
-  // *::-webkit-scrollbar {
-  //   width: 16px;
-  // }
-
-  // *::-webkit-scrollbar-track {
-  //   background: white;
-  // }
-
-  // *::-webkit-scrollbar-thumb {
-  //   background-color: #306b34;
-  //   border-radius: 10px;
-  //   border: 3px solid white;
-  // }
 
   .exploreTitle {
     font-size: 2.5em;
@@ -42,8 +25,6 @@
   }
 
   .routesContainer {
-    // overflow: scroll;
-    // height: 80%;
     height: 95%;
     margin-right: 20px;
 

@@ -1,3 +1,5 @@
+@use "../../src/styles/colors.module.scss" as colors;
+
 .searchComponent {
   width: 20%;
   min-width: 350px;
@@ -8,14 +10,14 @@
   position: fixed;
   right: 0;
   bottom: 0;
-  color: white;
+  color: colors.$white;
 
   @media screen and (max-width: 1000px) {
     width: 97%;
   }
 
   .searchFormContainer {
-    background: #306b34;
+    background: colors.$primary-green;
     margin-right: 20px;
     width: 100%;
     padding: 3%;
@@ -25,7 +27,7 @@
       width: max-content;
 
       input {
-        border-color: white;
+        border-color: colors.$white;
       }
     }
 
@@ -36,35 +38,35 @@
 
   .searchButtonContaier {
     display: block;
-    background-color: #306b34;
+    background-color: colors.$primary-green;
     height: fit-content;
     display: flex;
     width: fit-content;
     justify-content: flex-end;
     padding: 20px;
     margin: 20px;
-    border: 2px solid #306b34;
+    border: 2px solid colors.$white;
     border-radius: 50px;
 
     transition: all 0.5s linear;
 
     &:hover {
-      background-color: white;
+      background-color: colors.$white;
       cursor: pointer;
 
       p {
-        color: #306b34;
+        color: colors.$primary-green;
         margin-right: 15px;
         display: inline;
       }
 
       svg {
-        color: #306b34;
+        color: colors.$primary-green;
       }
     }
 
     p {
-      color: white;
+      color: colors.$white;
       display: none;
       margin-right: 15px;
 
@@ -75,7 +77,7 @@
     }
 
     svg {
-      color: white;
+      color: colors.$white;
       width: 1.4em;
     }
   }

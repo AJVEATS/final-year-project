@@ -1,3 +1,5 @@
+@use "../../src/styles/colors.module.scss" as colors;
+
 .searchLocationsComponent {
   z-index: 2;
   width: 20%;
@@ -9,11 +11,11 @@
   position: fixed;
   right: 0;
   bottom: 0;
-  color: white;
+  color: colors.$white;
 
   .searchLocationFormContainer {
     display: block;
-    background-color: #306b34;
+    background-color: colors.$primary-green;
     border-radius: 4px;
     padding: 5px 10px;
     margin-right: 20px;
@@ -21,35 +23,35 @@
 
   .searchLocationsButtonContainer {
     display: block;
-    background-color: #306b34;
+    background-color: colors.$primary-green;
     height: fit-content;
     display: flex;
     width: fit-content;
     justify-content: flex-end;
     padding: 20px;
     margin: 20px;
-    border: 2px solid #306b34;
+    border: 2px solid colors.$primary-green;
     border-radius: 50px;
 
     transition: all 0.5s linear;
 
     &:hover {
-      background-color: white;
+      background-color: colors.$white;
       cursor: pointer;
 
       p {
-        color: #306b34;
+        color: colors.$primary-green;
         margin-right: 15px;
         display: inline;
       }
 
       svg {
-        color: #306b34;
+        color: colors.$primary-green;
       }
     }
 
     p {
-      color: white;
+      color: colors.$white;
       display: none;
       margin-right: 15px;
 
@@ -60,13 +62,13 @@
     }
 
     svg {
-      color: white;
+      color: colors.$white;
       width: 1.4em;
     }
   }
 
   .searchLocationForms {
-    color: white;
+    color: colors.$white;
 
     form {
       display: block;
@@ -83,26 +85,26 @@
         input,
         select {
           box-sizing: border-box;
-          border-color: #306b34;
+          border-color: colors.$primary-green;
           width: 67.5%;
         }
 
         button {
           flex-basis: 30%;
-          border-color: white;
+          border-color: colors.$white;
           margin: 0;
 
           &:hover {
-            border: 1px solid white;
+            border: 1px solid colors.$white;
           }
         }
       }
     }
 
     button {
-      border-color: white;
+      border-color: colors.$white;
       &:hover {
-        border: 1px solid white;
+        border: 1px solid colors.$white;
       }
     }
   }

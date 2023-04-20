@@ -1,3 +1,5 @@
+@use "../../../src/styles/colors.module.scss" as colors;
+
 .exploreNavigationComponent {
   display: flex;
   flex-wrap: nowrap;
@@ -12,7 +14,7 @@
   }
 
   button {
-    border: 2px solid #306b34;
+    border: 2px solid colors.$primary-green;
     border-radius: 4px;
     width: 32%;
     text-align: center;
@@ -20,8 +22,8 @@
     margin: 0;
 
     &:hover {
-      color: white !important;
-      background-color: #306b34 !important;
+      color: colors.$white !important;
+      background-color: colors.$primary-green !important;
     }
   }
 }

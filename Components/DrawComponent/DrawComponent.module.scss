@@ -1,3 +1,5 @@
+@use "../../src/styles/colors.module.scss" as colors;
+
 .mapContainer {
   height: 100vh;
   z-index: 1;
@@ -24,7 +26,7 @@
   z-index: 2;
   border: solid black 2px;
   font-size: 1.3em;
-  background-color: white;
+  background-color: colors.$white;
   padding: 0.2em 0.5em;
   display: flex;
 
@@ -34,6 +36,6 @@
   }
 
   &:hover {
-    border: 2px solid #306b34;
+    border: 2px solid colors.$primary-green;
   }
 }
