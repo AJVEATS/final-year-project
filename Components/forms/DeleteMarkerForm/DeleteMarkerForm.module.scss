@@ -1,11 +1,65 @@
+@use "../../../src/styles/colors.module.scss" as colors;
+
 .deleteMarkerFormContainer {
   display: block;
   position: fixed;
+  width: 40vw;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
   z-index: 2;
-  background-color: white;
+  background-color: colors.$white;
   border-radius: 4px;
-  padding: 15px;
+  padding: 10px 25px;
+
+  @media screen and (max-width: 1000px) {
+    width: 80vw;
+  }
+
+  .deleteFormTitle {
+    font-weight: bold;
+    font-size: 2em;
+    margin: 0.3em 0em;
+  }
+
+  .deleteMarkerForm {
+    width: 100%;
+
+    label {
+      display: block;
+      margin-bottom: 0.5em;
+
+      p {
+        font-size: 1.4em;
+        margin-bottom: 0.1em;
+      }
+
+      input {
+        font-size: 1.2em;
+        width: 100%;
+        box-sizing: border-box;
+      }
+    }
+
+    .buttonContainer {
+      width: 100%;
+      display: flex;
+      margin-bottom: 10px;
+
+      button {
+        margin: 0 auto;
+        background-color: colors.$primary-green;
+        border: 2px solid colors.$primary-green;
+        color: colors.$white;
+        flex-basis: 49%;
+        flex-basis: 49.6%;
+        font-size: 1.3em;
+
+        &:hover {
+          background-color: colors.$white;
+          color: colors.$primary-green;
+        }
+      }
+    }
+  }
 }

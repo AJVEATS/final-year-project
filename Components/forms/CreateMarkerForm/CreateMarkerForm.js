@@ -76,7 +76,7 @@ const CreateMarkerForm = ({ newMarkerObject, addNewMarker }) => {
             <p className={styles.createMarkerTitle}>Add Location</p>
             <form className={styles.createMarkerForm}>
                 <label>
-                    Area's name
+                    <p>Area's name</p>
                     <input
                         type='text'
                         id='name'
@@ -89,7 +89,7 @@ const CreateMarkerForm = ({ newMarkerObject, addNewMarker }) => {
                         required />
                 </label>
                 <label>
-                    Area's description
+                    <p>Area's description</p>
                     <input
                         type='text'
                         id='location'
@@ -102,7 +102,7 @@ const CreateMarkerForm = ({ newMarkerObject, addNewMarker }) => {
                         required />
                 </label>
                 <label>
-                    Area type
+                    <p>Area type</p>
                     <select
                         name='area'
                         onChange={(e => {
@@ -121,7 +121,7 @@ const CreateMarkerForm = ({ newMarkerObject, addNewMarker }) => {
                     </select>
                 </label>
                 <label>
-                    Is it dog friendly?
+                    <p>Is it dog friendly?</p>
                     <select
                         name='dogFriendly'
                         onChange={(e => {
@@ -133,8 +133,10 @@ const CreateMarkerForm = ({ newMarkerObject, addNewMarker }) => {
                         <option value={'No'}>No</option>
                     </select>
                 </label>
-                <button type='button' value='' onClick={() => cancel()}>Cancel</button>
-                <button type='button' value='' onClick={() => saveMarker()}>Save</button>
+                <div className={styles.buttonContainer}>
+                    <button type='button' value='' onClick={() => cancel()}>Cancel</button>
+                    <button type='button' value='' onClick={() => saveMarker()}>Save</button>
+                </div>
             </form>
         </div>
     );

@@ -51,10 +51,10 @@ const EditMarkerForm = ({ currentMarker, currentMarkerId }) => {
 
     return (
         <div id='editMarkerFormContainer' className={styles.editMarkerFormContainer}>
-            <p>Edit {currentMarker.name}</p>
+            <p className={styles.editFormTitle}>Edit {currentMarker.name}</p>
             <form className={styles.editMarkerForm}>
                 <label>
-                    Area's name
+                    <p>Area's name:</p>
                     <input
                         type='text'
                         id='name'
@@ -65,18 +65,20 @@ const EditMarkerForm = ({ currentMarker, currentMarkerId }) => {
                         }} />
                 </label>
                 <label>
-                    Area's description
-                    <input
+                    <p>Area's description:</p>
+                    <textarea
                         type='text'
                         id='description'
+                        placeholder='Description'
                         value={editDescription}
                         onChange={e => {
                             setEditDescription(e.target.value)
                             // console.log(editDescription)
-                        }} />
+                        }}
+                        maxLength='240' />
                 </label>
                 <label>
-                    Area type
+                    <p>Area Category:</p>
                     <select
                         name='area'
                         onChange={(e => {
@@ -95,7 +97,7 @@ const EditMarkerForm = ({ currentMarker, currentMarkerId }) => {
                     </select>
                 </label>
                 <label>
-                    Is it dog friendly?
+                    <p>Is it dog friendly?</p>
                     <select
                         name='dogFriendly'
                         defaultValue={currentMarker.dogFriendly}
@@ -109,8 +111,10 @@ const EditMarkerForm = ({ currentMarker, currentMarkerId }) => {
                         <option value={'No'}>No</option>
                     </select>
                 </label>
-                <button type='button' value='' onClick={() => closeEditForm()}>Close</button>
-                <button type='button' value='' onClick={() => handleEditFormClick()}>Update</button>
+                <div className={styles.buttonContainer}>
+                    <button type='button' value='' onClick={() => closeEditForm()}>Close</button>
+                    <button type='button' value='' onClick={() => handleEditFormClick()}>Update</button>
+                </div>
             </form>
         </div>
     );

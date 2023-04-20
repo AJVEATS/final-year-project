@@ -22,14 +22,14 @@ const ForgotPassword = ({ updateDisplayedComponent, auth }) => {
             <p className={styles.title}>Reset Your Password</p>
             <form className={styles.forgotPasswordForm} onSubmit={handlePasswordResetForm}>
                 <label>
-                    Email
+                    Email:
                     <input
                         type='email'
                         id='email'
                         name='email'
                         value={forgottenEmail}
                         onChange={e => { setForgottenEmail(e.target.value); }}
-                        onKeyDown={(e) => { e.key === 'Enter' && e.preventDefault() }}
+                        onKeyDown={(e) => { (e.key === 'Enter' ? handlePasswordResetForm() : null) }}
                         required
                     />
                 </label>

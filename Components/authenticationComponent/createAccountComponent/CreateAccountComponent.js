@@ -113,7 +113,7 @@ const CreateAccountComponent = ({ updateDisplayedComponent, auth, db }) => {
                         value={confirmPassword}
                         pattern="(?=.{8,25})(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=.!£%])(?=.*[0-9]).*$"
                         onChange={e => { setConfirmPassword(e.target.value); }}
-                        onKeyDown={(e) => { e.key === 'Enter' && e.preventDefault() }}
+                        onKeyDown={(e) => { (e.key === 'Enter' ? handleCreateAccountForm() : null) }}
                         required
                     />
                     <Tooltip anchorId='confirmPassword' place='bottom' clickable style={{ background: 'black' }}>

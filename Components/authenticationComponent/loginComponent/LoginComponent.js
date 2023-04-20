@@ -45,7 +45,7 @@ const LoginComponent = ({ updateDisplayedComponent, auth }) => {
                         name='password'
                         value={password}
                         onChange={e => { setPassword(e.target.value); }}
-                        onKeyDown={(e) => { e.key === 'Enter' && e.preventDefault() }}
+                        onKeyDown={(e) => { (e.key === 'Enter' ? handleLoginForm() : null) }}
                         required
                     />
                 </label>

@@ -1,12 +1,10 @@
 import Head from 'next/head';
-import styles from '@/styles/pages/locations.module.scss';
-import React, { useEffect, useState } from 'react';
-import Base from 'Components/Layout/Base/BaseComponent'
-import LayoutComponent from 'Components/Layout/LayoutComponent/LayoutComponent'
-import LocationsComponent from 'Components/LocationsComponent/LocationsComponent'
-import { firebaseApp } from './api/FirebaseApp'
-import { collection, getDocs, getFirestore, query } from 'firebase/firestore'
-import SearchLocationsComponent from 'Components/SearchLocationsComponent/SearchLocationsComponent';
+import React, { useEffect, useState } from 'react';;
+import Base from 'Components/Layout/Base/BaseComponent';
+import LayoutComponent from 'Components/Layout/LayoutComponent/LayoutComponent';
+import LocationsComponent from 'Components/LocationsComponent/LocationsComponent';
+import { firebaseApp } from './api/FirebaseApp';
+import { collection, getDocs, getFirestore, query } from 'firebase/firestore';
 
 const Locations = () => {
     const [locations, setLocations] = useState([]);
@@ -15,7 +13,9 @@ const Locations = () => {
     const db = getFirestore(firebaseApp);
 
     useEffect(() => {
-        getNatureLocations();
+        if (allLocations.length == 0) {
+            getNatureLocations();
+        }
     }, []);
 
     async function getNatureLocations() {

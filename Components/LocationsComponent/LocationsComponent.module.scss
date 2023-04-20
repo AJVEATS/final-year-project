@@ -23,7 +23,7 @@
       width: fit-content;
 
       @media screen and (max-width: 1000px) {
-        width: 70vw;
+        // width: 70vw;
       }
     }
 
@@ -36,7 +36,8 @@
       padding: 10px;
 
       @media screen and (max-width: 1000px) {
-        margin-right: 40px;
+        // margin-right: 40px;
+        display: none;
       }
     }
   }

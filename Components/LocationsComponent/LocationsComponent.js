@@ -18,9 +18,7 @@ const LocationsComponent = ({ locations, setLocations, allLocations }) => {
     const map = useRef(null);
     const [latitude, setLatitude] = useState(-1.879497);
     const [longitude, setLongitude] = useState(50.739994);
-    const [markerCoordinates, setMarkerCoordinates] = useState([]);
     const [zoom, setZoom] = useState(13);
-    const [addMode, setAddMode] = useState(false);
     const [newMarkerObject, setNewMarkerObject] = useState({});
     const [currentMarker, setCurrentMarker] = useState([]);
     const [currentMarkerId, setCurrentMarkerId] = useState('');
@@ -91,6 +89,10 @@ const LocationsComponent = ({ locations, setLocations, allLocations }) => {
                     new mapboxgl.Popup({ offset: 25 }) // add popups
                         .addClassName('popUpContainer')
                         .on('open', function (e) {
+                            map.current.flyTo({
+                                center: e.target._lngLat,
+                                zoom: 15
+                            });
                             if (firebaseUID == locations[location].locationData.uid) {
                                 document.getElementById("editMarkerButton").style.display = "block";
                                 document.getElementById("deleteMarkerButton").style.display = "block";
@@ -104,10 +106,44 @@ const LocationsComponent = ({ locations, setLocations, allLocations }) => {
                             document.getElementById("editMarkerButton").style.display = "none";
                             document.getElementById("deleteMarkerButton").style.display = "none";
                             setCurrentMarker({});
+                            setEditFormState(false);
+                            setDeleteFormState(false);
                             // console.log(currentMarker);
                         })
                         .setHTML(
-                            `<div class='popUp'>
+                            `<style>
+                            .mapboxgl-popup {
+                                max-width: 300px !important;
+                            }
+                            .mapboxgl-popup-content { 
+                                border: solid 2px #306b34;
+                                border-radius: 10px;
+                                padding: 10px 15px;
+                                font-family: 'Gotham';
+                            }
+                            .mapboxgl-popup-close-button {
+                                font-size: 2.5em;
+                            }
+                            .popUpTitle {
+                                font-family: 'Gotham';
+                                font-size: 2em;
+                                margin-block-start: 0;
+                                margin-block-end: 0;
+                                margin: 0.5em 0;
+                            }
+                            .popUpDescription {
+                                font-size: 1.3em;
+                            }
+                            .popUpAreaType {
+                                font-size: 1.3em;
+                                margin-top: 0.5em;
+                            }
+                            .popUpAreaDogs {
+                                font-size: 1.3em;
+                                margin-top: 0.5em;
+                            }
+                            </style> 
+                            <div class='popUp'>
                                     <h3 class='popUpTitle'>${locations[location].locationData.name}</h3>
                                     <p class='popUpDescription'>${locations[location].locationData.description}</p>
                                     <p class='popUpAreaType'><b>Type:</b> ${locations[location].locationData.category}</p>
@@ -122,7 +158,7 @@ const LocationsComponent = ({ locations, setLocations, allLocations }) => {
         // marker.remove();
 
         newMarkerObject.length = 0;
-    }, [locations]);
+    }, [allLocations]);
 
     const addNewMarker = (marker) => {
         new mapboxgl.Marker()
@@ -131,6 +167,10 @@ const LocationsComponent = ({ locations, setLocations, allLocations }) => {
                 new mapboxgl.Popup({ offset: 25 }) // add popups
                     .addClassName('popUpContainer')
                     .on('open', function (e) {
+                        map.current.flyTo({
+                            center: e.target._lngLat,
+                            zoom: 15
+                        });
                         document.getElementById("editMarkerButton").style.display = "block";
                         document.getElementById("deleteMarkerButton").style.display = "block";
                         setCurrentMarker({ marker });
@@ -141,10 +181,44 @@ const LocationsComponent = ({ locations, setLocations, allLocations }) => {
                         document.getElementById("editMarkerButton").style.display = "none";
                         document.getElementById("deleteMarkerButton").style.display = "none";
                         setCurrentMarker({});
+                        setEditFormState(false);
+                        setDeleteFormState(false);
                         // console.log(currentMarker);
                     })
                     .setHTML(
-                        `<div class='popUp'>
+                        `<style>
+                            .mapboxgl-popup {
+                                max-width: 300px !important;
+                            }
+                            .mapboxgl-popup-content { 
+                                border: solid 2px #306b34;
+                                border-radius: 10px;
+                                padding: 10px 15px;
+                                font-family: 'Gotham';
+                            }
+                            .mapboxgl-popup-close-button {
+                                font-size: 2.5em;
+                            }
+                            .popUpTitle {
+                                font-family: 'Gotham';
+                                font-size: 2em;
+                                margin-block-start: 0;
+                                margin-block-end: 0;
+                                margin: 0.5em 0;
+                            }
+                            .popUpDescription {
+                                font-size: 1.3em;
+                            }
+                            .popUpAreaType {
+                                font-size: 1.3em;
+                                margin-top: 0.5em;
+                            }
+                            .popUpAreaDogs {
+                                font-size: 1.3em;
+                                margin-top: 0.5em;
+                            }
+                        </style>              
+                        <div class='popUp'>
                             <h3 class='popUpTitle'>${marker.name}</h3>
                             <p class='popUpDescription'>${marker.description}</p>
                             <p class='popUpAreaType'><b>Type:</b> ${marker.category}</p>
@@ -158,32 +232,34 @@ const LocationsComponent = ({ locations, setLocations, allLocations }) => {
     const handleEditClick = () => {
         if (editFormState == false) {
             setEditFormState(true);
+            setDeleteFormState(false);
         } else if (editFormState == true) {
             setEditFormState(false);
-        }
+        };
     };
 
     const handleDeleteClick = () => {
         if (deleteFormState == false) {
             setDeleteFormState(true);
+            setEditFormState(false);
         } else if (deleteFormState == true) {
             setDeleteFormState(false);
-        }
+        };
     };
 
     const removeMarkers = () => {
         if (markers !== null) {
             for (let i = markers.length - 1; i >= 0; i--) {
                 markers[i].remove();
-            }
-        }
-    }
+            };
+        };
+    };
 
     return (
         <div className={styles.locationsMapComponent}>
             <div className={styles.pageInfo}>
                 <div className={styles.titleContainer}>
-                    <p>Local Nature Areas</p>
+                    <p>Nature Spots</p>
                 </div>
                 <div id='subTitleContainer' className={styles.subTitleContainer}>
                     <p>Double click to add a new location</p>
@@ -200,7 +276,6 @@ const LocationsComponent = ({ locations, setLocations, allLocations }) => {
                         <FontAwesomeIcon icon={faTrash} />
                     </button>
                 </div>
-
                 <SearchLocationsComponent
                     locations={locations}
                     setLocations={setLocations}

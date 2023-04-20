@@ -41,10 +41,10 @@ const DeleteMarkerForm = ({ currentMarker, currentMarkerId }) => {
 
     return (
         <div id='deleteMarkerFormContainer' className={styles.deleteMarkerFormContainer}>
-            <p>{currentMarker.name}</p>
+            <p className={styles.deleteFormTitle}>{currentMarker.name}</p>
             <form className={styles.deleteMarkerForm}>
                 <label>
-                    Re-enter location's name
+                    <p>Re-enter location's name</p>
                     <input
                         type='text'
                         id='name'
@@ -54,11 +54,12 @@ const DeleteMarkerForm = ({ currentMarker, currentMarkerId }) => {
                             setMarkerName(e.target.value)
                             // console.log(markerName);
                         }}
-                        required
-                    />
+                        required />
                 </label>
-                <button type='button' value='' onClick={() => handleCancelClick()}>Cancel</button>
-                <button type='button' value='' onClick={() => handleDeleteClick(markerName)}>Delete Location</button>
+                <div className={styles.buttonContainer}>
+                    <button type='button' value='' onClick={() => handleCancelClick()}>Cancel</button>
+                    <button type='button' value='' onClick={() => handleDeleteClick(markerName)}>Delete</button>
+                </div>
             </form>
         </div>
     );
