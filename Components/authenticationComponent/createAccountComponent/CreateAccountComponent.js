@@ -120,7 +120,7 @@ const CreateAccountComponent = ({ updateDisplayedComponent, auth, db }) => {
                         <p><b>Both passwords should match</b></p>
                     </Tooltip>
                 </label>
-                <p>By creating an account, you agree to the <br /><a>Terms of Service</a>. View the <a>Privacy Policy</a></p>
+                <p className={styles.legal}>By creating an account, you agree to the <br /><a>Terms of Service</a>. View the <a>Privacy Policy</a></p>
                 <div className={styles.buttons}>
                     <button type='button' value='' onClick={() => handleCreateAccountForm()}>Create Account</button>
                     <button type='button' value='' onClick={() => updateDisplayedComponent('login')}>Go to login</button>

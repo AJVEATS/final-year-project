@@ -2,7 +2,9 @@
   width: fit-content;
   padding: 2% 3%;
   margin: 0 auto;
-  border: black 2px solid;
+  border: white 2px solid;
+  border-radius: 10px;
+  background-color: white;
 
   button {
     margin-left: 0;
@@ -12,6 +14,7 @@
     width: fit-content;
     font-size: 1.5em;
     font-weight: bold;
+    margin-bottom: 0.3em;
   }
 
   .createAccountForm {
@@ -23,7 +26,16 @@
       input {
         display: block;
         width: 100%;
+        box-sizing: border-box;
       }
+    }
+
+    .legal {
+      margin-top: 0.5em;
+    }
+
+    .buttons {
+      margin-top: 0.5em;
     }
   }
 }

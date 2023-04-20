@@ -12,13 +12,13 @@ const Index = () => {
       </Head>
       <div className={styles.main}>
         <div className={styles.titleSection}>
-          <p className={styles.title}>Welcome to Walk</p>
+          <p className={styles.title}>Welcome to <br /> BU Walking Society</p>
           <p className={styles.subTitle}>The walking route sharing application</p>
         </div>
-        <div className={styles.divider}></div>
+        {/* <div className={styles.divider}></div> */}
         <AuthenticationComponent />
       </div>
-    </Base>
+    </Base >
   )
 }
 

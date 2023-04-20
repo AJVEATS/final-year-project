@@ -52,9 +52,9 @@ const LoginComponent = ({ updateDisplayedComponent, auth }) => {
                 <div className={styles.inlineButtons}>
                     <button type='button' onClick={() => handleLoginForm()}>login</button>
                     <button type='button' onClick={() => updateDisplayedComponent('forgotPassword')}>Forgot Password</button>
+                    <button type='button' onClick={() => updateDisplayedComponent('createAccount')}>New Here?</button>
                 </div>
             </form>
-            <button type='button' onClick={() => updateDisplayedComponent('createAccount')}>New Here?</button>
         </div>
     )
 }

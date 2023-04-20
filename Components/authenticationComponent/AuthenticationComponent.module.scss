@@ -1,7 +1,20 @@
+@use "../../src/styles/colors.module.scss" as colors;
 .authenticationComponent {
   width: 49%;
 
   @media screen and (max-width: 1000px) {
     width: 100%;
+  }
+
+  button {
+    background-color: colors.$primary-green;
+    border: 2px solid colors.$primary-green;
+    border-radius: 4px;
+    color: colors.$white;
+
+    &:hover {
+      background-color: colors.$white;
+      color: colors.$primary-green;
+    }
   }
 }

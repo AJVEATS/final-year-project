@@ -29,7 +29,7 @@ const AuthenticationComponent = () => {
 
     const updateComponentDisplayedState = (newValue) => {
         setComponentDisplayed(newValue);
-    }
+    };
 
     const handleComponentDisplayed = () => {
 
