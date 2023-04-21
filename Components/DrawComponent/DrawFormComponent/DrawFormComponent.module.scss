@@ -10,6 +10,7 @@
   background-color: colors.$primary-green;
   color: colors.$white;
   z-index: 1;
+  border: 2px solid colors.$primary-green;
   border-radius: 4px;
 
   @media screen and (max-width: 1000px) {

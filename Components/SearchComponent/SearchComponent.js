@@ -1,8 +1,7 @@
 import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import styles from './SearchComponent.module.scss';
-import React, { useEffect, useState } from 'react';
-import { collection, query, where } from "firebase/firestore";
+import React, { useState } from 'react';
 
 const SearchComponent = ({ distanceQuery, setDistanceQuery, durationQuery, setDurationQuery, clearFilters, nameQuery, setNameQuery, allRoutes, setRoutes }) => {
     const [formState, setFormState] = useState(false);
@@ -14,7 +13,7 @@ const SearchComponent = ({ distanceQuery, setDistanceQuery, durationQuery, setDu
         } else if (formState == true) {
             setFormState(false);
             document.getElementById('searchLabel').style.display = 'none';
-        };
+        }
     };
 
     const filterRoutesByDistance = (distance) => {
@@ -51,9 +50,9 @@ const SearchComponent = ({ distanceQuery, setDistanceQuery, durationQuery, setDu
         <div className={styles.searchComponent}>
             {formState ? (
                 <div className={styles.searchFormContainer}>
-                    <form>
-                        <label>
-                            <p>Search by name</p>
+                    <div className={styles.searchForm}>
+                        <p>Search by name</p>
+                        <div className={styles.inputContainer}>
                             <input
                                 type='text'
                                 id='name'
@@ -63,30 +62,35 @@ const SearchComponent = ({ distanceQuery, setDistanceQuery, durationQuery, setDu
                                     setNameQuery(e.target.value);
                                 }}
                                 maxLength='20' />
-                        </label>
-                        <button type='button' value='' onClick={() => {
-                            filterRoutesByName(nameQuery);
-                        }}>Search</button>
-                        <label>
-                            <p>Max Duration: {durationQuery} minutes</p>
+                            <button type='button' value='' onClick={() => {
+                                filterRoutesByName(nameQuery);
+                            }}>Search</button>
+                        </div>
+                    </div>
+
+
+                    <div className={styles.searchForm}>
+                        <p>Max Duration: {durationQuery} minutes</p>
+                        <div className={styles.inputContainer}>
                             <input
                                 type='range'
                                 id='duration'
                                 name='duration'
                                 min='0'
-                                max='180'
+                                max='240'
                                 value={durationQuery}
                                 onChange={e => {
                                     setDurationQuery(e.target.value);
                                 }} />
-                        </label>
-                        <button type='button' value='' onClick={() => {
-                            filterRoutesByDuration(durationQuery);
-                        }}>Search</button>
-                    </form>
-                    <form>
-                        <label>
-                            <p>Max Distance: {distanceQuery} m</p>
+                            <button type='button' value='' onClick={() => {
+                                filterRoutesByDuration(durationQuery);
+                            }}>Search</button>
+                        </div>
+                    </div>
+                    <div className={styles.searchForm}>
+
+                        <p>Max Distance: {distanceQuery} m</p>
+                        <div className={styles.inputContainer}>
                             <input
                                 type='range'
                                 id='distance'
@@ -97,19 +101,25 @@ const SearchComponent = ({ distanceQuery, setDistanceQuery, durationQuery, setDu
                                 onChange={e => {
                                     setDistanceQuery(e.target.value);
                                 }} />
-                        </label>
-                        <button type='button' value='' onClick={() => filterRoutesByDistance(distanceQuery)}>Search</button>
-                    </form>
-                    <button type='button' value='' onClick={() => clearFilters()}>Clear filters</button>
+                            <button type='button' onClick={() => filterRoutesByDistance(distanceQuery)}>Search</button>
+                        </div>
+                        <button type='button'
+                            onClick={() => {
+                                clearFilters();
+                                setNameQuery('');
+                            }}
+                        >Clear filters</button>
+                    </div>
                 </div>
             ) : (
                 <div></div>
-            )}
+            )
+            }
             <div className={styles.searchButtonContaier} onClick={() => toggleSearchForm()} >
                 <p id='searchLabel'>Search</p>
                 <FontAwesomeIcon icon={faMagnifyingGlass} />
             </div>
-        </div>
+        </div >
     );
 }
 

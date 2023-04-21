@@ -10,8 +10,6 @@ import '@mapbox/mapbox-gl-draw/dist/mapbox-gl-draw.css'
 import { getAuth } from 'firebase/auth';
 import DrawFormComponent from './DrawFormComponent/DrawFormComponent';
 import { useRouter } from 'next/router';
-import { faFloppyDisk } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { getDistance } from 'geolib';
 
 mapboxgl.accessToken = MapBoxKey.key;
@@ -147,6 +145,8 @@ const DrawComponent = () => {
         map.current.on('draw.update', updateRoute);
         map.current.on('draw.delete', removeRoute);
 
+        map.current.on(removeRoute, setDuration());
+
         // Use the coordinates you just drew to make the Map Matching API request
         function updateRoute() {
             removeRoute(); // Overwrite any existing layers
@@ -188,9 +188,10 @@ const DrawComponent = () => {
                 let nextCoordinates = { latitude: coords.coordinates[coordinates][0], longitude: coords.coordinates[coordinates][1] };
                 drawnRoute[coordinates] = nextCoordinates;
             }
-            console.log(drawnRoute);
+            // console.log(drawnRoute);
             // console.log(calculateDistance(drawnRoute));
             getInstructions(response.matchings[0]);
+            setFormState('block');
         }
 
         function getInstructions(data) {
@@ -202,12 +203,12 @@ const DrawComponent = () => {
                     // console.log(step.maneuver.instruction);
                     directions.push(step.maneuver.instruction);
                     // console.log(directions);
-                }
-            }
+                };
+            };
             setDuration(Math.floor(data.duration / 60));
             // console.log(`${Math.floor(data.duration / 60)} minutes`);
             setDuration(Math.floor(data.duration / 60));
-        }
+        };
 
         // Draw the Map Matching route as a new layer on the map
         function addRoute(coords) {
@@ -238,14 +239,14 @@ const DrawComponent = () => {
                     }
                 });
             }
-        }
+        };
 
         // If the user clicks the delete draw button, remove the layer if it exists
         function removeRoute() {
             if (!map.current.getSource('route')) return;
             map.current.removeLayer('route');
             map.current.removeSource('route');
-        }
+        };
     }, []);
 
     useEffect(() => {
@@ -293,8 +294,8 @@ const DrawComponent = () => {
                 return total;
             };
 
-            console.log(difficulty);
-            console.log(typeof difficulty);
+            // console.log(difficulty);
+            // console.log(typeof difficulty);
 
             const routeObject = {
                 uid: firebaseUID,
@@ -340,8 +341,11 @@ const DrawComponent = () => {
                 uploadRoute={uploadRoute}
                 setDifficulty={setDifficulty}
             />
-            <button onClick={() => saveRouteButton()} className={styles.saveButton}>
-                <FontAwesomeIcon icon={faFloppyDisk} />
+            <button
+                className={styles.saveButton}
+                disabled={!duration}
+                onClick={() => saveRouteButton()} >
+                💾
                 Save
             </button>
         </div>

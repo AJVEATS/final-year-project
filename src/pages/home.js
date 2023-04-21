@@ -7,8 +7,6 @@ import Head from 'next/head';
 import MapBoxKey from '@/pages/api/MapBoxKey';
 import { firebaseApp } from './api/FirebaseApp';
 import { doc, getDoc, getFirestore } from 'firebase/firestore';
-import { faPencil } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Link from 'next/link';
 
 const Home = () => {
@@ -42,7 +40,7 @@ const Home = () => {
             <LayoutComponent styles={{ overflow: 'hidden' }}>
                 <p className={styles.welcomeMessage}>Welcome {username}</p>
                 <Link className={styles.drawButton} href='/draw'>
-                    <FontAwesomeIcon icon={faPencil} />
+                    ✏️
                     Create a route
                 </Link>
                 <div className={styles.imgContainer}>

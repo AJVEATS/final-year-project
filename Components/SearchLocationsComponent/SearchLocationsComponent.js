@@ -1,11 +1,11 @@
 import styles from './SearchLocationsComponent.module.scss';
 import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 
 const SearchLocationsComponent = ({ locations, setLocations, removeMarkers, allLocations }) => {
-    const [categoryQuery, setCategoryQuery] = useState('');
-    const [dogFriendlyQuery, setDogFriendlyQuery] = useState('');
+    const [categoryQuery, setCategoryQuery] = useState('No category');
+    const [dogFriendlyQuery, setDogFriendlyQuery] = useState('Unknown');
     const [nameQuery, setNameQuery] = useState('');
     const [showSearchForm, setShowSearchForm] = useState(false);
     // console.log(locations);

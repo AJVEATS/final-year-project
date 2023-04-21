@@ -24,10 +24,10 @@
   bottom: 2%;
   right: 1%;
   z-index: 2;
-  border: solid black 2px;
-  font-size: 1.3em;
+  border: solid colors.$white 2px;
+  font-size: 1.5em;
   background-color: colors.$white;
-  padding: 0.2em 0.5em;
+  padding: 10px 15px;
   display: flex;
 
   svg {

@@ -2,11 +2,11 @@ import Link from 'next/link';
 import styles from './ExploreComponent.module.scss';
 import { faRoute, faClock, faPersonHiking } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import React, { useEffect, useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import ExploreNavigationComponent from './ExploreNavigationComponent/ExploreNavigationComponent';
 
-const ExploreComponent = ({ routes, title, filter, setFilter }) => {
-    const [noRoutesState, setNoRoutesState] = useState('none');
+const ExploreComponent = ({ routes, title, filter, setFilter, setTitle }) => {
+    const [displayTitle, setDisplayTitle] = useState();
 
     const formatDistance = (distance) => {
         let formattedDistance = '';
@@ -28,14 +28,23 @@ const ExploreComponent = ({ routes, title, filter, setFilter }) => {
         return formattedDuration;
     };
 
+    useEffect(() => {
+        if (routes.length == 0) {
+            setDisplayTitle('😥 No Routes Found');
+        } else if (routes.length > 0) {
+            setDisplayTitle(title);
+        }
+    }, [routes]);
+
+    console.log(`routes length ${routes.length}`);
+
     return (
         <div className={styles.exploreList}>
-            <p className={styles.exploreTitle}>{title}</p>
+            <p className={styles.exploreTitle}>{displayTitle}</p>
             <ExploreNavigationComponent
                 filter={filter}
                 setFilter={setFilter} />
             <div className={styles.routesContainer}>
-                <p className={styles.noRoutes} style={{ 'display': noRoutesState }}>No saved routes</p>
                 {routes.map((data) => (
                     <Link
                         href={{

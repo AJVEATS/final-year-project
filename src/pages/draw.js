@@ -15,7 +15,7 @@ const Draw = () => {
             </Head>
             <LayoutComponent>
                 <div className={styles.drawInterface}>
-                    <p>Draw a new route</p>
+                    <p>Draw a new route ✏️</p>
                     <p className={styles.subTitle}>
                         <FontAwesomeIcon icon={faCircleInfo} />
                         Double click to add your first point

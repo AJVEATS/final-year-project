@@ -7,7 +7,7 @@ import { useRouter } from "next/router";
 import { getAuth } from "firebase/auth";
 import { firebaseApp } from "../api/FirebaseApp";
 import { deleteDoc, doc, getDoc, getFirestore } from "firebase/firestore";
-import { faCaretDown, faCaretUp, faStopwatch, faTrash, faHiking, faPenToSquare } from "@fortawesome/free-solid-svg-icons";
+import { faTrash, faPenToSquare } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import RouteMapComponent from "Components/RouteMapComponent/RouteMapComponent";
 import EditRouteForm from "Components/forms/EditRouteForm/EditRouteForm";
@@ -15,7 +15,6 @@ import RouteStatsComponent from "Components/RouteStatsComponent/RouteStatsCompon
 
 const Route = () => {
     const [route, setRoute] = useState({});
-    const [isActive, setIsActive] = useState(false);
     const [geoJsonPath, setGeoJsonPath] = useState([]);
     const [isAuthor, setIsAuthor] = useState('none');
     const [formState, setFormState] = useState('none');
@@ -67,7 +66,7 @@ const Route = () => {
     async function deleteRoute() {
         console.log('deleteRoute() initiated');
         await deleteDoc(doc(db, 'routes', routeId));
-        alert('Your route has been deleted');
+        alert(`The route: ${route.name}, has been deleted.`);
         router.push('/discover');
     };
 

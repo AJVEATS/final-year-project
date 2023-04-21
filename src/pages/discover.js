@@ -17,12 +17,12 @@ const Discover = () => {
     const [likedRoutes, setLikedRoutes] = useState([]);
     const [usersRoutes, setUsersRoutes] = useState([]);
     const [usersLikes, setUsersLikes] = useState([]);
-    const [title, setTitle] = useState('default title');
+    const [title, setTitle] = useState('Public Routes');
     const [filter, setFilter] = useState('public');
 
     const [nameQuery, setNameQuery] = useState('');
     const [distanceQuery, setDistanceQuery] = useState(100000);
-    const [durationQuery, setDurationQuery] = useState(180);
+    const [durationQuery, setDurationQuery] = useState(240);
 
     const auth = getAuth(firebaseApp);
     const db = getFirestore(firebaseApp);
@@ -41,41 +41,33 @@ const Discover = () => {
     }, [allRoutes]);
 
     useEffect(() => {
-        // console.log('user routes');
-        // console.log(usersRoutes);
-    }, [usersRoutes]);
-
-    useEffect(() => {
         // console.log('routes');
         // console.log(routes);
         if (routes.length == 0) {
-            setTitle('No routes found');
+            // setTitle('No routes found');
         }
     }, [routes]);
 
     useEffect(() => {
         // console.log('liked routes');
-        // console.log(likedRoutes);
-    }, [likedRoutes]);
-
-    useEffect(() => {
-        // console.log('liked routes');
-        console.log(filter);
+        // console.log(filter);
         if (filter === 'public') {
             setRoutes([]);
             setCurrentRoutes(allRoutes.filter(routes => routes.routeData.privacy == 'public'));
             setRoutes(allRoutes.filter(routes => routes.routeData.privacy == 'public'));
-            setTitle('Public routes');
+            console.log(`routes ${routes.length}`);
+            console.log(`current routes ${currentRoutes.length}`);
+            setTitle('Public Routes');
         } else if (filter === 'users') {
             setRoutes([]);
             setCurrentRoutes(usersRoutes);
             setRoutes(usersRoutes);
-            setTitle('Your routes');
+            setTitle('Your Routes');
         } else if (filter === 'likes') {
             setRoutes([]);
             setCurrentRoutes(likedRoutes);
             setRoutes(likedRoutes);
-            setTitle('Liked routes');
+            setTitle('Liked Routes');
         };
     }, [filter]);
 
@@ -83,13 +75,13 @@ const Discover = () => {
         // console.log('users likes');
         // console.log(usersLikes);
         if (usersLikes.length >= 1) {
-            console.log('user has liked routes');
+            // console.log('user has liked routes');
             for (const route in allRoutes) {
                 if (usersLikes.includes(allRoutes[route].routeId)) {
-                    console.log('This is a liked routes');
+                    // console.log('This is a liked routes');
                     setLikedRoutes(routes => [...routes, allRoutes[route]]);
                 } else {
-                    console.log('This is not a liked routes');
+                    // console.log('This is not a liked routes');
                 }
             };
         };
@@ -109,17 +101,17 @@ const Discover = () => {
         const docSnap = await getDoc(docRef);
         if (docSnap.exists()) {
             // if (docSnap.data().likes) {
-            console.log(docSnap.data().likes);
+            // console.log(docSnap.data().likes);
             setUsersLikes([...docSnap.data().likes]);
             // }
         } else {
-            console.log('No such document');
+            // console.log('No such document');
         }
     };
 
     const clearFilters = () => {
         setDistanceQuery(10000);
-        setDurationQuery(180);
+        setDurationQuery(240);
         setRoutes([]);
         setRoutes(currentRoutes);
         // setFilter('public');
@@ -136,7 +128,8 @@ const Discover = () => {
                         routes={routes}
                         title={title}
                         filter={filter}
-                        setFilter={setFilter} />
+                        setFilter={setFilter}
+                        setTitle={setTitle} />
                     <SearchComponent
                         distanceQuery={distanceQuery}
                         setDistanceQuery={setDistanceQuery}

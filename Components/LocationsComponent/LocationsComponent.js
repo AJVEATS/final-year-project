@@ -146,7 +146,7 @@ const LocationsComponent = ({ locations, setLocations, allLocations }) => {
                             <div class='popUp'>
                                     <h3 class='popUpTitle'>${locations[location].locationData.name}</h3>
                                     <p class='popUpDescription'>${locations[location].locationData.description}</p>
-                                    <p class='popUpAreaType'><b>Type:</b> ${locations[location].locationData.category}</p>
+                                    <p class='popUpAreaType'><b>Category:</b> ${locations[location].locationData.category}</p>
                                     <p class='popUpAreaDogs'><b>Dogs Allowed:</b> ${locations[location].locationData.dogFriendly}</p>
                                 </div>`)
                 )
@@ -158,7 +158,7 @@ const LocationsComponent = ({ locations, setLocations, allLocations }) => {
         // marker.remove();
 
         newMarkerObject.length = 0;
-    }, [allLocations]);
+    }, [locations]);
 
     const addNewMarker = (marker) => {
         new mapboxgl.Marker()
@@ -221,7 +221,7 @@ const LocationsComponent = ({ locations, setLocations, allLocations }) => {
                         <div class='popUp'>
                             <h3 class='popUpTitle'>${marker.name}</h3>
                             <p class='popUpDescription'>${marker.description}</p>
-                            <p class='popUpAreaType'><b>Type:</b> ${marker.category}</p>
+                            <p class='popUpAreaType'><b>Category:</b> ${marker.category}</p>
                             <p class='popUpAreaDogs'><b>Dogs Allowed:</b> ${marker.dogFriendly}</p>
                         </div>`
                     )

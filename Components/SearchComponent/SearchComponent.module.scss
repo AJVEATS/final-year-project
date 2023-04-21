@@ -23,6 +23,29 @@
     padding: 3%;
     border-radius: 4px;
 
+    .searchForm {
+      p {
+        display: block;
+      }
+
+      .inputContainer {
+        display: flex;
+        flex-wrap: nowrap;
+        justify-content: space-between;
+        align-items: stretch;
+
+        input {
+          flex-basis: 69%;
+          border-color: colors.$white;
+          margin: 1%;
+        }
+
+        button {
+          flex-basis: 20%;
+        }
+      }
+    }
+
     label {
       width: max-content;
 
@@ -33,6 +56,14 @@
 
     button {
       margin-left: 0;
+      background-color: colors.$white;
+      border: 2px solid colors.$white;
+      color: colors.$black;
+
+      &:hover {
+        background-color: colors.$primary-green;
+        color: colors.$white;
+      }
     }
   }
 
