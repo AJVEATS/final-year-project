@@ -1,3 +1,7 @@
+/**
+ * @fileoverview This file represets the NavigationBarComponet which is the navigation menu
+ * for desktop and laptop devices (screens larger than 1000 pixels wide).
+ */
 import Link from 'next/link';
 import styles from './navigationBarComponent.module.scss';
 import { faPersonWalking, faEllipsis } from "@fortawesome/free-solid-svg-icons";

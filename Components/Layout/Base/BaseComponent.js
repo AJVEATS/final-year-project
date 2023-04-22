@@ -1,3 +1,8 @@
+/**
+ * @fileoverview This file represets the Base Component which is the layout component for each pages HTML head.
+ * 
+ * @param children - The children elements
+ */
 import { firebaseConfig } from '@/pages/api/FirebaseAPI';
 import { initializeApp } from 'firebase/app';
 import { getAuth, onAuthStateChanged } from 'firebase/auth';
@@ -11,6 +16,10 @@ const Base = ({ children }) => {
     const app = initializeApp(firebaseConfig);
     const auth = getAuth(app);
 
+    /**
+     * This function checks if the user is logged in. If they are they are redirected to the home page, 
+     * if not they are redirected to the index page.
+     */
     onAuthStateChanged(auth, (user) => {
         if (user) {
             if (router.pathname == '/') {

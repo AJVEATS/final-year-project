@@ -1,3 +1,7 @@
+/**
+ * @fileoverview This file represets the NavigationBarMobileComponet which is the navigation menu
+ * for mobile and tablet devices (screens smaller than 1000 pixels wide).
+ */
 import styles from './NavigationBarMobileComponent.module.scss';
 import { faPersonWalking, faBars, faX } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -5,15 +9,22 @@ import Link from 'next/link';
 
 const NavigationBarMobileComponent = () => {
 
+    /**
+     * This function opens the mobile navigation curtain menu
+     */
     const openMenu = () => {
         // console.log('open menu initiated');
         document.getElementById("curtainMenu").style.width = "100%";
-    }
+    };
 
+    /**
+     * This function closes the mobile navigation curtain menu
+     */
     const closeMenu = () => {
         // console.log('close menu initiated');
         document.getElementById("curtainMenu").style.width = 0;
-    }
+    };
+
     return (
         <div className={styles.navigationBarMobileComponent}>
             <div className={styles.navigationBarMobile}>

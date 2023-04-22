@@ -1,5 +1,10 @@
+/**
+ * @fileoverview This file represets the LayoutComponent which is the main layout component of the application.
+ * This includes the navigation bar (mobile and desktop).
+ * 
+ * @param children - The children elements
+ */
 import NavigationBarComponent from 'Components/Layout/NavigationBarComponent/NavigationBarComponent';
-import React, { useState, useEffect } from 'react';
 import NavigationBarMobileComponent from '../NavigationBarMobileComponent.js/NavigationBarMobileComponent';
 import styles from './LayoutComponent.module.scss';
 

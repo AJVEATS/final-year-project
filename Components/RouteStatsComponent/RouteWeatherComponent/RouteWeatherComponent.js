@@ -1,6 +1,6 @@
 /**
- * @fileoverview This file represets the ActivityScreen, which is where a user is taken to
- * after recording an activity. 
+ * @fileoverview This file represets RouteWeatherComponent which displays the current weather
+ * for the selected route.
  * 
  * @param {Object} routeCoordinates - An object containing the routes path coordinates
  */
@@ -37,6 +37,7 @@ const RouteWeatherComponent = ({ routeCoordinates }) => {
         fetch(`http://api.openweathermap.org/data/2.5/weather?lat=${coordinates.latitude}&lon=${coordinates.longitude}&appid=${key.key}&units=metric`)
             .then((reponse) => reponse.json())
             .then((responseJSON) => {
+                console.log(responseJSON)
                 weather.condition = responseJSON.weather[0].description;
                 weather.temp = Math.round(responseJSON.main.temp);
                 weather.clouds = responseJSON.clouds.all;

@@ -1,3 +1,12 @@
+/**
+ * @fileoverview This file represets the CreateAccountComponent which is a form to allow users to create an account
+ * for the application. It uses firebase authentication to authenticate users and add the user to the firestore database. 
+ * 
+ * @param {Object} updateDisplayedComponent - A function to update the current form being displayed
+ * @param {Object} auth - Firebase authentication initialisation
+ * @param {Object} db - Initialisation of cloud firestore and reference to the service
+ */
+
 import styles from './CreateAccountComponent.module.scss';
 import { createUserWithEmailAndPassword } from 'firebase/auth';
 import { useState } from 'react';
@@ -10,14 +19,16 @@ const CreateAccountComponent = ({ updateDisplayedComponent, auth, db }) => {
     const [password, setPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
     const [passwordCriteria, setPasswordCriteria] = useState({ hasNum: false, hasLowerCase: false, hasUpperCase: false, hasSpecialCharacter: false, meetsLength: false });
-    const [terms, setTerms] = useState(false);
 
     const router = useRouter();
 
+    /**
+     * This function handles the input from the create account form and creates a user with firebase authentication.
+     * If the users inputs valid data an account will be created and they will be redirected to the homepage.
+     */
     const handleCreateAccountForm = () => {
-        // e.preventDefault();
 
-        if (password === confirmPassword) {
+        if (password === confirmPassword) { // Checks both password are the same
             createUserWithEmailAndPassword(auth, email, password)
                 .then((userCredential) => {
                     console.log(userCredential.user.uid);
@@ -47,11 +58,17 @@ const CreateAccountComponent = ({ updateDisplayedComponent, auth, db }) => {
         }
     }
 
+    /**
+     * This function checks if the inputted password meets the password criteria. 
+     * 
+     * @param {string} password - The password inputted by the user.
+     */
     const checkPassword = (password) => {
         passwordCriteria.hasNum = /[0-9]/.test(password);
         passwordCriteria.hasUpperCase = /[A-Z]/.test(password);
         passwordCriteria.hasLowerCase = /[a-z]/.test(password);
         passwordCriteria.hasSpecialCharacter = /[@#$%^&+=.!£%]/.test(password);
+
         if (password.length >= 8) {
             passwordCriteria.meetsLength = true;
         } else {
