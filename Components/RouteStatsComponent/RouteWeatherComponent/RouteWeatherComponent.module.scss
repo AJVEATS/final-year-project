@@ -1,0 +1,8 @@
+@use "../../../src/styles/colors.module.scss" as colors;
+
+.routeWeatherComponent {
+  border: 2px solid colors.$black;
+  border-top: 0px;
+  padding: 0.5em 0.7em;
+  font-size: 1.3em;
+}

@@ -16,9 +16,10 @@
       justify-content: space-between;
       align-items: center;
       padding: 0.5em 0.5em;
-      border: 2px solid black;
+      border: 2px solid colors.$black;
       border-top-right-radius: 4px;
       border-top-left-radius: 4px;
+      border-bottom: 0px;
 
       p {
         font-size: 1.5em;
@@ -31,7 +32,7 @@
           cursor: pointer;
 
           svg {
-            color: colors.$primary-green;
+            color: colors.$heart-red;
           }
         }
       }
@@ -49,7 +50,7 @@
       .routeStat {
         width: 33.33%;
         height: 100%;
-        border: 2px solid black;
+        border: 2px solid colors.$black;
 
         .routeStatValue {
           display: flex;
@@ -86,7 +87,8 @@
 
     .routeDescriptionContainer {
       height: fit-content;
-      border: 2px black solid;
+      border: 2px solid colors.$black;
+      border-top: 0px;
       padding: 0.5em 0.7em;
 
       .routeDifficultyContainer {
@@ -119,6 +121,11 @@
       background-color: colors.$primary-green;
       color: colors.$white;
       border: 2px solid colors.$primary-green;
+      margin-bottom: 0 !important;
+
+      @media screen and (max-width: 1000px) {
+        margin-bottom: 1%;
+      }
 
       &:hover {
         background-color: colors.$white;

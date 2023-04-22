@@ -4,6 +4,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { saveAs } from "file-saver";
 import { arrayRemove, arrayUnion, doc, getDoc, setDoc, updateDoc } from 'firebase/firestore';
 import React, { useState, useEffect } from 'react';
+import RouteWeatherComponent from './RouteWeatherComponent/RouteWeatherComponent';
 
 const RouteStatsComponent = ({ routeInfo, auth, db, routeId }) => {
     const [liked, setLiked] = useState(false);
@@ -13,7 +14,6 @@ const RouteStatsComponent = ({ routeInfo, auth, db, routeId }) => {
     useEffect(() => {
         setNumberOfLikes(routeInfo.likes);
         getUserDetails();
-
     }, [routeInfo]);
 
     async function getUserDetails() {
@@ -27,7 +27,7 @@ const RouteStatsComponent = ({ routeInfo, auth, db, routeId }) => {
             for (const route in likedRoutes) {
                 if (likedRoutes[route] == routeId) {
                     setLiked(true);
-                    document.getElementById("likeHeart").style.color = "#306b34";
+                    document.getElementById("likeHeart").style.color = "#f72525";
                 };
             };
             setUserLikes({ ...docSnap.data().likes });
@@ -63,7 +63,7 @@ const RouteStatsComponent = ({ routeInfo, auth, db, routeId }) => {
     const handleFavouritePress = () => {
         // console.log('handleFavouritePress() initiated');
         if (liked == false) {
-            document.getElementById("likeHeart").style.color = "#306b34";
+            document.getElementById("likeHeart").style.color = "#f72525";
             setLiked(true);
             updateLikes(numberOfLikes + 1);
             addRouteToFavourites();
@@ -164,6 +164,9 @@ const RouteStatsComponent = ({ routeInfo, auth, db, routeId }) => {
                     </div>
                     <p className={styles.routeDescription}>{routeInfo.description}</p>
                 </div>
+                <RouteWeatherComponent
+                    routeCoordinates={routeInfo.route}
+                />
                 <button id='downloadIntructions' className={styles.intructionsButton} onClick={() => handleDirectionsClick()}>Download Route Intructions</button>
                 <div className={styles.routeElevationContainer}>
 
