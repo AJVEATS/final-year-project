@@ -21,7 +21,7 @@ const Discover = () => {
     const [filter, setFilter] = useState('public');
 
     const [nameQuery, setNameQuery] = useState('');
-    const [distanceQuery, setDistanceQuery] = useState(100000);
+    const [distanceQuery, setDistanceQuery] = useState(10000);
     const [durationQuery, setDurationQuery] = useState(240);
 
     const auth = getAuth(firebaseApp);
@@ -139,7 +139,8 @@ const Discover = () => {
                         nameQuery={nameQuery}
                         setNameQuery={setNameQuery}
                         setRoutes={setRoutes}
-                        allRoutes={routes} />
+                        allRoutes={routes}
+                        currentRoutes={currentRoutes} />
                 </div>
             </LayoutComponent>
         </Base >

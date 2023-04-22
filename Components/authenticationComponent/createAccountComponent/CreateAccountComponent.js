@@ -2,11 +2,10 @@
  * @fileoverview This file represets the CreateAccountComponent which is a form to allow users to create an account
  * for the application. It uses firebase authentication to authenticate users and add the user to the firestore database. 
  * 
- * @param {Object} updateDisplayedComponent - A function to update the current form being displayed
- * @param {Object} auth - Firebase authentication initialisation
- * @param {Object} db - Initialisation of cloud firestore and reference to the service
+ * @param {function} updateDisplayedComponent - A function to update the current form being displayed
+ * @param auth - Firebase authentication initialisation
+ * @param db - Initialisation of cloud firestore and reference to the service
  */
-
 import styles from './CreateAccountComponent.module.scss';
 import { createUserWithEmailAndPassword } from 'firebase/auth';
 import { useState } from 'react';
@@ -23,7 +22,7 @@ const CreateAccountComponent = ({ updateDisplayedComponent, auth, db }) => {
     const router = useRouter();
 
     /**
-     * This function handles the input from the create account form and creates a user with firebase authentication.
+     * This function handles the input from the createAccountForm and creates a user with firebase authentication.
      * If the users inputs valid data an account will be created and they will be redirected to the homepage.
      */
     const handleCreateAccountForm = () => {

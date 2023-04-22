@@ -1,3 +1,11 @@
+/**
+ * @fileoverview This file represets the LoginComponent which allows users to login to their account if they have an account. It uses firebase for
+ * authentication. 
+ * 
+ * @param {function} updateDisplayedComponent - A function to update the current form being displayed
+ * @param auth - Firebase authentication initialisation
+ * @param db - Initialisation of cloud firestore and reference to the service
+ */
 import { signInWithEmailAndPassword } from 'firebase/auth';
 import { useRouter } from 'next/router';
 import { useState } from 'react';
@@ -10,6 +18,11 @@ const LoginComponent = ({ updateDisplayedComponent, auth }) => {
 
     const router = useRouter();
 
+    /**
+     * This function takes the email and password inputted in the loginForm and uses the signInWithEmailAndPassword firebase authentication
+     * hook to authenticate the user. They have inputted valid login credentials they will be redirected to the home page, if not an error 
+     * will be triggered. 
+     */
     const handleLoginForm = () => {
         signInWithEmailAndPassword(auth, email, password)
             .then((userCredential) => {

@@ -3,7 +3,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import styles from './SearchComponent.module.scss';
 import React, { useState } from 'react';
 
-const SearchComponent = ({ distanceQuery, setDistanceQuery, durationQuery, setDurationQuery, clearFilters, nameQuery, setNameQuery, allRoutes, setRoutes }) => {
+const SearchComponent = ({ distanceQuery, setDistanceQuery, durationQuery, setDurationQuery, clearFilters, nameQuery, setNameQuery, allRoutes, setRoutes, currentRoutes }) => {
     const [formState, setFormState] = useState(false);
 
     const toggleSearchForm = () => {
@@ -18,7 +18,7 @@ const SearchComponent = ({ distanceQuery, setDistanceQuery, durationQuery, setDu
 
     const filterRoutesByDistance = (distance) => {
         setRoutes([]);
-        setDurationQuery(180);
+        setDurationQuery(240);
         setNameQuery('');
         const distanceFilteredRoutes = allRoutes.filter(routes => routes.routeData.distance <= distance);
         console.log(distanceFilteredRoutes);
@@ -38,7 +38,7 @@ const SearchComponent = ({ distanceQuery, setDistanceQuery, durationQuery, setDu
 
     const filterRoutesByName = (query) => {
         setRoutes([]);
-        setDurationQuery(180);
+        setDurationQuery(240);
         setDistanceQuery(10000);
         const nameFilteredRoutes = allRoutes.filter(routes => routes.routeData.name.toLowerCase().includes(query.toLowerCase()));
         console.log(nameFilteredRoutes);

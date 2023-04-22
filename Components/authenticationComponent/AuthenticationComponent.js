@@ -7,7 +7,6 @@
  * @param {Object} data - An object of the activities altitude and the time stamp for the altitude value.
  * 
  */
-
 import styles from './AuthenticationComponent.module.scss';
 import React, { useState } from 'react';
 
@@ -27,10 +26,20 @@ const AuthenticationComponent = () => {
     const auth = getAuth(app);
     const db = getFirestore(firebaseApp);
 
+    /**
+     * This function updates the useState variable componentDisplayed
+     * by setting the value as the string value passed into the function.
+     * 
+     * @param {string} newValue - The navigations new state.
+     * 
+     */
     const updateComponentDisplayedState = (newValue) => {
         setComponentDisplayed(newValue);
     };
 
+    /**
+     * This function controls which form is displayed. It is controled by the useState variable componentDisplayed.
+     */
     const handleComponentDisplayed = () => {
 
         if (componentDisplayed === 'login') {

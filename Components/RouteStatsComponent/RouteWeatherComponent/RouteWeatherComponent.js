@@ -10,6 +10,7 @@ import React, { useState, useEffect } from 'react';
 import key from '@/pages/api/OpenWeatherMapAPI';
 
 const RouteWeatherComponent = ({ routeCoordinates }) => {
+    const [gotWeather, setGotWeather] = useState(false);
     const [weather, setWeather] = useState({
         'condition': 'loading...',
         'temp': '00',
@@ -24,8 +25,8 @@ const RouteWeatherComponent = ({ routeCoordinates }) => {
     }, [routeCoordinates]);
 
     useEffect(() => {
-
-    }, [weather]);
+        console.log(weather.temp);
+    }, [gotWeather]);
 
     /**
      * This async function gets the weather of the passed in coordinates using the OpenWeatherMap API. It then updates
@@ -42,6 +43,7 @@ const RouteWeatherComponent = ({ routeCoordinates }) => {
                 weather.temp = Math.round(responseJSON.main.temp);
                 weather.clouds = responseJSON.clouds.all;
                 weather.wind = responseJSON.wind.speed;
+                setGotWeather(true);
             });
     };
 

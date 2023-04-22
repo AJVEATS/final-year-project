@@ -12,7 +12,6 @@ const RouteMapComponent = ({ routeInfo, geoJsonPath }) => {
 
     useEffect(() => {
         if (routeInfo.route) {
-
             // if (map.current) return; // initialize map only once
             map.current = new mapboxgl.Map({
                 container: mapContainer.current,
@@ -46,7 +45,66 @@ const RouteMapComponent = ({ routeInfo, geoJsonPath }) => {
                         'line-width': 8
                     }
                 });
+
+                const routeLength = geoJsonPath.length - 1;
+                console.log(routeLength);
+                const start = new mapboxgl.Marker()
+                    .setLngLat({ 'lng': routeInfo.route[0]['latitude'], 'lat': routeInfo.route[0]['longitude'] })
+                    .setPopup(
+                        new mapboxgl.Popup({ offset: 25 })
+                            .on('open', function (e) {
+                                map.current.flyTo({
+                                    center: e.target._lngLat,
+                                    zoom: 14
+                                });
+                            })
+                            .setHTML(
+                                `<style>
+                                    .popUp {
+                                        font-family: 'Gotham';
+                                        font-size: 2em;
+                                        font-weight: bold;
+                                    }
+                                    .popUpText {
+                                        padding: 10px;
+                                    }
+                                </style>
+                                <div class='popUp'>
+                                    <p class='popUpText'>Start of route</p>
+                                </div>`
+                            )
+                    )
+                    .addTo(map.current);
+                const end = new mapboxgl.Marker()
+                    .setLngLat({ 'lng': routeInfo.route[routeLength]['latitude'], 'lat': routeInfo.route[routeLength]['longitude'] })
+                    .setPopup(
+                        new mapboxgl.Popup({ offset: 25 })
+                            .on('open', function (e) {
+                                map.current.flyTo({
+                                    center: e.target._lngLat,
+                                    zoom: 14
+                                });
+                            })
+                            .setHTML(
+                                `<style>
+                                    .popUp {
+                                        font-family: 'Gotham';
+                                        font-size: 2em;
+                                        font-weight: bold;
+                                    }
+                                    .popUpText {
+                                        padding: 10px;
+                                    }
+                                </style>
+                                <div class='popUp'>
+                                    <p class='popUpText'>End of route</p>
+                                </div>`
+                            )
+                    )
+                    .addTo(map.current);
+                // markers.push(start);
             });
+
 
             const coordinates = geoJsonPath;
 
