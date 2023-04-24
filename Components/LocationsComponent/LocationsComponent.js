@@ -277,7 +277,6 @@ const LocationsComponent = ({ locations, setLocations, allLocations }) => {
                     </button>
                 </div>
                 <SearchLocationsComponent
-                    locations={locations}
                     setLocations={setLocations}
                     removeMarkers={removeMarkers}
                     allLocations={allLocations} />

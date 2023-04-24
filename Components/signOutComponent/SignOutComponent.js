@@ -1,3 +1,8 @@
+/**
+ * @fileoverview This file represets the SignOutComponent which allows users to sign out of their account.
+ * After signing out they will be redirected to the index page.
+ * 
+ */
 import { firebaseConfig } from '@/pages/api/FirebaseAPI';
 import { initializeApp } from 'firebase/app';
 import { getAuth } from 'firebase/auth';
@@ -10,6 +15,9 @@ const SignOutComponent = () => {
 
     const router = useRouter();
 
+    /**
+     * This function uses the signOut firebase authentication hook to sign the user out of their account.
+     */
     const signOut = () => {
         auth.signOut()
             .then(() => {

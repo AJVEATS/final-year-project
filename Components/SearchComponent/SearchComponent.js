@@ -1,11 +1,30 @@
+/**
+ * @fileoverview This file represets the SearchComponent which allows users to filter and search the walking routes displayed  
+ * on the discover page. The user is able to search for routes by name, distance and duration.
+ * 
+ * @param {Number} distanceQuery - The max distance that the user has entered into the search form duration query input.
+ * @param {function} setDistanceQuery - A function to update the distance query value.
+ * @param {Number} durationQuery - The max duration that the user has entered into the search form duration query input.
+ * @param {function} setDurationQuery - A function to update the duration query value.
+ * @param {function} clearFilters - A function reset/clear all of the search form's inputs and values.
+ * @param {string} nameQuery - The text the user has inputted into the search by name input for searching route by name.
+ * @param {function} setNameQuery - A function to update the locations useState variable from the LocationsComponent.
+ * @param {object} allRoutes - An object containing all of routes from firestore 'routes' collection.
+ * @param {function} setRoutes - A function to update the routes useState object variable.
+ * 
+ */
 import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import styles from './SearchComponent.module.scss';
 import React, { useState } from 'react';
 
-const SearchComponent = ({ distanceQuery, setDistanceQuery, durationQuery, setDurationQuery, clearFilters, nameQuery, setNameQuery, allRoutes, setRoutes, currentRoutes }) => {
+const SearchComponent = ({ distanceQuery, setDistanceQuery, durationQuery, setDurationQuery, clearFilters, nameQuery, setNameQuery, allRoutes, setRoutes }) => {
     const [formState, setFormState] = useState(false);
 
+    /**
+     * This function handles the search form popup. If the formState useState is true the form
+     * will display.
+     */
     const toggleSearchForm = () => {
         if (formState == false) {
             setFormState(true);
@@ -16,6 +35,11 @@ const SearchComponent = ({ distanceQuery, setDistanceQuery, durationQuery, setDu
         }
     };
 
+    /**
+     * This function takes in the users max route distance query and updates the routes displayed to only show routes
+     * that are under the distance entered by the user
+     * @param {Number} distance - The max distance value entered by the user.
+     */
     const filterRoutesByDistance = (distance) => {
         setRoutes([]);
         setDurationQuery(240);
@@ -26,6 +50,11 @@ const SearchComponent = ({ distanceQuery, setDistanceQuery, durationQuery, setDu
         setRoutes(distanceFilteredRoutes);
     };
 
+    /**
+     * This function takes in the users max route duration query and updates the routes displayed to only show routes
+     * that are under the duration entered by the user
+     * @param {Number} duration - The max duration value entered by the user.
+     */
     const filterRoutesByDuration = (duration) => {
         setRoutes([]);
         setDistanceQuery(10000);
@@ -36,6 +65,11 @@ const SearchComponent = ({ distanceQuery, setDistanceQuery, durationQuery, setDu
         // setRoutes(durationFilteredRoutes);
     };
 
+    /**
+     * This function takes in the users route name query string and updates the routes displayed to only show routes
+     * that include the string entered by the user.
+     * @param {String} query - The name string query entered by the user
+     */
     const filterRoutesByName = (query) => {
         setRoutes([]);
         setDurationQuery(240);

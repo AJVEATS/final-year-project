@@ -39,9 +39,6 @@ const Locations = () => {
                     locations={locations}
                     setLocations={setLocations}
                     allLocations={allLocations} />
-                {/* <SearchLocationsComponent
-                    locations={locations}
-                    setLocations={setLocations} /> */}
             </LayoutComponent>
         </Base>
     )
