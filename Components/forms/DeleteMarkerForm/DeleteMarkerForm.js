@@ -1,3 +1,11 @@
+/**
+ * @fileoverview This file represets the DeleteMarkerForm, which allows users to delete a location that they have created.
+ * This form is shown when a user clicks on a location that they have created and clicked the 'delete' button. The user is
+ * required to enter the location's name in order to delete it from the firestore database.
+ * 
+ * @param {Object} currentMarker - An object containing the data of the marker being deleted
+ * @param {String} currentMarkerId - The id of the marker being deleted
+ */
 import styles from './DeleteMarkerForm.module.scss';
 import React, { useEffect, useState } from 'react';
 import { deleteDoc, doc, getFirestore } from 'firebase/firestore';
@@ -7,19 +15,17 @@ const DeleteMarkerForm = ({ currentMarker, currentMarkerId }) => {
     const [markerName, setMarkerName] = useState('');
 
     useEffect(() => {
-        // console.log(newMarkerObject.coordinates);
     }, [currentMarker]);
 
-    // console.log(currentMarker.name);
-
+    /**
+     * This async function handles the form after the 'Delete' has been pressed. It first checks if the name inputted by the user
+     * is the same as the location's name. If they are, the location document is deleted from the firestore 'natureLocations'
+     * collection. If the names are different the user is altered that they are different.
+     * 
+     * @param {string} inputtedName - The text that the user has inputted into the text input
+     */
     async function handleDeleteClick(inputtedName) {
-        // console.log(typeof currentMarker.name);
-        // console.log(typeof inputtedName);
-        // console.log(inputtedName == currentMarker);
-
         if (inputtedName === currentMarker.name) {
-            // alert('they match');
-
             try {
                 const db = getFirestore(firebaseApp);
                 setMarkerName('');
@@ -35,6 +41,9 @@ const DeleteMarkerForm = ({ currentMarker, currentMarkerId }) => {
         };
     };
 
+    /**
+     * This functions the handles the user clicking the 'cancel' button, which closes the deleteMarkerForm
+     */
     const handleCancelClick = () => {
         document.getElementById("deleteMarkerFormContainer").style.display = "none";
     };
@@ -50,10 +59,7 @@ const DeleteMarkerForm = ({ currentMarker, currentMarkerId }) => {
                         id='name'
                         name='name'
                         value={markerName}
-                        onChange={e => {
-                            setMarkerName(e.target.value)
-                            // console.log(markerName);
-                        }}
+                        onChange={e => setMarkerName(e.target.value)}
                         required />
                 </label>
                 <div className={styles.buttonContainer}>

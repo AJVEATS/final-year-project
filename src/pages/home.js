@@ -1,3 +1,9 @@
+/**
+* @fileoverview This file represets the home page which is the opening page if the application, once the user has been 
+* authenticated. This page includes the:
+* - LayoutComponent
+* - Base
+*/
 import styles from '@/styles/pages/home.module.scss';
 import Base from 'Components/Layout/Base/BaseComponent';
 import LayoutComponent from 'Components/Layout/LayoutComponent/LayoutComponent';

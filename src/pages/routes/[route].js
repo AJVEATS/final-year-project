@@ -1,3 +1,13 @@
+/**
+* @fileoverview This file represets the route page which allows users to see an indepth view of a walking route.
+* It gets the routes document from the 'routes' collection in the firestore database. This page includes the:
+* - RouteMapComponent
+* - RouteStatsComponent
+* - EditRouteForm
+* - LayoutComponent
+* - Base
+*/
+
 import Base from "Components/Layout/Base/BaseComponent";
 import LayoutComponent from "Components/Layout/LayoutComponent/LayoutComponent";
 import styles from '@/styles/pages/route.module.scss';
@@ -28,6 +38,10 @@ const Route = () => {
         getRoute();
     }, []);
 
+    /**
+     * This async function get's the selected route from the firestore 'routes' collection by the route's id.
+     * If the user is the creator of the route the edit and delete route buttons are displayed.
+     */
     async function getRoute() {
         const docRef = doc(getFirestore(firebaseApp), 'routes', router.query.route);
         const docSnap = await getDoc(docRef);
@@ -35,13 +49,8 @@ const Route = () => {
         if (docSnap.exists()) {
             // console.log("Document data:", docSnap.data());
             setRoute({ ...docSnap.data() });
-
             const uid = (auth.currentUser.uid);
-            // console.log(uid);
-            // console.log(docSnap.data().uid);
-
             if (docSnap.data().uid == uid) {
-                // console.log('this is your route');
                 setIsAuthor('flex');
             }
         } else {
@@ -51,10 +60,11 @@ const Route = () => {
 
     for (let sets in route.route) {
         geoJsonPath.push([route.route[sets].latitude, route.route[sets].longitude]);
-        // console.log(route.route[sets].latitude);
-        // console.log(route.route[sets].longitude);
     };
 
+    /**
+     * This function handles the edit route form, opening and closing it.
+     */
     const handleForm = () => {
         if (formState == 'none') {
             setFormState('block');
@@ -63,6 +73,9 @@ const Route = () => {
         }
     };
 
+    /**
+     * Thid async function deletes the route's document from the firestore database
+     */
     async function deleteRoute() {
         console.log('deleteRoute() initiated');
         await deleteDoc(doc(db, 'routes', routeId));

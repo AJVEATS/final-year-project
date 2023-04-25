@@ -9,7 +9,6 @@
 * @param {function} setFilter - A function to update the useState varible from the discover.js page
 * 
 */
-
 import styles from './DrawFormComponent.module.scss';
 
 const DrawFormComponent = ({ formState, setFormState, setPrivacy, setName, setDescription, name, description, uploadRoute, setDifficulty }) => {

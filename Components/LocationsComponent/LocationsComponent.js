@@ -206,7 +206,9 @@ const LocationsComponent = ({ locations, setLocations, allLocations }) => {
     }, [locations]);
 
     /**
-     * This function adds a new marker to the map affter a user has doubled clicked, filled in the createMarkerForm and saved the location.
+     * This function adds a new marker to the map affter a user has doubled clicked, filled in the createMarkerForm and saved the new location.
+     * 
+     *  @param {Object} marker - An object containing all of the new location's information
      */
     const addNewMarker = (marker) => {
         new mapboxgl.Marker()

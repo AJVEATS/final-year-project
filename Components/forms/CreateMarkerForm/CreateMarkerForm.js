@@ -1,3 +1,11 @@
+/**
+ * @fileoverview This file represets the CreateMarkerForm, which allows users to add a location to the recommended nature
+ * location map. This form is shown when a user double clicks the map initialised in the LocationsComponent. After filling
+ * in this form the new location will be added to the map and added to the 'natureLocations' collection in firestore.
+ * 
+ * @param {Object} newMarkerObject - An object used to add the new location to the map as a marker and to add to firestore
+ * @param {Function} addNewMarker - A function from the LocationsComponent to add new locations to the map
+ */
 import styles from './CreateMarkerForm.module.scss';
 import React, { useEffect, useState } from 'react';
 import moment from 'moment/moment';
@@ -15,6 +23,13 @@ const CreateMarkerForm = ({ newMarkerObject, addNewMarker }) => {
         // console.log(newMarkerObject.coordinates);
     }, [newMarkerObject]);
 
+    /**
+     * This async function is called when the user clicks the 'Save' button within the form. If the user has not entered
+     * the location's details an alert is triggered informing the user to add details. Once a user has filled in the form
+     * with valid inputs the newMarkerObject is saved to firestore as a new document in the 'natureLocations' collection.
+     * 
+     * @returns null
+     */
     async function saveMarker() {
         // console.log('saveMarker initated');
         if (markerName != '' && markerDescription != '') {
@@ -64,6 +79,11 @@ const CreateMarkerForm = ({ newMarkerObject, addNewMarker }) => {
         return null;
     };
 
+    /**
+     * This function is called when the 'cancel' button is clicked and hides the createMarkerForm
+     * 
+     * @returns null
+     */
     const cancel = () => {
         // console.log('cancel initated');        
         document.getElementById("createMarkerForm").style.display = "none";
@@ -82,10 +102,7 @@ const CreateMarkerForm = ({ newMarkerObject, addNewMarker }) => {
                         id='name'
                         name='name'
                         value={markerName}
-                        onChange={e => {
-                            setMarkerName(e.target.value)
-                            // console.log(markerName);
-                        }}
+                        onChange={e => setMarkerName(e.target.value)}
                         required />
                 </label>
                 <label>
@@ -95,20 +112,14 @@ const CreateMarkerForm = ({ newMarkerObject, addNewMarker }) => {
                         id='location'
                         name='location'
                         value={markerDescription}
-                        onChange={e => {
-                            setMarkerDescription(e.target.value)
-                            // console.log(markerDescription);
-                        }}
+                        onChange={e => setMarkerDescription(e.target.value)}
                         required />
                 </label>
                 <label>
                     <p>Area type</p>
                     <select
                         name='area'
-                        onChange={(e => {
-                            setMarkerCategory(e.target.value);
-                            // console.log(markerCategory);
-                        })}>
+                        onChange={e => setMarkerCategory(e.target.value)}>
                         <option value={'No category'}>No category</option>
                         <option value={'Woodland'}>Woodland</option>
                         <option value={'Garden'}>Garden</option>
@@ -124,10 +135,7 @@ const CreateMarkerForm = ({ newMarkerObject, addNewMarker }) => {
                     <p>Is it dog friendly?</p>
                     <select
                         name='dogFriendly'
-                        onChange={(e => {
-                            setDogFriendly(e.target.value);
-                            // console.log(dogFriendly);
-                        })}>
+                        onChange={e => setDogFriendly(e.target.value)}>
                         <option value={'Unknown'}>Unknown</option>
                         <option value={'Yes'}>Yes</option>
                         <option value={'No'}>No</option>

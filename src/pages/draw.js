@@ -1,3 +1,10 @@
+/**
+* @fileoverview This file represets the draw page which allows users to draw and create custom walking routes
+* which can be saved and shared with other users. This page includes the:
+* - DrawComponent
+* - LayoutComponent
+* - Base
+*/
 import styles from '@/styles/pages/draw.module.scss';
 import DrawComponent from 'Components/DrawComponent/DrawComponent';
 import Base from 'Components/Layout/Base/BaseComponent';

@@ -1,3 +1,12 @@
+/**
+ * @fileoverview This file represets the EditMarkerForm, which allows users to edit a location that they have created.
+ * This form is shown when a user clicks on a location that they have created and clicked the 'edit' button. The user is
+ * required to enter the location's name and a description in order to update the location's information in the firestore
+ * database. Users are also able to set the location's category and if it is dog friendly. 
+ * 
+ * @param {Object} currentMarker - An object containing the data of the marker being edited
+ * @param {String} currentMarkerId - The id of the marker being edited
+ */
 import styles from './EditMarkerForm.module.scss';
 import React, { useEffect, useState } from 'react';
 import { doc, getFirestore, setDoc } from 'firebase/firestore';
@@ -18,13 +27,19 @@ const EditMarkerForm = ({ currentMarker, currentMarkerId }) => {
 
     }, [currentMarker]);
 
-    // console.log(currentMarker);
-    // console.log(currentMarkerId);
-
+    /**
+     * This function closes the edit location when the user clicks the 'close' button.
+     */
     const closeEditForm = () => {
         document.getElementById("editMarkerFormContainer").style.display = "none";
     };
 
+    /**
+     * This function updates the location's information stored in the location's document in the 
+     * 'natureLocations' collection in the firestore database. The user must have entered a valid
+     * name and description in order to update the location. If the user does not enter the 
+     * required information, the user is altered to fill in the required fields.
+     */
     const handleEditFormClick = () => {
         if (editName != '' && editDescription != '') {
 
@@ -59,10 +74,7 @@ const EditMarkerForm = ({ currentMarker, currentMarkerId }) => {
                         type='text'
                         id='name'
                         value={editName}
-                        onChange={e => {
-                            setEditName(e.target.value)
-                            // console.log(editName)
-                        }} />
+                        onChange={e => setEditName(e.target.value)} />
                 </label>
                 <label>
                     <p>Area's description:</p>
@@ -71,20 +83,14 @@ const EditMarkerForm = ({ currentMarker, currentMarkerId }) => {
                         id='description'
                         placeholder='Description'
                         value={editDescription}
-                        onChange={e => {
-                            setEditDescription(e.target.value)
-                            // console.log(editDescription)
-                        }}
+                        onChange={e => setEditDescription(e.target.value)}
                         maxLength='240' />
                 </label>
                 <label>
                     <p>Area Category:</p>
                     <select
                         name='area'
-                        onChange={(e => {
-                            setEditCategory(e.target.value);
-                            // console.log(editCategory);
-                        })}>
+                        onChange={e => setEditCategory(e.target.value)}>
                         <option value={currentMarker.category}>{currentMarker.category}</option>
                         <option value={'No category'}>No category</option>
                         <option value={'Woodland'}>Woodland</option>
@@ -101,10 +107,7 @@ const EditMarkerForm = ({ currentMarker, currentMarkerId }) => {
                     <select
                         name='dogFriendly'
                         defaultValue={currentMarker.dogFriendly}
-                        onChange={(e => {
-                            setEditDogFriendly(e.target.value);
-                            // console.log(editDogFriendly);
-                        })}>
+                        onChange={e => setEditDogFriendly(e.target.value)}>
                         <option value={currentMarker.dogFriendly}>{currentMarker.dogFriendly}</option>
                         <option value={'Unknown'}>Unknown</option>
                         <option value={'Yes'}>Yes</option>
@@ -116,7 +119,7 @@ const EditMarkerForm = ({ currentMarker, currentMarkerId }) => {
                     <button type='button' value='' onClick={() => handleEditFormClick()}>Update</button>
                 </div>
             </form>
-        </div>
+        </div >
     );
 }
 

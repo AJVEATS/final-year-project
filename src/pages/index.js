@@ -1,3 +1,10 @@
+/**
+* @fileoverview This file represets the index page, which allows users to login, create an account or reset their password
+* via emai. This page includes the:
+* - AuthenticationComponent
+* - LayoutComponent
+* - Base
+*/
 import Head from 'next/head'
 import styles from '@/styles/pages/Index.module.scss'
 import Base from 'Components/Layout/Base/BaseComponent'
@@ -15,7 +22,6 @@ const Index = () => {
           <p className={styles.title}>Welcome to <br /> BU Walking Society</p>
           <p className={styles.subTitle}>The walking route sharing application</p>
         </div>
-        {/* <div className={styles.divider}></div> */}
         <AuthenticationComponent />
       </div>
     </Base >
