@@ -1,10 +1,16 @@
+/**
+ * @fileoverview This file represets the locations page which displays the recommended nature locations. The locations
+ * data is retrieved from 'natureLocations' collection from firestore.This component includes:
+ *  - LayoutComponent: which is the main layout component for the application.
+ *  - LocationsComponent: A map that displays all of the recommended nature locations 
+ */
+import React, { useEffect, useState } from 'react';
 import Head from 'next/head';
-import React, { useEffect, useState } from 'react';;
+import { firebaseApp } from './api/FirebaseApp';
+import { collection, getDocs, getFirestore, query } from 'firebase/firestore';
 import Base from 'Components/Layout/Base/BaseComponent';
 import LayoutComponent from 'Components/Layout/LayoutComponent/LayoutComponent';
 import LocationsComponent from 'Components/LocationsComponent/LocationsComponent';
-import { firebaseApp } from './api/FirebaseApp';
-import { collection, getDocs, getFirestore, query } from 'firebase/firestore';
 
 const Locations = () => {
     const [locations, setLocations] = useState([]);
@@ -18,6 +24,10 @@ const Locations = () => {
         }
     }, []);
 
+    /**
+     * This async function gets the locations from the firestore document from the 'natureLocations'
+     * collection. The locations and allLocations useState variables are set the the data retrieved.
+     */
     async function getNatureLocations() {
         const locationQuery = query(collection(db, 'natureLocations'));
         const querySnapshot = await getDocs(locationQuery);

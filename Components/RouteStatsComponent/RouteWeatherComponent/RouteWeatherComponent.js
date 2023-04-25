@@ -4,7 +4,6 @@
  * 
  * @param {Object} routeCoordinates - An object containing the routes path coordinates
  */
-
 import styles from './RouteWeatherComponent.module.scss';
 import React, { useState, useEffect } from 'react';
 import key from '@/pages/api/OpenWeatherMapAPI';
@@ -25,7 +24,7 @@ const RouteWeatherComponent = ({ routeCoordinates }) => {
     }, [routeCoordinates]);
 
     useEffect(() => {
-        console.log(weather.temp);
+        // console.log(weather.temp);
     }, [gotWeather]);
 
     /**

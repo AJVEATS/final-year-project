@@ -1,20 +1,28 @@
+/**
+ * @fileoverview This file represents the EditDetailsComponent form that allows users to edit their exisiting
+ * details for their account. These account details are stored in the firebase firestore.
+ * 
+ * @param {Object} db -  An object containing the routes path coordinates
+ * @param {String} firebaseUID - The user's firebase user id
+ * @param {Object} user - The user's account details 
+ * @param {function} getUserDetails - A function to get the user's details from their firestore 'users' document
+ * @param {functino} setUserInfo - A funcion to update the user's details that are displayed
+ * @param {function} setNavigationState - A function to set the setNavigationState value
+ */
 import styles from './EditDetailsComponent.module.scss';
 import React, { useState, useEffect } from 'react';
 import Head from 'next/head';
-import { collection, deleteDoc, doc, query, setDoc } from 'firebase/firestore';
-import { getAuth } from 'firebase/auth';
-import DeleteAccountComponent from '../DeleteAccountComponent/DeleteAccountComponent';
+import { deleteDoc, doc, setDoc } from 'firebase/firestore';
 
 import { useRouter } from 'next/router'
 
-const EditDetailsComponents = ({ db, firebaseUID, auth, user, getUserDetails, setUserInfo, setNavigationState }) => {
+const EditDetailsComponents = ({ db, firebaseUID, user, getUserDetails, setUserInfo, setNavigationState }) => {
+    console.log(typeof user);
     const [firstname, setFirstname] = useState('');
     const [lastname, setLastname] = useState('');
     const [location, setLocation] = useState('');
     const [bio, setBio] = useState('');
-
     const [popUpState, setPopUpState] = useState('none');
-    const [password, setPassword] = useState('');
 
     const router = useRouter();
 
@@ -27,23 +35,16 @@ const EditDetailsComponents = ({ db, firebaseUID, auth, user, getUserDetails, se
 
     // console.log(user);
 
-    const openDeleteAccountPopUp = () => {
-        console.log('openDeleteAccountPopUp initiated');
-        setPopUpState('block');
-    }
-
-    // const closeDeleteAccountPopUp = () => {
-    //     console.log('closeDeleteAccountPopUp initiated');
-    //     setPopUpState('none');
-    // }
-
-    // const deleteAccount = () => {
-    //     console.log('deleteAccount initiated');
-    // }
-
+    /**
+     * This fuction handles the edit detail form. It takes the details inputted by the user and updates their information
+     * within their firestore 'users' document. The users will be alerted when their details have been updated.
+     * 
+     * @returns null
+     */
     const handleEditDetailForm = () => {
         console.log('handleEditDetailsForm initiated');
 
+        // An object containing the user's details that will be added to firestore.
         const editUserDetailsObject = {
             firstname: firstname,
             lastname: lastname,
@@ -54,11 +55,8 @@ const EditDetailsComponents = ({ db, firebaseUID, auth, user, getUserDetails, se
         // console.log(editUserDetailsObject);
 
         try {
-
             const collectionRef = doc(db, 'users', firebaseUID);
-
             setDoc(collectionRef, editUserDetailsObject, { merge: true });
-
             alert('Your details have been updated');
             getUserDetails();
         } catch (e) {
@@ -68,6 +66,12 @@ const EditDetailsComponents = ({ db, firebaseUID, auth, user, getUserDetails, se
         return null;
     };
 
+    /**
+     * This async fuction handles the delete account details button. It deletes all of the user's account information from the firestore
+     * 'users' document.
+     * 
+     * @returns null
+     */
     async function handleDeleteDetails() {
 
         try {
@@ -133,11 +137,9 @@ const EditDetailsComponents = ({ db, firebaseUID, auth, user, getUserDetails, se
                     Bio
                     <textarea value={bio} onChange={e => setBio(e.target.value)} />
                 </label>
-                {/* <button type='button' value='' onClick={() => openDeleteAccountPopUp()}>Delete Account</button> */}
                 <button type='button' value='' onClick={() => handleEditDetailForm()}>Save Details</button>
                 <button type='button' value='' className={styles.deleteDetailsButton} onClick={() => handleDeleteDetails()}>Delete Details</button>
             </form>
-            {/* <DeleteAccountComponent popUpState={popUpState} setPopUpState={setPopUpState} auth={auth} /> */}
         </div>
     )
 }

@@ -1,5 +1,14 @@
+/**
+ * @fileoverview This file represents the AddDetailsComponent form that allows users to add details to their account.
+ * These account details are stored in the firebase firestore.
+ * 
+ * @param {Object} db -  An object containing the routes path coordinates
+ * @param {String} firebaseUID - The user's firebase user id
+ * @param {function} getUserDetails - A function to get the user's details from their firestore 'users' document
+ * @param {function} setNavigationState - A function to set the setNavigationState value
+ */
 import styles from './AddDetailsComponent.module.scss';
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { doc, setDoc } from 'firebase/firestore';
 import Head from 'next/head';
 
@@ -9,9 +18,16 @@ const AddDetailsComponent = ({ db, firebaseUID, getUserDetails, setNavigationSta
     const [location, setLocation] = useState('');
     const [bio, setBio] = useState('');
 
+    /**
+     * This fuction handles the add detail form. It takes the details inputted by the user and adds their information
+     * to their firestore 'users' document. The users will be alerted when their details have been updated.
+     * 
+     * @returns null
+     */
     const handleAddDetailForm = () => {
         // console.log('handleAddDetailsForm initiated');
 
+        // An object containing the user's details that will be added to firestore.
         const addUserDetailsObject = {
             firstname: firstname,
             lastname: lastname,
@@ -23,11 +39,8 @@ const AddDetailsComponent = ({ db, firebaseUID, getUserDetails, setNavigationSta
         // console.log(addUserDetailsObject);
 
         try {
-
             const collectionRef = doc(db, 'users', firebaseUID);
-
             setDoc(collectionRef, addUserDetailsObject, { merge: true });
-
             alert('Your details have been saved');
             getUserDetails();
             setNavigationState('edit');
@@ -38,13 +51,16 @@ const AddDetailsComponent = ({ db, firebaseUID, getUserDetails, setNavigationSta
         return null;
     };
 
+    /**
+     * This function resets all of the inputs within the add details form.
+     */
     const clearForm = () => {
         // console.log('clearForm initiated');
         setFirstname('');
         setLastname('');
         setLocation('');
         setBio('');
-    }
+    };
 
     return (
         <div>

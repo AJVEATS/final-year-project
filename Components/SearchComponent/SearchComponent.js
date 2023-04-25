@@ -13,10 +13,10 @@
  * @param {function} setRoutes - A function to update the routes useState object variable.
  * 
  */
-import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import styles from './SearchComponent.module.scss';
 import React, { useState } from 'react';
+import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const SearchComponent = ({ distanceQuery, setDistanceQuery, durationQuery, setDurationQuery, clearFilters, nameQuery, setNameQuery, allRoutes, setRoutes }) => {
     const [formState, setFormState] = useState(false);

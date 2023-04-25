@@ -1,3 +1,15 @@
+/**
+* @fileoverview This file represets the ExploreComponent which displays the walking routes. It allows users to 
+* apply filters to change which routes are displayed with the ExploreNavigationComponent. The walking routes 
+* are displayed as a list, their distance and duration are formatted as well.
+* 
+* @param {Object} routes - An object containing all the routes and their data
+* @param {string} title - The useState string for the pages title from the discover.js page 
+* @param {string} filter - The useState string for the current filter applied from the discover.js page
+* @param {function} setFilter - A function to update the useState varible from the discover.js page
+* 
+*/
+
 import styles from './DrawFormComponent.module.scss';
 
 const DrawFormComponent = ({ formState, setFormState, setPrivacy, setName, setDescription, name, description, uploadRoute, setDifficulty }) => {

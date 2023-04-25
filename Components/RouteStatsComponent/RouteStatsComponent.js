@@ -1,9 +1,18 @@
+/**
+ * @fileoverview This file represets the RouteStatsComponent which displays all of the information for the current walking
+ * route.
+ * 
+ * @param {Object} routeInfo - The data for the current route.
+ * @param {Object} auth - Link the firebase application.
+ * @param {Object} db - Link to the firestore database.
+ * @param {String} routeId - The id of the current route.
+ */
 import styles from './RouteStatsComponent.module.scss';
+import React, { useState, useEffect } from 'react';
 import { faHeart, faPersonHiking } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { saveAs } from "file-saver";
 import { arrayRemove, arrayUnion, doc, getDoc, setDoc, updateDoc } from 'firebase/firestore';
-import React, { useState, useEffect } from 'react';
 import RouteWeatherComponent from './RouteWeatherComponent/RouteWeatherComponent';
 
 const RouteStatsComponent = ({ routeInfo, auth, db, routeId }) => {
@@ -16,6 +25,10 @@ const RouteStatsComponent = ({ routeInfo, auth, db, routeId }) => {
         getUserDetails();
     }, [routeInfo]);
 
+    /**
+     * This async function gets the user's account information from their firestore document in the 'users' collection 
+     * to see if the current route is liked by the user.
+     */
     async function getUserDetails() {
         const docRef = doc(db, 'users', auth.currentUser.uid);
         const docSnap = await getDoc(docRef);
@@ -36,6 +49,10 @@ const RouteStatsComponent = ({ routeInfo, auth, db, routeId }) => {
         };
     };
 
+    /**
+     * This async function add the current routes id to the user's liked routes array in their firestore
+     * document.
+     */
     async function addRouteToFavourites() {
         try {
             const uid = (auth.currentUser.uid);
@@ -48,6 +65,10 @@ const RouteStatsComponent = ({ routeInfo, auth, db, routeId }) => {
         };
     };
 
+    /**
+     * This async function removes the current routes id to the user's liked routes array in their firestore
+     * document.
+     */
     async function removeRouteFromFavourites() {
         try {
             const uid = (auth.currentUser.uid);
@@ -60,6 +81,11 @@ const RouteStatsComponent = ({ routeInfo, auth, db, routeId }) => {
         };
     };
 
+    /**
+     * This function handles the pressing of the route like button. If the user does not already like the route
+     * the addToFavourite function is called, if the has already liked the route removeRouteFromFavourites function
+     * is called.
+     */
     const handleFavouritePress = () => {
         // console.log('handleFavouritePress() initiated');
         if (liked == false) {
@@ -68,7 +94,6 @@ const RouteStatsComponent = ({ routeInfo, auth, db, routeId }) => {
             updateLikes(numberOfLikes + 1);
             addRouteToFavourites();
             setNumberOfLikes(numberOfLikes + 1);
-
         } else if (liked == true) {
             document.getElementById("likeHeart").style.color = "#000000";
             setLiked(false);
@@ -78,6 +103,12 @@ const RouteStatsComponent = ({ routeInfo, auth, db, routeId }) => {
         };
     };
 
+    /**
+     * This function updates the amount of likes the route has when a user likes or unlikes a routes. The likes
+     * value is updated in the route's document in the 'routes' collection in firestore. 
+     * 
+     * @param {Number} likes - The number of likes the route has.
+     */
     const updateLikes = (likes) => {
         try {
             const routeRef = doc(db, 'routes', routeId)
@@ -86,20 +117,19 @@ const RouteStatsComponent = ({ routeInfo, auth, db, routeId }) => {
             routeInfo.likes = likes;
             console.log(routeInfo.likes);
             setDoc(routeRef, routeInfo, { merge: true });
-
-            // const uid = (auth.currentUser.uid);
-            // const userRef = doc(db, 'users', uid);
-            // updateDoc(userRef, {
-            //     likes: arrayUnion(routeId)
-            // });
         } catch (e) {
             console.error(`Error updating document: ${e}`);
         };
     };
 
+    /**
+     * This function handles the click of the 'Download Route Instructions' button. This function takes the step by step
+     * directions of the route and formats them for download. The route's directions are saved as a .txt file to allow
+     * user's to follow the route offline or without an internet connection.
+     */
     const handleDirectionsClick = () => {
         let directions = `Directions for ${routeInfo.name} \n`;
-        console.log(routeInfo.directions[0]);
+        // console.log(routeInfo.directions[0]);
         for (const step in routeInfo.directions) {
             directions = directions + `- ${routeInfo.directions[step]} \n`;
         };
@@ -107,6 +137,13 @@ const RouteStatsComponent = ({ routeInfo, auth, db, routeId }) => {
         saveAs(blob, `${routeInfo.name}_directions.txt`);
     };
 
+    /**
+     * This function formats the routes distance. If the route is under 1,000 meters the distance
+     * is in meters, if it is over 1,000 it is formatted in kilometeres.
+     * 
+     * @param {Number} distance - The total distnce of the walking route in meters.
+     * @returns {String} formattedDistance - The formatted distance of the route.
+     */
     const formatDistance = (distance) => {
         let formattedDistance = '';
         if (distance >= 1000) {
@@ -117,6 +154,13 @@ const RouteStatsComponent = ({ routeInfo, auth, db, routeId }) => {
         return formattedDistance;
     };
 
+    /**
+     * This function formats the routes durartion. If the route is under 60 minutes the duration
+     * is in minutes, if it is over 60 it is formatted in hours.
+     * 
+     * @param {Number} duration - The total duration of the walking route in minutes.
+     * @returns {String} formattedDuration - The formatted duration of the route.
+     */
     const formatDuration = (duration) => {
         // console.log(duration);
         let formattedDuration = '';
@@ -169,7 +213,6 @@ const RouteStatsComponent = ({ routeInfo, auth, db, routeId }) => {
                 />
                 <button id='downloadIntructions' className={styles.intructionsButton} onClick={() => handleDirectionsClick()}>Download Route Intructions</button>
                 <div className={styles.routeElevationContainer}>
-
                 </div>
             </div>
         </div>

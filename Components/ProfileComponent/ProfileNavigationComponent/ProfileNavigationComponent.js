@@ -1,5 +1,11 @@
-import SignOutComponent from 'Components/signOutComponent/SignOutComponent'
-import styles from './ProfileNavigationComponent.module.scss'
+/**
+ * @fileoverview This file represents the ProfileInfoComponent which displays the user's account information.
+ * 
+ * @param {String} navigationState - The navigation state for the profile page 
+ * @param {Function} setNavigationState - A function to update the navigationState.
+ */
+import styles from './ProfileNavigationComponent.module.scss';
+import SignOutComponent from 'Components/signOutComponent/SignOutComponent';
 
 const ProfileNavigationComponent = ({ navigationState, setNavigationState }) => {
     return (

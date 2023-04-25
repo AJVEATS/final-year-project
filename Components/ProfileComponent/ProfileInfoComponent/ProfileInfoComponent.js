@@ -1,3 +1,8 @@
+/**
+ * @fileoverview This file represents the ProfileInfoComponent which displays the user's account information.
+ * 
+ * @param {Object} user - The user's account details 
+ */
 import styles from './ProfileInfoComponent.module.scss';
 
 const ProfileInfoComponent = ({ user }) => {

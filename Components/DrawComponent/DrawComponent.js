@@ -1,7 +1,13 @@
+/** 
+ * @fileoverview This file represets the DrawComponent. It displays a map and allows users to draw and create their own walking routes.
+ * Once a user has drawn a route, it uses the Mapbox Map matching API to match their created route to actual paths and roads and to get 
+ * step by step instructions to follow the route offline. Once they have drawn a route they can add additonal information to the route with 
+ * the DrawFormComponent, after a new document is created in firestore in the 'routes' collections. 
+*/
 import styles from './DrawComponent.module.scss';
+import React, { useState, useEffect, useRef } from 'react';
 import { firebaseApp } from '@/pages/api/FirebaseApp';
 import { doc, getFirestore, setDoc } from "firebase/firestore";
-import React, { useState, useEffect, useRef } from 'react';
 import MapBoxKey from '@/pages/api/MapBoxKey';
 import mapboxgl from '!mapbox-gl';
 import moment from 'moment/moment';
@@ -38,6 +44,9 @@ const DrawComponent = () => {
     useEffect(() => {
 
         if (map.current) return; // initialize map only once
+        /**
+         * Initialising a new map with mapbox gl
+         */
         map.current = new mapboxgl.Map({
             container: mapContainer.current,
             style: 'mapbox://styles/mapbox/streets-v12',
@@ -46,16 +55,17 @@ const DrawComponent = () => {
             attributionControl: false
         });
 
+        /**
+         * Adding drawing functionality to the map
+         */
         const draw = new MapboxDraw({
             displayControlsDefault: false,
             controls: {
                 line_string: true,
                 trash: true
             },
-            // Set the draw mode to draw LineStrings by default
-            defaultMode: 'draw_line_string',
-            styles: [
-                // Set the line style for the user-input coordinates
+            defaultMode: 'draw_line_string', // The map is set to draw mode when they first access the page
+            styles: [ // Styling for the drawn route
                 {
                     'id': 'gl-draw-line',
                     'type': 'line',
@@ -75,7 +85,7 @@ const DrawComponent = () => {
                         'line-opacity': 0.7
                     }
                 },
-                // Style the vertex point halos
+                // Styling for the vertex point halos
                 {
                     'id': 'gl-draw-polygon-and-line-vertex-halo-active',
                     'type': 'circle',
@@ -90,7 +100,7 @@ const DrawComponent = () => {
                         'circle-color': '#FFF'
                     }
                 },
-                // Style the vertex points
+                // Styling the vertex points
                 {
                     'id': 'gl-draw-polygon-and-line-vertex-active',
                     'type': 'circle',
@@ -110,12 +120,23 @@ const DrawComponent = () => {
 
         // Map Controls ---------------------------------------
 
+        /**
+         * Initialising a scale for the map.
+         */
         const scale = new mapboxgl.ScaleControl({
             maxWidth: 80,
             unit: 'imperial'
         });
+
+        /**
+         * Adding the initialised scale to the map
+         */
         map.current.addControl(scale);
 
+        /**
+         * Adding the geolocation control to the map, which allows users to show their current location on the map.
+         * Clicking the button will adjust the map to show the users location at the center.
+         */
         map.current.addControl(new mapboxgl.GeolocateControl({
             positionOptions: {
                 enableHighAccuracy: true
@@ -124,13 +145,23 @@ const DrawComponent = () => {
             showUserHeading: true
         }), 'top-right');
 
+        /**
+         * Adding the appropriate attribute to mapbox and openstreet map as it is mandatory for using the Mapbox 
+         * GL JS library
+         */
         map.current.addControl(new mapboxgl.AttributionControl({
             compact: true,
         }), 'bottom-left');
 
+        /**
+         * Initialising navigation control for the map. Which displays the maps current orientation.
+         */
         const nav = new mapboxgl.NavigationControl({
             visualizePitch: true
         });
+        /**
+         * Adding the initialised navigation control to the map
+         */
         map.current.addControl(nav, 'top-right');
 
         scale.setUnit('metric');
@@ -147,11 +178,15 @@ const DrawComponent = () => {
 
         map.current.on(removeRoute, setDuration());
 
-        // Use the coordinates you just drew to make the Map Matching API request
+        // Uses the drawn coordinates to make the Map Matching API request
+        /**
+         * This functions updates the route created by the user so it matches to actual roads and paths.
+         * It matches the drawn route using the Mapbox map matching API.
+         */
         function updateRoute() {
             removeRoute(); // Overwrite any existing layers
 
-            const profile = 'walking'; // Set the profile
+            const profile = 'walking'; // Set the profile to walking, instead of the default driving
 
             // Get the coordinates
             const data = draw.getAll();
@@ -162,8 +197,17 @@ const DrawComponent = () => {
             // Set the radius for each coordinate pair to 25 meters
             const radius = coords.map(() => 25);
             getMatch(newCoords, radius, profile);
-        }
+        };
 
+        /**
+         * This async function makes an map matching API call with the users drawn route to match it to
+         * actual roads and footpaths. This is to allow for step by step to be created for the drawn
+         * walking route.
+         * 
+         * @param {array} coordinates - the coordinates of the user drawn route
+         * @param {array} radius - The radius for map matching
+         * @param {String} profile - The type of travel. Set to walking
+         */
         // Make a Map Matching request
         async function getMatch(coordinates, radius, profile) {
             // Separate the radiuses with semicolons
@@ -192,10 +236,14 @@ const DrawComponent = () => {
             // console.log(calculateDistance(drawnRoute));
             getInstructions(response.matchings[0]);
             setFormState('block');
-        }
+        };
 
+        /**
+         * Draws the map matched route as a new layer onto the map
+         * 
+         * @param {Object} data - The data of the drawn route.
+         */
         function getInstructions(data) {
-            let tripDirections = [];
             // Output the instructions for each step of each leg in the response object
             for (const leg of data.legs) {
                 const steps = leg.steps;
@@ -210,7 +258,11 @@ const DrawComponent = () => {
             setDuration(Math.floor(data.duration / 60));
         };
 
-        // Draw the Map Matching route as a new layer on the map
+        /**
+         * Draws the map matched route as a new layer onto the map
+         * 
+         * @param {array} coords - the coordinates of the matched route
+         */
         function addRoute(coords) {
             // If a route is already loaded, remove it
             if (map.current.getSource('route')) {
@@ -241,7 +293,10 @@ const DrawComponent = () => {
             }
         };
 
-        // If the user clicks the delete draw button, remove the layer if it exists
+        /** 
+         * A function that removes the drawn route when the delete button is clikced.
+         * Layers are removed if they exist.
+        */
         function removeRoute() {
             if (!map.current.getSource('route')) return;
             map.current.removeLayer('route');
@@ -258,6 +313,9 @@ const DrawComponent = () => {
         });
     }, []);
 
+    /**
+     * Handles the save route button click, to show the save route form
+     */
     const saveRouteButton = () => {
         setFormState('block');
     };

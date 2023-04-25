@@ -3,15 +3,15 @@
  * from the locations page. The user is able to search for locations by name, location category or dog friendliness.
  * 
  * @param {function} setLocations - A function to update the locations useState variable from the LocationsComponent, 
- * which are the markers currently being displayed on the map.
+ *                                  which are the markers currently being displayed on the map.
  * @param {function} removeMarkers - A function from the LocationsComponent to remove all markers from the map
  * @param {object} allLocations - An object containing all all of the locations
  * 
  */
 import styles from './SearchLocationsComponent.module.scss';
+import React, { useState } from 'react';
 import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import React, { useState } from 'react';
 
 const SearchLocationsComponent = ({ setLocations, removeMarkers, allLocations }) => {
     const [categoryQuery, setCategoryQuery] = useState('No category');
