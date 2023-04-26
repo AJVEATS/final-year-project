@@ -22,12 +22,14 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import RouteMapComponent from "Components/RouteMapComponent/RouteMapComponent";
 import EditRouteForm from "Components/forms/EditRouteForm/EditRouteForm";
 import RouteStatsComponent from "Components/RouteStatsComponent/RouteStatsComponent";
+import RouteCommentsComponent from "Components/RouteCommentsComponent/RouteCommentsComponent";
 
 const Route = () => {
     const [route, setRoute] = useState({});
     const [geoJsonPath, setGeoJsonPath] = useState([]);
     const [isAuthor, setIsAuthor] = useState('none');
     const [formState, setFormState] = useState('none');
+    const [comments, setComments] = useState({});
 
     const router = useRouter();
     const routeId = router.query.route;
@@ -49,6 +51,7 @@ const Route = () => {
         if (docSnap.exists()) {
             // console.log("Document data:", docSnap.data());
             setRoute({ ...docSnap.data() });
+            setComments({ ...docSnap.data().comments });
             const uid = (auth.currentUser.uid);
             if (docSnap.data().uid == uid) {
                 setIsAuthor('flex');
@@ -105,6 +108,9 @@ const Route = () => {
                             Delete Route
                         </button>
                     </div>
+                    <RouteCommentsComponent
+                        routeId={routeId}
+                        comments={comments} />
                     <EditRouteForm displaySetting={formState} route={route} setDisplaySetting={setFormState} db={db} routeId={routeId} />
                 </div>
             </LayoutComponent>

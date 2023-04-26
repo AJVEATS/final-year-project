@@ -44,7 +44,9 @@ const ExploreComponent = ({ routes, title, filter, setFilter }) => {
     const formatDuration = (duration) => {
         let formattedDuration = '';
         if (duration >= 60) {
-            formattedDuration = `${(duration / 60).toFixed(1)}hrs`
+            const hours = Math.floor(duration / 60);
+            const minutes = duration % 60;
+            formattedDuration = `${hours}hr ${minutes}mins`;
         } else if (duration < 60) {
             formattedDuration = `${duration}mins`
         };
@@ -62,8 +64,6 @@ const ExploreComponent = ({ routes, title, filter, setFilter }) => {
             setDisplayTitle(title);
         }
     }, [routes]);
-
-    console.log(`routes length ${routes.length}`);
 
     return (
         <div className={styles.exploreList}>

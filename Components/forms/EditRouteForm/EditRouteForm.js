@@ -106,8 +106,8 @@ const EditRouteForm = ({ displaySetting, route, setDisplaySetting, db, routeId }
                     </label>
                 </div>
                 <div className={styles.formButtons}>
-                    <button type='button' value='' onClick={() => closeForm()}>Cancel</button>
-                    <button type='button' value='' onClick={() => editRouteDetails()}>Update Route</button>
+                    <button type='button' onClick={() => closeForm()}>Cancel</button>
+                    <button type='button' onClick={() => editRouteDetails()}>Update Route</button>
                 </div>
             </form>
         </div>

@@ -52,6 +52,11 @@
         height: 100%;
         border: 2px solid colors.$black;
 
+        &:nth-child(2) {
+          border-left: 0px;
+          border-right: 0px;
+        }
+
         .routeStatValue {
           display: flex;
           padding-top: 1em;

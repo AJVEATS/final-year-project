@@ -44,6 +44,13 @@
 
       select {
         font-size: 1em;
+        // -moz-appearance: none;
+
+        option {
+          font-family: Gotham;
+          user-select: normal !important;
+          -moz-user-select: normal !important;
+        }
       }
     }
 

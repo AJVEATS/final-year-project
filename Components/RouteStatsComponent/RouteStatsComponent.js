@@ -165,7 +165,9 @@ const RouteStatsComponent = ({ routeInfo, auth, db, routeId }) => {
         // console.log(duration);
         let formattedDuration = '';
         if (duration >= 60) {
-            formattedDuration = `${(duration / 60).toFixed(1)}hrs`
+            const hours = Math.floor(duration / 60);
+            const minutes = duration % 60;
+            formattedDuration = `${hours}hr ${minutes}mins`;
         } else if (duration < 60) {
             formattedDuration = `${duration}mins`
         };

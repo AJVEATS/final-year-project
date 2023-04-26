@@ -63,8 +63,8 @@ const DeleteMarkerForm = ({ currentMarker, currentMarkerId }) => {
                         required />
                 </label>
                 <div className={styles.buttonContainer}>
-                    <button type='button' value='' onClick={() => handleCancelClick()}>Cancel</button>
-                    <button type='button' value='' onClick={() => handleDeleteClick(markerName)}>Delete</button>
+                    <button type='button' onClick={() => handleCancelClick()}>Cancel</button>
+                    <button type='button' onClick={() => handleDeleteClick(markerName)}>Delete</button>
                 </div>
             </form>
         </div>

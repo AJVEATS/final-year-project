@@ -7,7 +7,7 @@
 import styles from './DrawComponent.module.scss';
 import React, { useState, useEffect, useRef } from 'react';
 import { firebaseApp } from '@/pages/api/FirebaseApp';
-import { doc, getFirestore, setDoc } from "firebase/firestore";
+import { addDoc, collection, doc, getFirestore, setDoc } from "firebase/firestore";
 import MapBoxKey from '@/pages/api/MapBoxKey';
 import mapboxgl from '!mapbox-gl';
 import moment from 'moment/moment';
@@ -320,13 +320,13 @@ const DrawComponent = () => {
         setFormState('block');
     };
 
-    const uploadRoute = () => {
+    async function uploadRoute() {
         const auth = getAuth();
         const firebaseUID = auth.currentUser.uid;
         const timeStamp = moment().format('YYYY-MM-DD~hh:mm:ss');
 
-        const redirectUser = () => {
-            router.push(`/routes/${firebaseUID.concat(timeStamp)}`);
+        const redirectUser = (routeId) => {
+            router.push(`/routes/${routeId}`);
         };
 
         try {
@@ -358,6 +358,13 @@ const DrawComponent = () => {
             const routeObject = {
                 uid: firebaseUID,
                 name: name,
+                comments: {
+                    '1': {
+                        'comment': 'This is a test comment',
+                        'date': moment().format('LL'),
+                        'user': firebaseUID
+                    }
+                },
                 description: description,
                 date: moment().format('YYYY-MM-DD'),
                 distance: calculateDistance(geoJsonPath),
@@ -370,14 +377,17 @@ const DrawComponent = () => {
                 privacy: privacy,
             };
 
-            const collectionRef = doc(db, 'routes', `${firebaseUID.concat(timeStamp)}`);
+            // const collectionRef = doc(db, 'routes', `${firebaseUID.concat(timeStamp)}`);
 
-            setDoc(collectionRef, routeObject, { merge: true });
+            // setDoc(collectionRef, routeObject, { merge: true });
+
+            const collectionRef = await addDoc(collection(db, 'routes'), routeObject);
+            console.log(collectionRef.id);
 
             setFormState('hidden');
             alert('Your route has been saved 🥳');
 
-            redirectUser();
+            redirectUser(collectionRef.id);
 
         } catch (e) {
             console.error(`Error adding document: ${e}`);

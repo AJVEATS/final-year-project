@@ -115,8 +115,8 @@ const EditMarkerForm = ({ currentMarker, currentMarkerId }) => {
                     </select>
                 </label>
                 <div className={styles.buttonContainer}>
-                    <button type='button' value='' onClick={() => closeEditForm()}>Close</button>
-                    <button type='button' value='' onClick={() => handleEditFormClick()}>Update</button>
+                    <button type='button' onClick={() => closeEditForm()}>Close</button>
+                    <button type='button' onClick={() => handleEditFormClick()}>Update</button>
                 </div>
             </form>
         </div >

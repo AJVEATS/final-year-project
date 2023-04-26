@@ -142,8 +142,8 @@ const CreateMarkerForm = ({ newMarkerObject, addNewMarker }) => {
                     </select>
                 </label>
                 <div className={styles.buttonContainer}>
-                    <button type='button' value='' onClick={() => cancel()}>Cancel</button>
-                    <button type='button' value='' onClick={() => saveMarker()}>Save</button>
+                    <button type='button' onClick={() => cancel()}>Cancel</button>
+                    <button type='button' onClick={() => saveMarker()}>Save</button>
                 </div>
             </form>
         </div>

@@ -1,0 +1,23 @@
+@use "../../../src/styles/colors.module.scss" as colors;
+
+.commentFormContainer {
+  .commentFormTitle {
+  }
+  .commentForm {
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: space-between;
+    align-items: stretch;
+    padding-top: 10px;
+
+    input {
+      flex-basis: 88%;
+    }
+
+    button {
+      flex-basis: 10%;
+      margin: 0px;
+      padding: 10px 5px;
+    }
+  }
+}
