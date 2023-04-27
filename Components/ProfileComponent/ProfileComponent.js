@@ -47,8 +47,11 @@ const ProfileComponent = () => {
         if (docSnap.exists()) {
             // console.log("Document data:", docSnap.data());
             setUserInfo({ ...docSnap.data() });
-            if (docSnap.data().name != '') {
+            console.log(docSnap.data().firstname);
+            if (docSnap.data().firstname != '') {
                 setNavigationState('edit');
+            } else if (docSnap.data().firstname === '') {
+                setNavigationState('add');
             }
             // console.log(userInfo);
         } else {
