@@ -95,10 +95,19 @@ const Route = () => {
                 <div className={styles.route}>
                     <p className={styles.routeName}>{route.name}</p>
                     <div className={styles.routeMain}>
-                        <RouteMapComponent routeInfo={route} geoJsonPath={geoJsonPath} />
-                        <RouteStatsComponent routeInfo={route} auth={auth} db={db} routeId={routeId} />
+                        <RouteMapComponent
+                            routeInfo={route}
+                            geoJsonPath={geoJsonPath} />
+                        <RouteStatsComponent
+                            routeInfo={route}
+                            auth={auth}
+                            db={db}
+                            routeId={routeId}
+                            handleForm={handleForm}
+                            deleteRoute={deleteRoute}
+                            isAuthor={isAuthor} />
                     </div>
-                    <div className={styles.routeButtons} style={{ 'display': isAuthor }}>
+                    {/* <div className={styles.routeButtons} style={{ 'display': isAuthor }}>
                         <button id='edit' className={styles.formButton} onClick={() => handleForm()}>
                             <FontAwesomeIcon icon={faPenToSquare} />
                             Edit Route Details
@@ -107,7 +116,7 @@ const Route = () => {
                             <FontAwesomeIcon icon={faTrash} />
                             Delete Route
                         </button>
-                    </div>
+                    </div> */}
                     <RouteCommentsComponent
                         routeId={routeId}
                         comments={comments} />

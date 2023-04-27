@@ -9,13 +9,13 @@
  */
 import styles from './RouteStatsComponent.module.scss';
 import React, { useState, useEffect } from 'react';
-import { faHeart, faPersonHiking } from "@fortawesome/free-solid-svg-icons";
+import { faHeart, faPersonHiking, faPenToSquare, faTrash } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { saveAs } from "file-saver";
 import { arrayRemove, arrayUnion, doc, getDoc, setDoc, updateDoc } from 'firebase/firestore';
 import RouteWeatherComponent from './RouteWeatherComponent/RouteWeatherComponent';
 
-const RouteStatsComponent = ({ routeInfo, auth, db, routeId }) => {
+const RouteStatsComponent = ({ routeInfo, auth, db, routeId, handleForm, deleteRoute, isAuthor }) => {
     const [liked, setLiked] = useState(false);
     const [numberOfLikes, setNumberOfLikes] = useState(0)
     const [userLikes, setUserLikes] = useState([]);
@@ -179,8 +179,16 @@ const RouteStatsComponent = ({ routeInfo, auth, db, routeId }) => {
             <div className={styles.routeStatsContainer}>
                 <div className={styles.routeStatsHeader}>
                     <p>Route Details</p>
-                    <div className={styles.heartContainer}>
-                        <FontAwesomeIcon id='likeHeart' icon={faHeart} onClick={() => handleFavouritePress()} />
+                    <div className={styles.iconContainer}>
+                        <div className={styles.heartContainer}>
+                            <FontAwesomeIcon id='likeHeart' icon={faHeart} onClick={() => handleFavouritePress()} />
+                        </div>
+                        <div className={styles.editContainer} style={{ 'display': isAuthor }}>
+                            <FontAwesomeIcon icon={faPenToSquare} onClick={() => handleForm()} />
+                        </div>
+                        <div className={styles.deleteContainer} style={{ 'display': isAuthor }}>
+                            <FontAwesomeIcon icon={faTrash} onClick={() => deleteRoute()} />
+                        </div>
                     </div>
                 </div>
                 <div className={styles.routeStatsDashboard}>

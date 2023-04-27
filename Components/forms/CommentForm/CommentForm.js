@@ -34,7 +34,7 @@ const CommentForm = ({ db, firebaseUID, routeId, commentsArray, setCommentsArray
 
     return (
         <div className={styles.commentFormContainer}>
-            <p className={styles.commentFormTitle}>New Comment</p>
+            <p className={styles.commentFormTitle}>Post Comment</p>
             <form className={styles.commentForm}>
                 <input
                     type='text'
@@ -43,7 +43,7 @@ const CommentForm = ({ db, firebaseUID, routeId, commentsArray, setCommentsArray
                     value={newComment}
                     onChange={e => setNewComment(e.target.value)}
                     require />
-                <button type='button' onClick={() => addComment()}>add</button>
+                <button type='button' onClick={() => addComment()}>post</button>
             </form>
         </div>
     )

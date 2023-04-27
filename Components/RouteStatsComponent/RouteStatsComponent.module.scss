@@ -25,14 +25,32 @@
         font-size: 1.5em;
       }
 
-      .heartContainer {
-        height: max-content;
+      .iconContainer {
+        display: flex;
+        align-items: center;
 
-        &:hover {
-          cursor: pointer;
+        .heartContainer {
+          height: max-content;
 
-          svg {
-            color: colors.$heart-red;
+          &:hover {
+            cursor: pointer;
+
+            svg {
+              color: colors.$heart-red;
+            }
+          }
+        }
+
+        .editContainer,
+        .deleteContainer {
+          margin-left: 10px;
+
+          &:hover {
+            cursor: pointer;
+
+            svg {
+              color: colors.$primary-green;
+            }
           }
         }
       }
