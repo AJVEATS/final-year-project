@@ -1,29 +1,28 @@
+// TODO Document this file
 import styles from './RouteCommentsComponent.module.scss';
 import React, { useState, useEffect } from 'react';
 import { faTrash, faPenToSquare } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import CommentForm from 'Components/forms/CommentForm/CommentForm';
 import { getAuth } from 'firebase/auth';
-import { FieldValue, Firestore, arrayRemove, doc, getFirestore, updateDoc } from 'firebase/firestore';
+import { arrayRemove, doc, getFirestore, updateDoc } from 'firebase/firestore';
 import { firebaseApp } from '@/pages/api/FirebaseApp';
 
 const RouteCommentsComponent = ({ routeId, comments }) => {
     const [showCommentForm, setShowCommentForm] = useState(false);
     const [commentsArray, setCommentsArray] = useState(comments);
     const [displayComments, setDisplayComments] = useState();
-    // console.log(comments);
 
     useEffect(() => {
         setCommentsArray(comments);
     }, [comments]);
 
     useEffect(() => {
-        let amountOfComments = Object.values(commentsArray).length;
-        if (amountOfComments == 0) {
+        if (Object.values(commentsArray).length == 0) {
             setDisplayComments(
                 <p>No comments</p>
             );
-        } else if (amountOfComments > 0) {
+        } else if (Object.values(commentsArray).length > 0) {
             setDisplayComments(Object.keys(commentsArray).map((key) =>
                 <div key={key} className={styles.comment}>
                     <div className={styles.commentTitleSection}>
@@ -43,9 +42,7 @@ const RouteCommentsComponent = ({ routeId, comments }) => {
                 </div>
             ));
         }
-
-
-    }, [commentsArray])
+    }, [commentsArray]);
 
     const auth = getAuth();
     const firebaseUID = auth.currentUser.uid;

@@ -1,5 +1,6 @@
+// TODO Document this file
 import styles from './CommentForm.module.scss';
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import moment from 'moment/moment';
 import { arrayUnion, doc, updateDoc } from 'firebase/firestore';
 
