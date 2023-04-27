@@ -18,6 +18,7 @@ import React, { useRef, useEffect, useState } from 'react';
 import MapBoxKey from '@/pages/api/MapBoxKey';
 import mapboxgl from '!mapbox-gl';
 import { getAuth } from 'firebase/auth';
+import { Tooltip } from 'react-tooltip';
 import CreateMarkerForm from 'Components/forms/CreateMarkerForm/CreateMarkerForm';
 import EditMarkerForm from 'Components/forms/EditMarkerForm/EditMarkerForm';
 import DeleteMarkerForm from 'Components/forms/DeleteMarkerForm/DeleteMarkerForm';
@@ -333,9 +334,15 @@ const LocationsComponent = ({ locations, setLocations, allLocations }) => {
                     <button id='editMarkerButton' type='button' value='' onClick={() => handleEditClick()}>
                         <FontAwesomeIcon icon={faPenToSquare} />
                     </button>
+                    <Tooltip anchorId='editMarkerButton' place='top' clickable>
+                        <p>Edit</p>
+                    </Tooltip>
                     <button id='deleteMarkerButton' className={styles.deleteButton} type='button' value='' onClick={() => handleDeleteClick()}>
                         <FontAwesomeIcon icon={faTrash} />
                     </button>
+                    <Tooltip anchorId='deleteMarkerButton' place='top' clickable>
+                        <p>Delete</p>
+                    </Tooltip>
                 </div>
                 <SearchLocationsComponent
                     setLocations={setLocations}
