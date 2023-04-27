@@ -37,7 +37,7 @@ const RouteWeatherComponent = ({ routeCoordinates }) => {
         fetch(`http://api.openweathermap.org/data/2.5/weather?lat=${coordinates.latitude}&lon=${coordinates.longitude}&appid=${key.key}&units=metric`)
             .then((reponse) => reponse.json())
             .then((responseJSON) => {
-                console.log(responseJSON)
+                // console.log(responseJSON)
                 weather.condition = responseJSON.weather[0].description;
                 weather.temp = Math.round(responseJSON.main.temp);
                 weather.clouds = responseJSON.clouds.all;

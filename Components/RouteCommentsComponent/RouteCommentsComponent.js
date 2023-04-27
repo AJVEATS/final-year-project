@@ -9,47 +9,63 @@ import { firebaseApp } from '@/pages/api/FirebaseApp';
 
 const RouteCommentsComponent = ({ routeId, comments }) => {
     const [showCommentForm, setShowCommentForm] = useState(false);
-    const [commentsArray, setCommentsArray] = useState([])
+    const [commentsArray, setCommentsArray] = useState(comments);
+    const [displayComments, setDisplayComments] = useState();
     // console.log(comments);
 
     useEffect(() => {
-        setCommentsArray(Array.from(comments));
-        console.log(commentsArray);
+        setCommentsArray(comments);
     }, [comments]);
+
+    useEffect(() => {
+        let amountOfComments = Object.values(commentsArray).length;
+        if (amountOfComments == 0) {
+            setDisplayComments(
+                <p>No comments</p>
+            );
+        } else if (amountOfComments > 0) {
+            setDisplayComments(Object.keys(commentsArray).map((key) =>
+                <div key={key} className={styles.comment}>
+                    <div className={styles.commentTitleSection}>
+                        <div className={styles.commentTitleText}>
+                            <p className={styles.commentDate}>{commentsArray[key].date}</p>
+                        </div>
+                        {(firebaseUID == commentsArray[key].uid) ? (
+                            <div className={styles.commentButtonContainer}>
+                                {/* <FontAwesomeIcon icon={faPenToSquare} onClick={() => console.log('test')} /> */}
+                                <FontAwesomeIcon icon={faTrash} onClick={() => deleteComment(commentsArray[key], key)} />
+                            </div>
+                        ) : (
+                            <div></div>
+                        )}
+                    </div>
+                    <p className={styles.commentText}>{commentsArray[key].comment}</p>
+                </div>
+            ));
+        }
+
+
+    }, [commentsArray])
 
     const auth = getAuth();
     const firebaseUID = auth.currentUser.uid;
     const db = getFirestore(firebaseApp);
 
-    async function deleteComment(comment) {
+    async function deleteComment(comment, key) {
         try {
             const commentRef = doc(db, 'routes', routeId);
             await updateDoc(commentRef, {
                 comments: arrayRemove(comment)
             });
+            const removeComment = (key, { [key]: _, ...rest }) => rest;
+            setCommentsArray(prev => removeComment(key, prev));
+            delete commentsArray[key];
+            console.log(commentsArray);
+            // setCommentsArray(newCommentList);
         } catch (e) {
             console.error(`Error updating document: ${e}`);
         }
     };
-
-    const displayComments = Object.keys(comments).map(key =>
-        <div key={key} className={styles.comment}>
-            <div className={styles.commentTitleSection}>
-                <div className={styles.commentTitleText}>
-                    <p className={styles.commentDate}>{comments[key].date}</p>
-                </div>
-                {(firebaseUID == comments[key].uid) ? (
-                    <div className={styles.commentButtonContainer}>
-                        <FontAwesomeIcon icon={faPenToSquare} onClick={() => console.log('test')} />
-                        <FontAwesomeIcon icon={faTrash} onClick={() => deleteComment(comments[key])} />
-                    </div>
-                ) : (
-                    <div></div>
-                )}
-            </div>
-            <p className={styles.commentText}>{comments[key].comment}</p>
-        </div>
-    )
 
     return (
         <div className={styles.routeCommentsComponet}>
@@ -61,28 +77,15 @@ const RouteCommentsComponent = ({ routeId, comments }) => {
                 <CommentForm
                     db={db}
                     firebaseUID={firebaseUID}
-                    routeId={routeId} />
+                    routeId={routeId}
+                    commentsArray={commentsArray}
+                    setCommentsArray={setCommentsArray}
+                    setShowCommentForm={setShowCommentForm} />
             ) : (
                 <div></div>
             )}
             <div className={styles.commentsContainer}>
-                {/* {commentsArray.map(data => (
-                    <p>data.comment</p>
-                ))} */}
                 {displayComments}
-                {/* <div className={styles.comment}>
-                    <div className={styles.commentTitleSection}>
-                        <div className={styles.commentTitleText}>
-                            <p className={styles.commentAuthor}>Alexander</p>
-                            <p className={styles.commentDate}>26-04-2023</p>
-                        </div>
-                        <div className={styles.commentButtonContainer}>
-                            <FontAwesomeIcon icon={faPenToSquare} onClick={() => console.log('test')} />
-                            <FontAwesomeIcon icon={faTrash} onClick={() => console.log('test')} />
-                        </div>
-                    </div>
-                    <p className={styles.commentText}>Wow I love this route</p>
-                </div> */}
             </div>
         </div>
     )

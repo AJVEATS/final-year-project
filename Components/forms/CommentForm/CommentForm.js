@@ -1,15 +1,16 @@
 import styles from './CommentForm.module.scss';
 import React, { useState, useEffect } from 'react';
 import moment from 'moment/moment';
-import { FieldValue, addDoc, arrayUnion, collection, doc, updateDoc } from 'firebase/firestore';
+import { arrayUnion, doc, updateDoc } from 'firebase/firestore';
 
-const CommentForm = ({ db, firebaseUID, routeId }) => {
+const CommentForm = ({ db, firebaseUID, routeId, commentsArray, setCommentsArray, setShowCommentForm }) => {
     const [newComment, setNewComment] = useState('');
 
     async function addComment() {
         if (newComment != '') {
             try {
                 const newCommentObject = {
+                    'commentId': `${firebaseUID}~${moment().format('LL')}`,
                     'comment': newComment,
                     'date': moment().format('LL'),
                     'uid': firebaseUID
@@ -18,6 +19,11 @@ const CommentForm = ({ db, firebaseUID, routeId }) => {
                 updateDoc(commentRef, {
                     comments: arrayUnion(newCommentObject)
                 });
+                let commentsListLength = Object.values(commentsArray).length;
+                console.log(commentsListLength);
+                setCommentsArray({ ...commentsArray, [commentsListLength]: newCommentObject });
+                setNewComment('');
+                setShowCommentForm(false);
             } catch (e) {
                 console.error(`Error adding comment: ${e}`);
                 alert(`Error adding comment - ${e}`);
