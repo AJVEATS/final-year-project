@@ -6,12 +6,15 @@
  * @param {Object} auth - Link the firebase application.
  * @param {Object} db - Link to the firestore database.
  * @param {String} routeId - The id of the current route.
+ * @param {Function} deleteRoute - A function to delete the current route.
+ * @param {String} isAuthor - If the route being viewed was created by the user.
  */
 import styles from './RouteStatsComponent.module.scss';
 import React, { useState, useEffect } from 'react';
 import { faHeart, faPersonHiking, faPenToSquare, faTrash } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { saveAs } from "file-saver";
+import { Tooltip } from 'react-tooltip';
 import { arrayRemove, arrayUnion, doc, getDoc, setDoc, updateDoc } from 'firebase/firestore';
 import RouteWeatherComponent from './RouteWeatherComponent/RouteWeatherComponent';
 
@@ -180,15 +183,24 @@ const RouteStatsComponent = ({ routeInfo, auth, db, routeId, handleForm, deleteR
                 <div className={styles.routeStatsHeader}>
                     <p>Route Details</p>
                     <div className={styles.iconContainer}>
-                        <div className={styles.heartContainer}>
+                        <div id='heart' className={styles.heartContainer}>
                             <FontAwesomeIcon id='likeHeart' icon={faHeart} onClick={() => handleFavouritePress()} />
                         </div>
-                        <div className={styles.editContainer} style={{ 'display': isAuthor }}>
+                        <Tooltip anchorId='heart' place='bottom' clickable>
+                            <p>Like</p>
+                        </Tooltip>
+                        <div id='edit' className={styles.editContainer} style={{ 'display': isAuthor }}>
                             <FontAwesomeIcon icon={faPenToSquare} onClick={() => handleForm()} />
                         </div>
-                        <div className={styles.deleteContainer} style={{ 'display': isAuthor }}>
+                        <Tooltip anchorId='edit' place='bottom' clickable>
+                            <p>Edit</p>
+                        </Tooltip>
+                        <div id='delete' className={styles.deleteContainer} style={{ 'display': isAuthor }}>
                             <FontAwesomeIcon icon={faTrash} onClick={() => deleteRoute()} />
                         </div>
+                        <Tooltip anchorId='delete' place='bottom' clickable>
+                            <p>Delete</p>
+                        </Tooltip>
                     </div>
                 </div>
                 <div className={styles.routeStatsDashboard}>
