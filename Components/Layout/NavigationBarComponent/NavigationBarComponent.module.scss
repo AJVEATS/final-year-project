@@ -68,8 +68,24 @@
     position: absolute;
     bottom: 0;
     left: 2.5%;
-    transition: width 0.3s;
-    transition-timing-function: ease-out;
+    // transition: width 0.3s;
+    // transition-timing-function: ease-out;
+    animation: leftToRightLoop 2s ease-in-out infinite;
+
+    @keyframes leftToRightLoop {
+      0% {
+        transform: translateX(0px);
+      }
+      25% {
+        transform: translateX(5px);
+      }
+      75% {
+        transform: translateX(-5px);
+      }
+      100% {
+        transform: translateX(0px);
+      }
+    }
   }
 
   @media screen and (max-width: 1000px) {

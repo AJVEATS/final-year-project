@@ -4,7 +4,7 @@
  */
 import Link from 'next/link';
 import styles from './navigationBarComponent.module.scss';
-import { faPersonWalking, faEllipsis } from "@fortawesome/free-solid-svg-icons";
+import { faPersonWalking, faEllipsis, faAnglesRight } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const NavigationBarComponent = () => {
@@ -21,7 +21,9 @@ const NavigationBarComponent = () => {
                 <Link href='/account'>Account</Link>
             </div>
             <div className={styles.navigationIcon}>
-                <FontAwesomeIcon icon={faEllipsis} />
+                <div className={styles.bottomIcon}>
+                    <FontAwesomeIcon icon={faAnglesRight} />
+                </div>
             </div>
         </div>
     );
