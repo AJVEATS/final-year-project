@@ -58,6 +58,13 @@ const LocationsComponent = ({ locations, setLocations, allLocations }) => {
         });
 
         /**
+         * Resizes map to fit screen
+         */
+        map.current.on('idle', function () {
+            map.current.resize();
+        })
+
+        /**
          * A double click event listener to add new locations to the map. Double clicking will open the createMarkerForm
          * passing in the coordinates from where the user clicked.
          */
@@ -157,6 +164,10 @@ const LocationsComponent = ({ locations, setLocations, allLocations }) => {
                             setCurrentMarker({});
                             setEditFormState(false);
                             setDeleteFormState(false);
+                            map.current.flyTo({
+                                center: e.target._lngLat,
+                                zoom: 13
+                            });
                         })
                         .setHTML( // Setting the HTML for the marker's popup, including styling
                             `<div>
@@ -235,6 +246,10 @@ const LocationsComponent = ({ locations, setLocations, allLocations }) => {
                         setCurrentMarker({});
                         setEditFormState(false);
                         setDeleteFormState(false);
+                        map.current.flyTo({
+                            center: e.target._lngLat,
+                            zoom: 13
+                        });
                         // console.log(currentMarker);
                     })
                     .setHTML( // Setting the HTML for the marker's popup, including styling
