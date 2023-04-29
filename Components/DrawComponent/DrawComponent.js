@@ -7,7 +7,7 @@
 import styles from './DrawComponent.module.scss';
 import React, { useState, useEffect, useRef } from 'react';
 import { firebaseApp } from '@/pages/api/FirebaseApp';
-import { addDoc, collection, doc, getFirestore, setDoc } from "firebase/firestore";
+import { addDoc, collection, getFirestore } from "firebase/firestore";
 import MapBoxKey from '@/pages/api/MapBoxKey';
 import mapboxgl from '!mapbox-gl';
 import moment from 'moment/moment';
@@ -323,7 +323,6 @@ const DrawComponent = () => {
     async function uploadRoute() {
         const auth = getAuth();
         const firebaseUID = auth.currentUser.uid;
-        const timeStamp = moment().format('YYYY-MM-DD~hh:mm:ss');
 
         const redirectUser = (routeId) => {
             router.push(`/routes/${routeId}`);
@@ -358,13 +357,7 @@ const DrawComponent = () => {
             const routeObject = {
                 uid: firebaseUID,
                 name: name,
-                comments: {
-                    '1': {
-                        'comment': 'This is a test comment',
-                        'date': moment().format('LL'),
-                        'user': firebaseUID
-                    }
-                },
+                comments: {},
                 description: description,
                 date: moment().format('YYYY-MM-DD'),
                 distance: calculateDistance(geoJsonPath),

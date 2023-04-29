@@ -1,10 +1,17 @@
-// TODO Document this file
+/**
+ * @fileoverview This file represets the RouteCommentsComponent which displays all of the all of the route's comments.
+ * Users are able to add comments and they are able to delete them.
+ * 
+ * @param {String} routeId - The current route's id.
+ * @param {Object} comment - An object of all the route's comments.
+ */
 import styles from './RouteCommentsComponent.module.scss';
 import React, { useState, useEffect } from 'react';
 import { faTrash, faPenToSquare } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import CommentForm from 'Components/forms/CommentForm/CommentForm';
 import { getAuth } from 'firebase/auth';
+import { Tooltip } from 'react-tooltip';
 import { arrayRemove, doc, getFirestore, updateDoc } from 'firebase/firestore';
 import { firebaseApp } from '@/pages/api/FirebaseApp';
 
@@ -27,18 +34,23 @@ const RouteCommentsComponent = ({ routeId, comments }) => {
                 <div key={key} className={styles.comment}>
                     <div className={styles.commentTitleSection}>
                         <div className={styles.commentTitleText}>
-                            <p className={styles.commentDate}>{commentsArray[key].date}</p>
+                            <p className={styles.commentDate}>{commentsArray[key].comment}</p>
                         </div>
                         {(firebaseUID == commentsArray[key].uid) ? (
-                            <div className={styles.commentButtonContainer}>
-                                {/* <FontAwesomeIcon icon={faPenToSquare} onClick={() => console.log('test')} /> */}
-                                <FontAwesomeIcon icon={faTrash} onClick={() => deleteComment(commentsArray[key], key)} />
+                            <div>
+                                <div id='deleteComment' className={styles.commentButtonContainer}>
+                                    <FontAwesomeIcon icon={faTrash} onClick={() => deleteComment(commentsArray[key], key)} />
+                                </div>
+
+                                <Tooltip anchorId='deleteComment' place='left' clickable>
+                                    <p>Delete</p>
+                                </Tooltip>
                             </div>
                         ) : (
                             <div></div>
                         )}
                     </div>
-                    <p className={styles.commentText}>{commentsArray[key].comment}</p>
+                    <p className={styles.commentText}>Posted - {commentsArray[key].date}</p>
                 </div>
             ));
         }
@@ -48,6 +60,9 @@ const RouteCommentsComponent = ({ routeId, comments }) => {
     const firebaseUID = auth.currentUser.uid;
     const db = getFirestore(firebaseApp);
 
+    /**
+     * This async function removes the user's comments from teh route's document in firestore.
+     */
     async function deleteComment(comment, key) {
         try {
             const commentRef = doc(db, 'routes', routeId);
@@ -57,8 +72,6 @@ const RouteCommentsComponent = ({ routeId, comments }) => {
             const removeComment = (key, { [key]: _, ...rest }) => rest;
             setCommentsArray(prev => removeComment(key, prev));
             delete commentsArray[key];
-            console.log(commentsArray);
-            // setCommentsArray(newCommentList);
         } catch (e) {
             console.error(`Error updating document: ${e}`);
         }
