@@ -26,23 +26,20 @@ const CreateAccountComponent = ({ updateDisplayedComponent, auth, db }) => {
      * If the users inputs valid data an account will be created and they will be redirected to the homepage.
      */
     const handleCreateAccountForm = () => {
-
         if (password === confirmPassword) { // Checks both password are the same
             createUserWithEmailAndPassword(auth, email, password)
                 .then((userCredential) => {
-                    console.log(userCredential.user.uid);
-                    const newUserObject = {
-                        bio: '',
-                        firstname: '',
-                        lastname: '',
-                        likes: [],
-                        location: ''
-                    };
-
+                    // console.log(userCredential.user.uid);
                     try {
+                        const newUserObject = {
+                            bio: '',
+                            firstname: '',
+                            lastname: '',
+                            likes: [],
+                            location: ''
+                        };
                         const collectionRef = doc(db, 'users', userCredential.user.uid);
                         setDoc(collectionRef, newUserObject, { merge: true });
-
                     } catch (e) {
                         console.error(`Error adding document: ${e}`);
                     }
