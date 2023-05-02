@@ -81,7 +81,7 @@ const RouteCommentsComponent = ({ routeId, comments }) => {
         <div className={styles.routeCommentsComponet}>
             <div className={styles.commentsTitleSection}>
                 <p className={styles.commentsTitle}>Comments</p>
-                <button type='button' onClick={() => setShowCommentForm(!showCommentForm)}>Add Comment</button>
+                <button type='button' disabled={showCommentForm} onClick={() => setShowCommentForm(!showCommentForm)}>Add Comment</button>
             </div>
             {showCommentForm ? (
                 <CommentForm

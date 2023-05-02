@@ -42,6 +42,7 @@ const CommentForm = ({ db, firebaseUID, routeId, commentsArray, setCommentsArray
                     name='newComment'
                     value={newComment}
                     onChange={e => setNewComment(e.target.value)}
+                    onKeyDown={(e) => { e.key === 'Enter' && e.preventDefault() }}
                     require />
                 <button type='button' onClick={() => addComment()}>post</button>
             </form>

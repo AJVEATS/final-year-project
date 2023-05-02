@@ -18,6 +18,14 @@
       flex-basis: 10%;
       margin: 0px;
       padding: 10px 5px;
+      background-color: colors.$primary-green;
+      color: colors.$white;
+      border: 2px solid colors.$primary-green;
+
+      &:hover {
+        background-color: colors.$white;
+        color: colors.$primary-green;
+      }
     }
   }
 }

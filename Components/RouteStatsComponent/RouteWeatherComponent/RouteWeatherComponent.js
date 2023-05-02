@@ -6,7 +6,7 @@
  */
 import styles from './RouteWeatherComponent.module.scss';
 import React, { useState, useEffect } from 'react';
-import { faHeart, faPersonHiking, faPenToSquare, faTrash } from "@fortawesome/free-solid-svg-icons";
+import { faSmog, faCloudShowersHeavy, faSun, faCloud, faSnowflake, faCloudRain, faCloudBolt } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import key from '@/pages/api/OpenWeatherMapAPI';
 
@@ -31,21 +31,21 @@ const RouteWeatherComponent = ({ routeCoordinates }) => {
     useEffect(() => {
         // console.log(weather.temp);
         if (weather.condition === "Fog") {
-            setWeatherIcon(<FontAwesomeIcon icon={faPenToSquare} />)
+            setWeatherIcon(<FontAwesomeIcon icon={faSmog} />)
         } else if (weather.condition === "Rain") {
-            setWeatherIcon(<FontAwesomeIcon icon={faPenToSquare} />)
+            setWeatherIcon(<FontAwesomeIcon icon={faCloudShowersHeavy} />)
         } else if (weather.condition === "Clear") {
-            setWeatherIcon(<FontAwesomeIcon icon={faPenToSquare} />)
-        } else if (weather.condition === "Clouds") {
-            setWeatherIcon(<FontAwesomeIcon icon={faPenToSquare} />)
+            setWeatherIcon(<FontAwesomeIcon icon={faSun} />)
+        } else if (weather.condition === "Clouds" || weather.condition === "broken clouds") {
+            setWeatherIcon(<FontAwesomeIcon icon={faCloud} />)
         } else if (weather.condition === "Snow") {
-            setWeatherIcon(<FontAwesomeIcon icon={faPenToSquare} />)
+            setWeatherIcon(<FontAwesomeIcon icon={faSnowflake} />)
         } else if (weather.condition === "Drizzle") {
-            setWeatherIcon(<FontAwesomeIcon icon={faPenToSquare} />)
+            setWeatherIcon(<FontAwesomeIcon icon={faCloudRain} />)
         } else if (weather.condition === "Thunderstorm") {
-            setWeatherIcon(<FontAwesomeIcon icon={faPenToSquare} />)
+            setWeatherIcon(<FontAwesomeIcon icon={faCloudBolt} />)
         } else {
-            setWeatherIcon(<FontAwesomeIcon icon={faPenToSquare} />)
+            setWeatherIcon(<FontAwesomeIcon icon={faCloud} />)
         }
     }, [gotWeather]);
 
@@ -79,6 +79,7 @@ const RouteWeatherComponent = ({ routeCoordinates }) => {
                 weather.sunrise = convertUnixTimeStamp(responseJSON.sys.sunrise);
                 weather.sunset = convertUnixTimeStamp(responseJSON.sys.sunset);
                 setGotWeather(true);
+                console.log(weather.condition);
             });
     };
 
