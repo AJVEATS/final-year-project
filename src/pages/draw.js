@@ -25,7 +25,7 @@ const Draw = () => {
                     <p>Draw a new route ✏️</p>
                     <p className={styles.subTitle}>
                         <FontAwesomeIcon icon={faCircleInfo} />
-                        Double click to add your first point
+                        Click the map to add your first point
                     </p>
                 </div>
                 <DrawComponent />

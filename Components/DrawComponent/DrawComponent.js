@@ -352,7 +352,6 @@ const DrawComponent = () => {
             };
 
             // console.log(difficulty);
-            // console.log(typeof difficulty);
 
             const routeObject = {
                 uid: firebaseUID,
@@ -369,10 +368,6 @@ const DrawComponent = () => {
                 difficulty: difficulty,
                 privacy: privacy,
             };
-
-            // const collectionRef = doc(db, 'routes', `${firebaseUID.concat(timeStamp)}`);
-
-            // setDoc(collectionRef, routeObject, { merge: true });
 
             const collectionRef = await addDoc(collection(db, 'routes'), routeObject);
             console.log(collectionRef.id);
