@@ -11,12 +11,13 @@
  */
 import styles from './RouteStatsComponent.module.scss';
 import React, { useState, useEffect } from 'react';
-import { faHeart, faPersonHiking, faPenToSquare, faTrash } from "@fortawesome/free-solid-svg-icons";
+import { faHeart, faPersonHiking, faPenToSquare, faTrash, faMessage } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { saveAs } from "file-saver";
 import { Tooltip } from 'react-tooltip';
 import { arrayRemove, arrayUnion, doc, getDoc, setDoc, updateDoc } from 'firebase/firestore';
 import RouteWeatherComponent from './RouteWeatherComponent/RouteWeatherComponent';
+import Link from 'next/link';
 
 const RouteStatsComponent = ({ routeInfo, auth, db, routeId, handleForm, deleteRoute, isAuthor }) => {
     const [liked, setLiked] = useState(false);
@@ -188,6 +189,12 @@ const RouteStatsComponent = ({ routeInfo, auth, db, routeId, handleForm, deleteR
                         </div>
                         <Tooltip anchorId='heart' place='bottom' clickable>
                             <p>Like</p>
+                        </Tooltip>
+                        <Link href='#comments' id='comment' className={styles.commentContainer}>
+                            <FontAwesomeIcon icon={faMessage} />
+                        </Link>
+                        <Tooltip anchorId='comment' place='bottom' clickable>
+                            <p>Comment</p>
                         </Tooltip>
                         <div id='edit' className={styles.editContainer} style={{ 'display': isAuthor }}>
                             <FontAwesomeIcon icon={faPenToSquare} onClick={() => handleForm()} />

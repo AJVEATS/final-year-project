@@ -78,7 +78,7 @@ const RouteCommentsComponent = ({ routeId, comments }) => {
     };
 
     return (
-        <div className={styles.routeCommentsComponet}>
+        <div id='comments' className={styles.routeCommentsComponet}>
             <div className={styles.commentsTitleSection}>
                 <p className={styles.commentsTitle}>Comments</p>
                 <button type='button' disabled={showCommentForm} onClick={() => setShowCommentForm(!showCommentForm)}>Add Comment</button>

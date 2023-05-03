@@ -41,9 +41,14 @@
           }
         }
 
+        .commentContainer,
         .editContainer,
         .deleteContainer {
           margin-left: 10px;
+
+          &:visited {
+            color: colors.$black;
+          }
 
           &:hover {
             cursor: pointer;
