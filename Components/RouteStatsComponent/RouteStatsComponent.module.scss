@@ -46,7 +46,8 @@
         .deleteContainer {
           margin-left: 10px;
 
-          &:visited {
+          &:visited,
+          &:link {
             color: colors.$black;
           }
 

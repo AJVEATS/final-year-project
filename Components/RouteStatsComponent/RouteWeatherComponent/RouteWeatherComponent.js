@@ -34,7 +34,7 @@ const RouteWeatherComponent = ({ routeCoordinates }) => {
             setWeatherIcon(<FontAwesomeIcon icon={faSmog} />)
         } else if (weather.condition === "Rain") {
             setWeatherIcon(<FontAwesomeIcon icon={faCloudShowersHeavy} />)
-        } else if (weather.condition === "Clear") {
+        } else if (weather.condition === "Clear" || weather.condition === "clear sky") {
             setWeatherIcon(<FontAwesomeIcon icon={faSun} />)
         } else if (weather.condition === "Clouds" || weather.condition === "broken clouds") {
             setWeatherIcon(<FontAwesomeIcon icon={faCloud} />)
@@ -71,7 +71,7 @@ const RouteWeatherComponent = ({ routeCoordinates }) => {
             .then((reponse) => reponse.json())
             .then((responseJSON) => {
                 // console.log(responseJSON)
-                console.log(`http://api.openweathermap.org/data/2.5/weather?lat=${coordinates.latitude}&lon=${coordinates.longitude}&appid=${key.key}&units=metric`);
+                console.log(`http://api.openweathermap.org/data/2.5/weather?lat=${coordinates.longitude}&lon=${coordinates.latitude}&appid=${key.key}&units=metric`);
                 weather.condition = responseJSON.weather[0].description;
                 weather.temp = Math.round(responseJSON.main.temp);
                 weather.clouds = responseJSON.clouds.all;
