@@ -26,7 +26,15 @@ const CreateAccountComponent = ({ updateDisplayedComponent, auth, db }) => {
      * If the users inputs valid data an account will be created and they will be redirected to the homepage.
      */
     const handleCreateAccountForm = () => {
-        if (password === confirmPassword) { // Checks both password are the same
+        if (email === '' && password === '' && confirmPassword === '') {
+            alert('Please enter in your details');
+        } else if (email === '' && password === '') {
+            alert('Please enter your email and password');
+        } else if (password === '' && confirmPassword === '') {
+            alert('Please enter in your passwords');
+        } else if (email === '') {
+            alert('Please enter in your email');
+        } else if (email && password === confirmPassword && password != '') { // Checks both password are the same
             createUserWithEmailAndPassword(auth, email, password)
                 .then((userCredential) => {
                     // console.log(userCredential.user.uid);

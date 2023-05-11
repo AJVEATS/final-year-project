@@ -25,7 +25,10 @@ const ForgotPassword = ({ updateDisplayedComponent, auth }) => {
             })
             .catch((error) => {
                 // console.log(error.code, error.message);
-                alert(`${error.code} ${error.message}`);
+                if (error.code == 'auth/user-not-found') {
+                    alert(`No account with the email: ${forgottenEmail}`);
+                }
+                // alert(`${error.code} ${error.message}`);
             })
     };
 

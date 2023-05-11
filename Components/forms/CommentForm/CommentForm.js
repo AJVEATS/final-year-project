@@ -29,6 +29,8 @@ const CommentForm = ({ db, firebaseUID, routeId, commentsArray, setCommentsArray
                 console.error(`Error adding comment: ${e}`);
                 alert(`Error adding comment - ${e}`);
             }
+        } else {
+            alert('Please add a comment to post');
         }
     };
 

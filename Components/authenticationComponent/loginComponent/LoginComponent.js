@@ -24,14 +24,22 @@ const LoginComponent = ({ updateDisplayedComponent, auth }) => {
      * will be triggered. 
      */
     const handleLoginForm = () => {
-        signInWithEmailAndPassword(auth, email, password)
-            .then((userCredential) => {
-                router.replace('/home');
-            })
-            .catch((error) => {
-                // console.log(error.code, error.message);
-                alert(`${error.code} ${error.message}`);
-            });
+        if (email === '' && password === '') {
+            alert('Please enter your email and password');
+        } else if (email === '') {
+            alert('Please enter your email');
+        } else if (password === '') {
+            alert('Please enter your password');
+        } else {
+            signInWithEmailAndPassword(auth, email, password)
+                .then((userCredential) => {
+                    router.replace('/home');
+                })
+                .catch((error) => {
+                    // console.log(error.code, error.message);
+                    alert(`${error.code} ${error.message}`);
+                });
+        }
     };
 
     return (
