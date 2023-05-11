@@ -1,5 +1,5 @@
 ## University Final Year Project 
-A responsive web application for BU Walking Society members to create and share walking routes. 
+A responsive web application for BU Walking Society members to create, share and discover walking routes. 
 Created in React JS and the Next.js framework
 
 ## Getting Started
