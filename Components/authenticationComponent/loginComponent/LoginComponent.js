@@ -10,8 +10,8 @@ import { signInWithEmailAndPassword } from 'firebase/auth';
 import { useRouter } from 'next/router';
 import { useState } from 'react';
 import styles from './LoginComponent.module.scss';
-import { faSpinner, faEnvelopeCircleCheck } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faSpinner, faEnvelopeCircleCheck } from "@fortawesome/free-solid-svg-icons";
 
 const LoginComponent = ({ updateDisplayedComponent, auth, passwordResetSent, setPasswordResetSent }) => {
 
@@ -45,6 +45,10 @@ const LoginComponent = ({ updateDisplayedComponent, auth, passwordResetSent, set
                 });
         }
     };
+
+    if (passwordResetSent && loggingIn) {
+        setPasswordResetSent(false);
+    }
 
     return (
         <div className={styles.loginComponent}>

@@ -7,7 +7,7 @@
  * @param db - Initialisation of cloud firestore and reference to the service
  */
 import styles from './CreateAccountComponent.module.scss';
-import { createUserWithEmailAndPassword } from 'firebase/auth';
+import { createUserWithEmailAndPassword, sendEmailVerification } from 'firebase/auth';
 import { useState } from 'react';
 import { useRouter } from 'next/router';
 import { Tooltip } from 'react-tooltip';
@@ -48,10 +48,15 @@ const CreateAccountComponent = ({ updateDisplayedComponent, auth, db }) => {
                         };
                         const collectionRef = doc(db, 'users', userCredential.user.uid);
                         setDoc(collectionRef, newUserObject, { merge: true });
+                        sendEmailVerification(userCredential.user)
+                            .then(() => {
+                                // Email verification sent!
+                                // ...
+                            });
+                        router.push('/home');
                     } catch (e) {
                         console.error(`Error adding document: ${e}`);
                     }
-                    router.push('/home');
                 })
                 .catch((error) => {
                     // console.log(error.code, error.message);
