@@ -64,15 +64,11 @@
       display: flex;
 
       .loadingIcon {
-        animation-name: spin;
-        animation-duration: 2000ms;
-        animation-iteration-count: infinite;
-        animation-timing-function: linear;
+        animation: loadingSping 2s ease-in-out infinite;
       }
 
       .loadingText {
         margin-left: 10px;
-        animation: loadingSping 2s ease-in-out infinite;
       }
     }
   }
@@ -82,6 +78,34 @@
     }
     to {
       transform: rotate(360deg);
+    }
+  }
+
+  .passwordResetNotificationContainer {
+    color: colors.$black;
+    left: 0;
+    top: 0;
+    position: fixed;
+    left: 50%;
+    transform: translateX(-50%);
+    margin: 1em 0 0 0;
+    background-color: colors.$white;
+    padding: 10px;
+    border-radius: 10px;
+    font-size: 1.3em;
+
+    .passwordResetNotification {
+      display: flex;
+      flex-wrap: nowrap;
+      align-items: center;
+
+      // .passwordResetNotificationIcon {
+      // }
+
+      .passwordResetNotificationText {
+        margin-left: 10px;
+        animation: loadingSping 2s ease-in-out infinite;
+      }
     }
   }
 }

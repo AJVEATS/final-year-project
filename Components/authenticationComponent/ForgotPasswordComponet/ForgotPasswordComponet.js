@@ -10,7 +10,7 @@ import { sendPasswordResetEmail } from 'firebase/auth';
 import { useState } from 'react';
 import styles from './ForgotPasswordComponet.module.scss';
 
-const ForgotPassword = ({ updateDisplayedComponent, auth }) => {
+const ForgotPassword = ({ updateDisplayedComponent, auth, setPasswordResetSent }) => {
     const [forgottenEmail, setForgottenEmail] = useState('');
 
     /**
@@ -20,8 +20,9 @@ const ForgotPassword = ({ updateDisplayedComponent, auth }) => {
     const handlePasswordResetForm = () => {
         sendPasswordResetEmail(auth, forgottenEmail)
             .then(() => {
-                alert(`Password reset email has been sent to ${forgottenEmail}`);
+                // alert(`Password reset email has been sent to ${forgottenEmail}`);
                 updateDisplayedComponent('login');
+                setPasswordResetSent(true);
             })
             .catch((error) => {
                 // console.log(error.code, error.message);

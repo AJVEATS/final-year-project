@@ -19,6 +19,7 @@ import LoginComponent from './loginComponent/LoginComponent';
 
 const AuthenticationComponent = () => {
     const [componentDisplayed, setComponentDisplayed] = useState('createAccount');
+    const [passwordResetSent, setPasswordResetSent] = useState(false);
 
     const app = initializeApp(firebaseConfig);
     const auth = getAuth(app);
@@ -42,15 +43,25 @@ const AuthenticationComponent = () => {
 
         if (componentDisplayed === 'login') {
             return (
-                <LoginComponent updateDisplayedComponent={updateComponentDisplayedState} auth={auth} />
+                <LoginComponent
+                    updateDisplayedComponent={updateComponentDisplayedState}
+                    auth={auth}
+                    passwordResetSent={passwordResetSent}
+                    setPasswordResetSent={setPasswordResetSent} />
             );
         } else if (componentDisplayed === 'forgotPassword') {
             return (
-                <ForgotPasswordComponet updateDisplayedComponent={updateComponentDisplayedState} auth={auth} />
+                <ForgotPasswordComponet
+                    updateDisplayedComponent={updateComponentDisplayedState}
+                    auth={auth}
+                    setPasswordResetSent={setPasswordResetSent} />
             );
         } else if (componentDisplayed === 'createAccount') {
             return (
-                <CreateAccountComponent updateDisplayedComponent={updateComponentDisplayedState} auth={auth} db={db} />
+                <CreateAccountComponent
+                    updateDisplayedComponent={updateComponentDisplayedState}
+                    auth={auth}
+                    db={db} />
             );
         };
     };

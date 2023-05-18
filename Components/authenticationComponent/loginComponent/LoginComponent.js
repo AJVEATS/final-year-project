@@ -10,10 +10,10 @@ import { signInWithEmailAndPassword } from 'firebase/auth';
 import { useRouter } from 'next/router';
 import { useState } from 'react';
 import styles from './LoginComponent.module.scss';
-import { faSpinner } from "@fortawesome/free-solid-svg-icons";
+import { faSpinner, faEnvelopeCircleCheck } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
-const LoginComponent = ({ updateDisplayedComponent, auth }) => {
+const LoginComponent = ({ updateDisplayedComponent, auth, passwordResetSent, setPasswordResetSent }) => {
 
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
@@ -76,10 +76,30 @@ const LoginComponent = ({ updateDisplayedComponent, auth }) => {
                 </label>
                 <div className={styles.inlineButtons}>
                     <button type='button' onClick={() => handleLoginForm()}>login</button>
-                    <button type='button' onClick={() => updateDisplayedComponent('forgotPassword')}>Forgot Password</button>
-                    <button type='button' onClick={() => updateDisplayedComponent('createAccount')}>New Here?</button>
+                    <button type='button' onClick={() => {
+                        setPasswordResetSent(false);
+                        updateDisplayedComponent('forgotPassword');
+                    }}>Forgot Password</button>
+                    <button type='button' onClick={() => {
+                        setPasswordResetSent(false);
+                        updateDisplayedComponent('createAccount');
+                    }}>New Here?</button>
                 </div>
             </form>
+            {passwordResetSent ? (
+                <div className={styles.passwordResetNotificationContainer}>
+                    <div className={styles.passwordResetNotification}>
+                        <div className={styles.passwordResetNotificationIcon}>
+                            <FontAwesomeIcon icon={faEnvelopeCircleCheck} />
+                        </div>
+                        <p className={styles.passwordResetNotificationText}>password reset email sent</p>
+                    </div>
+                </div>
+            ) : (
+                <div>
+
+                </div>
+            )}
             {loggingIn ? ( // If loggingIn is true the loadingContainer will display
                 <div className={styles.loadingContainer}>
                     <div className={styles.loadingContent}>
