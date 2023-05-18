@@ -4,7 +4,7 @@
  */
 import Link from 'next/link';
 import styles from './navigationBarComponent.module.scss';
-import { faPersonWalking, faEllipsis, faAnglesRight } from "@fortawesome/free-solid-svg-icons";
+import { faPersonWalking, faAnglesRight } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const NavigationBarComponent = () => {

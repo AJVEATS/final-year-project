@@ -10,11 +10,14 @@ import { signInWithEmailAndPassword } from 'firebase/auth';
 import { useRouter } from 'next/router';
 import { useState } from 'react';
 import styles from './LoginComponent.module.scss';
+import { faSpinner } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const LoginComponent = ({ updateDisplayedComponent, auth }) => {
 
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const [loggingIn, setLoggingIn] = useState(false);
 
     const router = useRouter();
 
@@ -33,6 +36,7 @@ const LoginComponent = ({ updateDisplayedComponent, auth }) => {
         } else {
             signInWithEmailAndPassword(auth, email, password)
                 .then((userCredential) => {
+                    setLoggingIn(true);
                     router.replace('/home');
                 })
                 .catch((error) => {
@@ -76,6 +80,18 @@ const LoginComponent = ({ updateDisplayedComponent, auth }) => {
                     <button type='button' onClick={() => updateDisplayedComponent('createAccount')}>New Here?</button>
                 </div>
             </form>
+            {loggingIn ? ( // If loggingIn is true the loadingContainer will display
+                <div className={styles.loadingContainer}>
+                    <div className={styles.loadingContent}>
+                        <div className={styles.loadingIcon}>
+                            <FontAwesomeIcon icon={faSpinner} />
+                        </div>
+                        <p className={styles.loadingText}>logging in</p>
+                    </div>
+                </div>
+            ) : (
+                <div></div>
+            )}
         </div>
     )
 }
