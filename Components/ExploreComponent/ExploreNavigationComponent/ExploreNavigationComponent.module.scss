@@ -1,0 +1,29 @@
+@use "../../../src/styles/colors.module.scss" as colors;
+
+.exploreNavigationComponent {
+  display: flex;
+  flex-wrap: nowrap;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 1.4em;
+  margin: 0.5em 16px 0.5em 0;
+
+  @media screen and (max-width: 1000px) {
+    font-size: 1em;
+    margin: 0.5em 6px 0.5em 0;
+  }
+
+  button {
+    border: 2px solid colors.$primary-green;
+    border-radius: 4px;
+    width: 32%;
+    text-align: center;
+    padding: 10px 0;
+    margin: 0;
+
+    &:hover {
+      color: colors.$white !important;
+      background-color: colors.$primary-green !important;
+    }
+  }
+}

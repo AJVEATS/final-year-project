@@ -1,0 +1,95 @@
+@use "../../src/styles/colors.module.scss" as colors;
+
+.exploreList {
+  margin: 0% 0% 0% 1%;
+  width: 99%;
+  height: fit-content;
+
+  a {
+    text-decoration: none;
+    color: black;
+
+    &:hover {
+      color: colors.$white;
+
+      .routeCard {
+        border: 2px colors.$primary-green solid;
+        background-color: colors.$primary-green;
+      }
+    }
+  }
+
+  .exploreTitle {
+    font-size: 2.5em;
+    margin-top: 1%;
+  }
+
+  .routesContainer {
+    height: 95%;
+    margin-right: 20px;
+
+    @media screen and (max-width: 1000px) {
+      margin-right: 10px;
+    }
+
+    .routeCard {
+      width: 98%;
+      border: 2px black solid;
+      border-radius: 4px;
+      padding: 0.75% 1%;
+      margin: 0 0 1em 0;
+
+      .routeTitle {
+        font-size: 1.6em;
+        margin-bottom: 0.5%;
+      }
+      .routeStats {
+        display: flex;
+
+        .routeLength,
+        .routeDuration,
+        .routeDifficulty {
+          display: flex;
+          margin-right: 1em;
+
+          svg {
+            width: 1em;
+            margin-right: 0.2em;
+          }
+        }
+
+        .routeDifficulty {
+          @media screen and (max-width: 1000px) {
+            display: none;
+          }
+        }
+
+        .routeDistance {
+          margin-right: 1%;
+        }
+
+        p {
+          display: inline-block;
+          font-size: 1.35em;
+        }
+      }
+    }
+  }
+
+  @media screen and (max-width: 1000px) {
+    width: 99%;
+
+    .exploreList {
+      margin: 0;
+    }
+
+    .exploreTitle {
+      margin: 2% 0;
+      font-size: 1.6em;
+    }
+
+    .routeCard {
+      margin: 0 0 0.5em 0 !important;
+    }
+  }
+}
