@@ -10,33 +10,33 @@ import LayoutComponent from 'Components/Layout/LayoutComponent/LayoutComponent';
 import React, { useState, useEffect } from 'react';
 import { getAuth } from 'firebase/auth';
 import Head from 'next/head';
-import MapBoxKey from '@/pages/api/MapBoxKey';
+// import MapBoxKey from '@/pages/api/MapBoxKey';
 import { firebaseApp } from './api/FirebaseApp';
-import { doc, getDoc, getFirestore } from 'firebase/firestore';
+// import { doc, getDoc, getFirestore } from 'firebase/firestore';
 import Link from 'next/link';
 
 const Home = () => {
-    const [username, setUserName] = useState('');
+    // const [username, setUserName] = useState('');
 
-    const auth = getAuth(firebaseApp);
-    const firebaseUID = auth.currentUser.uid;
-    const db = getFirestore(firebaseApp);
+    // const auth = getAuth(firebaseApp);
+    // const firebaseUID = auth.currentUser.uid;
+    // const db = getFirestore(firebaseApp);
 
-    useEffect(() => {
-        getUserDetails();
-    }, []);
+    // useEffect(() => {
+    //     getUserDetails();
+    // }, []);
 
-    async function getUserDetails() {
-        const docRef = doc(db, 'users', firebaseUID);
-        const docSnap = await getDoc(docRef);
+    // async function getUserDetails() {
+    //     const docRef = doc(db, 'users', firebaseUID);
+    //     const docSnap = await getDoc(docRef);
 
-        if (docSnap.exists()) {
-            // console.log("Document data:", docSnap.data().firstname);
-            setUserName(` ${docSnap.data().firstname}`);
-        } else {
-            console.log("No such document!");
-        };
-    }
+    //     if (docSnap.exists()) {
+    //         // console.log("Document data:", docSnap.data().firstname);
+    //         setUserName(` ${docSnap.data().firstname}`);
+    //     } else {
+    //         console.log("No such document!");
+    //     };
+    // }
 
     return (
         <Base>
@@ -44,8 +44,8 @@ const Home = () => {
                 <title>Home</title>
             </Head>
             <LayoutComponent styles={{ overflow: 'hidden' }}>
-                <p className={styles.welcomeMessage}>Welcome {username}</p>
-                <Link className={styles.drawButton} href='/draw'>
+                <p className={styles.welcomeMessage}>Welcome </p>
+                {/* <Link className={styles.drawButton} href='/draw'>
                     ✏️
                     Create a route
                 </Link>
@@ -53,7 +53,7 @@ const Home = () => {
                     <img
                         className={styles.homeImage}
                         src={`https://api.mapbox.com/styles/v1/mapbox/streets-v11/static/-1.8782,50.7220,11,0/1270x900?access_token=${MapBoxKey.key}`} />
-                </div>
+                </div> */}
             </LayoutComponent>
         </Base>
     );

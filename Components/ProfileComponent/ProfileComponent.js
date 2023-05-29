@@ -22,17 +22,17 @@ import EditDetailsComponent from './EditDetailsComponent/EditDetailsComponent';
 
 const ProfileComponent = () => {
     const [navigationState, setNavigationState] = useState('add');
-    const [userInfo, setUserInfo] = useState([]);
+    // const [userInfo, setUserInfo] = useState([]);
 
-    const auth = getAuth();
-    const firebaseUID = auth.currentUser.uid;
-    const db = getFirestore(firebaseApp);
+    // const auth = getAuth();
+    // const firebaseUID = auth.currentUser.uid;
+    // const db = getFirestore(firebaseApp);
 
     // console.log(auth.currentUser);
 
     useEffect(() => {
-        getUserDetails();
-        updateNav();
+        // getUserDetails();
+        // updateNav();
     }, []);
 
     /**
@@ -74,24 +74,24 @@ const ProfileComponent = () => {
      * This function handles which form is displayed depending on the navigationState value. If the value is 'add' the AddDetailsComponent will be displayed and
      * if the value is 'edit' the EditDetailsComponent is displayed.
      */
-    const handleNav = () => {
-        if (navigationState === 'add') {
-            return (
-                <AddDetailsComponent db={db} firebaseUID={firebaseUID} getUserDetails={getUserDetails} setNavigationState={setNavigationState} />
-            );
-        } else if (navigationState === 'edit') {
-            return (
-                <EditDetailsComponent db={db} firebaseUID={firebaseUID} auth={auth} user={userInfo} getUserDetails={getUserDetails} setUserInfo={setUserInfo} setNavigationState={setNavigationState} />
-            );
-        };
-    };
+    // const handleNav = () => {
+    //     if (navigationState === 'add') {
+    //         return (
+    //             <AddDetailsComponent db={db} firebaseUID={firebaseUID} getUserDetails={getUserDetails} setNavigationState={setNavigationState} />
+    //         );
+    //     } else if (navigationState === 'edit') {
+    //         return (
+    //             <EditDetailsComponent db={db} firebaseUID={firebaseUID} auth={auth} user={userInfo} getUserDetails={getUserDetails} setUserInfo={setUserInfo} setNavigationState={setNavigationState} />
+    //         );
+    //     };
+    // };
 
     return (
         <div className={styles.profileComponent}>
-            <p className={styles.profileTitle}>Welcome {userInfo.firstname} 👋</p>
-            <ProfileInfoComponent user={userInfo} />
-            <ProfileNavigationComponent navigationState={navigationState} setNavigationState={setNavigationState} getUserDetails={getUserDetails} setUserInfo={setUserInfo} />
-            {handleNav()}
+            {/* <p className={styles.profileTitle}>Welcome {userInfo.firstname} 👋</p> */}
+            {/* <ProfileInfoComponent user={userInfo} /> */}
+            <ProfileNavigationComponent navigationState={navigationState} setNavigationState={setNavigationState} />
+            {/* {handleNav()} */}
         </div>
     )
 }
